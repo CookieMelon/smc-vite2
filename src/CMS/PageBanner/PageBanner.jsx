@@ -1,5 +1,3 @@
-'use client';
-
 import { ThemeContext } from 'src/App';
 import { enterDuration } from 'src/Layout/layout-anim';
 import { motion, useScroll, useTransform } from 'framer-motion';

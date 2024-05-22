@@ -40,7 +40,6 @@ export default function PDFItem({ title, date, download, link }) {
 			opacity: 1,
 			color: '#ffffff',
 			backgroundColor: blue,
-			backgroundColor: blue,
 		},
 	};
 

@@ -1,5 +1,3 @@
-'use client';
-
 import Button from 'src/Components/button/button';
 import parse from 'html-react-parser';
 import {

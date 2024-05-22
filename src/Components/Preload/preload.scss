@@ -10,8 +10,8 @@
 	justify-content: center;
 	padding: var(--container-padding);
 	background: #343582;
-	background-image: radial-gradient(at bottom, #132b3b 0%, #0c1a23 100%),
-		url('../../images/noise.svg');
+	background-image: radial-gradient(at bottom, #132b3b 0%, #0c1a23 100%);
+
 	background-repeat: repeat;
 	.noise {
 		position: absolute;
@@ -19,7 +19,7 @@
 		height: 100%;
 		top: 0;
 		left: 0;
-		background-image: url('/images/noise.svg');
+		background-image: url('/css_images/noise.svg');
 		mix-blend-mode: multiply;
 		opacity: 0.5;
 	}
