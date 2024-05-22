@@ -1,0 +1,36 @@
+.homepage-widget-1 {
+	/* height: 150vh; */
+	padding-top: 25vh;
+	.video-container {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		z-index: 0;
+		left: 50%;
+		top: 50%;
+	}
+
+	.video-container video {
+		opacity: 1;
+		object-fit: cover;
+	}
+}
+
+.homepage-widget-1 > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.homepage-widget-1 .container-fluid-width {
+	position: relative;
+	z-index: 3;
+	color: white;
+	display: flex;
+	align-items: center;
+	width: 1024px;
+	flex-direction: column;
+	padding: 4rem;
+	min-height: calc(100vh - 8rem);
+	margin: auto;
+}

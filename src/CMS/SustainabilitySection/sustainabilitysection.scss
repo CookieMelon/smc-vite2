@@ -1,0 +1,68 @@
+.sustainability-section {
+	position: relative;
+	overflow: hidden;
+	border-bottom-left-radius: 5rem;
+	border-bottom-right-radius: 5rem;
+	background-color: #ffffff;
+	z-index: 10;
+	.heading-2 {
+		text-align: center;
+		width: 768px;
+		max-width: 100%;
+		position: absolute;
+		color: white;
+		top: 25%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		padding: 2rem;
+	}
+	.container-fluid-width {
+		padding: 0;
+		width: 100%;
+	}
+	.sustainability-images {
+		position: relative;
+		min-height: 600px;
+		height: 50vh;
+		z-index: 1;
+	}
+}
+
+.sustainability-images div {
+	position: absolute;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center center;
+	transform-origin: center bottom;
+}
+
+.sustainability-btn {
+	font-size: 1.25rem;
+	padding-top: 0.8rem;
+	padding-bottom: 0.8rem;
+	position: absolute;
+	z-index: 2;
+	left: 50%;
+	top: 75%;
+	transform: translate(-50%, -50%);
+	span {
+		white-space: nowrap;
+	}
+}
+
+@media only screen and (max-width: 450px) {
+	.sustainability-section {
+		border-bottom-left-radius: 3rem;
+		border-bottom-right-radius: 3rem;
+		.heading-2 {
+			transform: translate(-50%, -50%) !important;
+		}
+	}
+
+	.sustainability-images {
+		min-height: 0;
+		height: 35vh;
+	}
+}

@@ -1,0 +1,7 @@
+<PageBanner title={settings.title} image={settings.image} />
+				<PageBanner title={settings.title} subtitle={settings.subtitle} />
+				<PageBanner
+					noBg={true}
+					title={settings.title}
+					subtitle={settings.subtitle}
+				/>

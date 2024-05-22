@@ -1,0 +1,45 @@
+.marquee {
+	overflow: hidden;
+	.marquee-overflow {
+		position: relative;
+	}
+	.grid {
+		display: block;
+		white-space: nowrap;
+		width: 200vw;
+		gap: 2rem;
+		> div {
+			padding: 0.5rem 1rem;
+			width: 10%;
+			overflow: hidden;
+			aspect-ratio: 1.3 / 1;
+			display: inline-block;
+			// display: flex;
+			// align-items: center;
+			// justify-content: center;
+		}
+	}
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+		position: relative;
+		z-index: 1;
+		filter: sepia(0.5);
+		opacity: 0.75;
+	}
+	.single-parallax {
+		height: 125%;
+		width: 125%;
+		span {
+			position: absolute;
+			z-index: 3;
+			font-size: 10rem;
+			font-weight: bold;
+			top: 0;
+			left: 0;
+			color: white;
+		}
+	}
+}

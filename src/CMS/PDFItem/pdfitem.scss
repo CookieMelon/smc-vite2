@@ -1,0 +1,80 @@
+.pdf-item {
+	padding: 1rem 1rem;
+	border-top: 1px solid var(--gray-3);
+	display: flex;
+	gap: 6rem;
+	color: var(--base-black);
+	position: relative;
+	overflow: hidden;
+	align-items: center;
+	font-family: 'Merriweather Sans', sans-serif;
+}
+
+.pdf-item a {
+	color: currentColor;
+}
+.pdf-grid {
+	gap: 2rem;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.pdf-name {
+	margin-right: auto;
+	// font-size: 1.1rem;
+}
+
+.pdf-details,
+.pdf-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.pdf-link {
+	color: inherit;
+}
+
+.pdf-name,
+.pdf-details {
+	position: relative;
+	z-index: 1;
+}
+
+.pdf-details {
+	span {
+		white-space: nowrap;
+	}
+}
+
+.pdf-bg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ddf3fd;
+}
+
+.pdf-button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	// aspect-ratio: 1 / 1;
+	border: 1px solid #cbcbcb;
+	height: 2rem;
+	width: 2rem;
+	border-radius: 100%;
+	color: var(--base-blue);
+}
+
+.pagination {
+	display: flex;
+	align-items: center;
+}
+
+@media only screen and (max-width: 450px) {
+	.pdf-item {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}

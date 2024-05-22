@@ -1,0 +1,7 @@
+--fs-sm: clamp(0.7rem, 0vi + 0.7rem, 0.7rem);
+--fs-base: clamp(0.88rem, 0vi + 0.88rem, 0.88rem);
+--fs-md: clamp(1.09rem, 0vi + 1.09rem, 1.09rem);
+--fs-lg: clamp(1.37rem, 0vi + 1.37rem, 1.37rem);
+--fs-xl: clamp(1.71rem, 0vi + 1.71rem, 1.71rem);
+--fs-xxl: clamp(2.14rem, 0vi + 2.14rem, 2.14rem);
+--fs-xxxl: clamp(2.67rem, 0vi + 2.67rem, 2.67rem);
