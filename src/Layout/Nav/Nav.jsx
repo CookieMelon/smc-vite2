@@ -394,8 +394,8 @@ export function MainNav({ c, animation = true, toggle }) {
 			{menu.map((item_lvl1, index) => {
 				let activeClass = animation ? (index === 0 ? 'active' : '') : '';
 				let height = animation ? (index === 0 ? 'auto' : '0px') : 'auto';
-				let link = item_lvl1.external
-					? `${item_lvl1.url}`
+				let link = item_lvl1.page_external_link
+					? `${item_lvl1.page_external_link}`
 					: `/${item_lvl1.page_slug}`;
 
 				if (link === '/home') return;
@@ -457,8 +457,8 @@ export function MainNav({ c, animation = true, toggle }) {
 											: 'auto';
 
 										let link = parent_slug;
-										link = item_lvl2.external
-											? item_lvl2.url
+										link = item_lvl2.page_external_link
+											? item_lvl2.page_external_link
 											: (link += '/' + item_lvl2.page_slug);
 
 										let columnClass =
@@ -518,8 +518,8 @@ export function MainNav({ c, animation = true, toggle }) {
 														{item_lvl2.navigations.map((item_lvl3, index) => {
 															let link = parent_slug;
 
-															link = item_lvl3.external
-																? item_lvl3.url
+															link = item_lvl3.page_external_link
+																? item_lvl3.page_external_link
 																: (link += '/' + item_lvl3.page_slug);
 
 															return (
@@ -567,10 +567,12 @@ export function MainNav({ c, animation = true, toggle }) {
 																					{item_lvl3.navigations.map(
 																						(item_lvl4, index) => {
 																							let link = parent_slug;
-																							link = item_lvl4.external
-																								? item_lvl4.url
-																								: (link +=
-																										'/' + item_lvl4.page_slug);
+																							link =
+																								item_lvl4.page_external_link
+																									? item_lvl4.page_external_link
+																									: (link +=
+																											'/' +
+																											item_lvl4.page_slug);
 
 																							return (
 																								<li
