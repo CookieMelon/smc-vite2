@@ -4,6 +4,27 @@
 	background-color: #f8f8f8;
 	overflow: hidden;
 	padding-bottom: var(--section-padding) !important;
+	.AccordionItem {
+		border-top: 1px solid #b8b8b8;
+	}
+
+	.AccordionItem:nth-child(3) {
+		break-inside: avoid-column;
+	}
+	.AccordionContent > *:last-child {
+		padding-bottom: 1rem;
+	}
+	.AccordionRoot {
+		margin: 2rem 0 0;
+		display: flex;
+		gap: 2rem;
+	}
+	.footer-links-col {
+		flex: 0 1 50%;
+		p {
+			margin-top: 1rem;
+		}
+	}
 }
 
 .main-footer .container-fluid-width {
@@ -34,12 +55,6 @@
 
 .footer-links > * {
 	flex: 1 0 20rem;
-}
-.footer-links-col {
-	flex: 0 1 50%;
-	p {
-		margin-top: 1rem;
-	}
 }
 
 .footer-logo {
@@ -76,6 +91,9 @@
 	gap: 1rem;
 	align-items: center;
 	padding: 1rem 0;
+	p {
+		margin: 0;
+	}
 }
 
 .privacy-flex img {
@@ -99,4 +117,9 @@
 			flex: 0 1 100%;
 		}
 	}
+}
+
+button,
+h3 {
+	all: unset;
 }

@@ -29,57 +29,6 @@ export default function OurBusinesses({ data, className, link, children }) {
 	});
 
 	const [selected, setSelected] = useState(0);
-	// const data = [
-	// 	{
-	// 		img: '/images/OurBusinesses/food.jpg',
-	// 		title: 'Food and Beverage',
-	// 		description:
-	// 			'San Miguel Brewery Inc. (SMB) is the largest producer of beer in the Philippines, with nine out of ten beer drinkers preferring its brands.',
-	// 		link: '//our-business/inner',
-	// 	},
-	// 	{
-	// 		img: '/images/OurBusinesses/oil.jpg',
-	// 		title: 'Oil Refining and Marketing',
-	// 		description:
-	// 			'San Miguel Brewery Inc. (SMB) is the largest producer of beer in the Philippines, with nine out of ten beer drinkers preferring its brands.',
-	// 		link: '//our-business/inner',
-	// 	},
-	// 	{
-	// 		img: '/images/OurBusinesses/packaging.jpg',
-	// 		title: 'Packaging',
-	// 		description:
-	// 			'San Miguel Brewery Inc. (SMB) is the largest producer of beer in the Philippines, with nine out of ten beer drinkers preferring its brands.',
-	// 		link: '//our-business/inner',
-	// 	},
-	// 	{
-	// 		img: '/images/OurBusinesses/properties.jpg',
-	// 		title: 'Properties',
-	// 		description:
-	// 			'San Miguel Brewery Inc. (SMB) is the largest producer of beer in the Philippines, with nine out of ten beer drinkers preferring its brands.',
-	// 		link: '//our-business/inner',
-	// 	},
-	// 	{
-	// 		img: '/images/OurBusinesses/power.jpg',
-	// 		title: 'Power and Energy',
-	// 		description:
-	// 			'San Miguel Brewery Inc. (SMB) is the largest producer of beer in the Philippines, with nine out of ten beer drinkers preferring its brands.',
-	// 		link: '//our-business/inner',
-	// 	},
-	// 	{
-	// 		img: '/images/OurBusinesses/infrastructure.jpg',
-	// 		title: 'Infrastructure',
-	// 		description:
-	// 			'San Miguel Brewery Inc. (SMB) is the largest producer of beer in the Philippines, with nine out of ten beer drinkers preferring its brands.',
-	// 		link: '//our-business/inner',
-	// 	},
-	// 	{
-	// 		img: '/images/OurBusinesses/other.jpg',
-	// 		title: 'Other businsesses',
-	// 		description:
-	// 			'San Miguel Brewery Inc. (SMB) is the largest producer of beer in the Philippines, with nine out of ten beer drinkers preferring its brands.',
-	// 		link: '//our-business/inner',
-	// 	},
-	// ];
 
 	useMotionValueEvent(scrollYProgress, 'change', (latest) => {
 		let mod = 1 / data.length;
@@ -127,6 +76,10 @@ export default function OurBusinesses({ data, className, link, children }) {
 			transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
 		},
 	};
+
+	useEffect(() => {
+		console.log(selected);
+	}, [selected]);
 	return (
 		<motion.div
 			className='ourbusinesses-section'
@@ -209,109 +162,49 @@ export default function OurBusinesses({ data, className, link, children }) {
 						</div>
 
 						<motion.div className='ring-description'>
-							<AnimatePresence>
-								<motion.div
-									className='descriptions'
-									initial='initial'
-									exit='exit'
-									animate='enter'
-									variants={{
-										initial: {
-											display: 'none',
-										},
-										exit: {
-											display: 'none',
-										},
-										enter: {
-											display: 'block',
-										},
-									}}
-									transition={{
-										staggerChildren: 0.015,
-									}}
-									key={`ob_description_${selected}`}>
-									<motion.h3 variants={text_variants}>
-										{data[selected].title}
-									</motion.h3>
+							<AnimatePresence initial={false} mode='popLayout'>
+								{data.map((data, index) => {
+									return (
+										index === selected && (
+											<motion.div
+												key={`ob_description_${index}`}
+												className='descriptions'
+												initial='initial'
+												exit='exit'
+												animate='enter'
+												// variants={{
+												// 	initial: {
+												// 		display: 'none',
+												// 	},
+												// 	exit: {
+												// 		display: 'none',
+												// 	},
+												// 	enter: {
+												// 		display: 'block',
+												// 	},
+												// }}
+												transition={{
+													staggerChildren: 0.015,
+												}}>
+												<motion.h3 variants={text_variants}>
+													{data.title}
+												</motion.h3>
 
-									<motion.p variants={text_variants}>
-										{parse(data[selected].description)}
-									</motion.p>
-									<motion.p variants={text_variants}>
-										<Button
-											link='/our-business/inner'
-											className='btn btn-bordered white'>
-											Read More
-										</Button>
-									</motion.p>
-								</motion.div>
+												<motion.div variants={text_variants}>
+													{parse(data.description)}
+												</motion.div>
+												<motion.p variants={text_variants}>
+													<Button
+														link={data.link}
+														className='btn btn-bordered white'>
+														Read More
+													</Button>
+												</motion.p>
+											</motion.div>
+										)
+									);
+								})}
 							</AnimatePresence>
-
-							{/* {data.map((val, index) => {
-								return (
-									<motion.div
-										className='descriptions'
-										style={{
-											display: 'none',
-											pointerEvents: index == selected ? 'all' : 'none',
-										}}
-										key={`description_${index}`}>
-										<motion.h3
-											// {...getDescriptionProps(index)}
-											animate={selected === index ? 'enter' : 'initial'}
-											variants={{
-												initial: {
-													opacity: 0,
-												},
-												enter: {
-													opacity: 1,
-													transition: {
-														delay: 0,
-													},
-												},
-											}}
-											className='heading-3'>
-											{val.title}
-										</motion.h3>
-										<motion.p
-											// {...getDescriptionProps(index)}
-											animate={selected === index ? 'enter' : 'initial'}
-											variants={{
-												initial: {
-													opacity: 0,
-												},
-												enter: {
-													opacity: 1,
-													transition: {
-														delay: 0.1,
-													},
-												},
-											}}>
-											{val.description}
-										</motion.p>
-										<motion.p
-											// {...getDescriptionProps(index)}
-											animate={selected === index ? 'enter' : 'initial'}
-											variants={{
-												initial: {
-													opacity: 0,
-												},
-												enter: {
-													opacity: 1,
-													transition: {
-														delay: 0.2,
-													},
-												},
-											}}>
-											<Button
-												link='/our-business/inner'
-												className={'pri white'}>
-												Read More
-											</Button>
-										</motion.p>
-									</motion.div>
-								);
-							})} */}
 						</motion.div>
 						<motion.div className='inner-ring'>
 							{data.map((val, index) => {
@@ -376,8 +269,8 @@ export default function OurBusinesses({ data, className, link, children }) {
 					position: 'absolute',
 					top: 0,
 					left: 0,
-					paddingTop: '50vh',
-					paddingBottom: '50vh',
+					// paddingTop: '50vh',
+					// paddingBottom: '50vh',
 					height: '100%',
 					zIndex: 0,
 				}}>
@@ -387,7 +280,8 @@ export default function OurBusinesses({ data, className, link, children }) {
 							key={`control_${index}`}
 							className='test2'
 							whileInView={() => {
-								if (!isMobile) setSelected(index);
+								console.log('in view ' + selected);
+								if (!isMobile) setSelected((prev) => (prev = index));
 							}}
 							viewport={{
 								amount: 'all',

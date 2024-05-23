@@ -572,26 +572,27 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 				}
 
 				if (widget.widgets_name === 'Slider') {
-					const packaging = [
-						{
-							img: `/images/OurCompany/packaging-1.png`,
-						},
-						{
-							img: `/images/OurCompany/packaging-2.png`,
-						},
-						{
-							img: `/images/OurCompany/packaging-3.png`,
-						},
-					];
+					let slides = [];
+
+					children.map((div) => {
+						let image = div.api_childrens[0];
+						let desc = div.api_childrens[1];
+
+						let data = {
+							image: image.elements_attributes,
+							desc: desc.elements_slot,
+						};
+
+						slides.push(data);
+					});
+
+					console.log('slides', slides);
 
 					return (
 						<ImageSlider
 							key={key}
-							dots={true}
-							type='full'
-							captionPosition='absolute'
-							arrows={false}
-							slides={packaging}
+							widgetClasses={widgetClasses}
+							slides={slides}
 						/>
 					);
 				}

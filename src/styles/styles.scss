@@ -192,6 +192,11 @@ textarea {
 	font-style: normal;
 }
 
+button {
+	outline: none;
+	border: none;
+}
+
 select {
 	-webkit-appearance: none;
 	appearance: none;
@@ -446,6 +451,7 @@ a {
 @import '../CMS/OurBusinesses/ourbusinesses.scss';
 @import '../CMS/PDFItem/pdfitem.scss';
 @import '../CMS/HomepageWidget/homepage-widget.scss';
+@import '../CMS/ImageSlider/ImageSlider.scss';
 
 // @import '../Components/modal/modal.scss';
 
@@ -456,8 +462,6 @@ a {
 
 // @import '../CMS/TextGradient/TextGradient.scss';
 // @import '../CMS/ParallaxGrid/parallaxgrid.scss';
-
-// @import '../CMS/ImageSlider/ImageSlider.scss';
 
 // @import '../CMS/FloatingImages/floatingimages.scss';
 

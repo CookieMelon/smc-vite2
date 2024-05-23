@@ -775,8 +775,8 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 	}
 
 	useEffect(() => {
-		toggleNav.current.removeEventListener('wheel', scroll);
-		toggleNav.current.addEventListener('wheel', scroll);
+		toggleNav.current.removeEventListener('wheel', scroll, { passive: true });
+		toggleNav.current.addEventListener('wheel', scroll, { passive: true });
 	}, [toggleNav]);
 
 	return (

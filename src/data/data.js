@@ -24,6 +24,18 @@ export const useGetButtonColor = () => {
 export const useGetMenuNew = (setFakePreload) => {
 	const [menu, setMenu] = useState([]);
 
+	const removeUnpublished = (menuParent) => {
+		let filteredItem = menuParent.filter((child) => {
+			let filteredNavigation = [];
+			if (child.navigations.length !== 0)
+				filteredNavigation = removeUnpublished(child.navigations);
+			child.navigations = filteredNavigation;
+			return child.page_is_published && child.page_slug !== 'home';
+		});
+
+		return filteredItem;
+	};
+
 	useEffect(() => {
 		setFakePreload(false);
 		if (!menu.length) {
@@ -38,19 +50,8 @@ export const useGetMenuNew = (setFakePreload) => {
 					return res.json();
 				})
 				.then((data) => {
-					let filteredMenu = data.filter((item) => {
-						// let filteredNavigation = item.navigations.map((item) => {
-						// 	let filteredNavigation = item.navigations.map((item) => {
-						// 		return item.page_is_published;
-						// 	});
+					let filteredMenu = removeUnpublished(data);
 
-						// 	item.navigations = filteredNavigation;
-						// 	return item.page_is_published;
-						// });
-
-						// item.navigations = filteredNavigation;
-						return item.page_is_published && item.page_slug !== 'home';
-					});
 					setMenu((prev) => (prev = filteredMenu));
 					setFakePreload(true);
 				});
