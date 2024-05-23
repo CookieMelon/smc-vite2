@@ -39,7 +39,7 @@ export const useGetMenuNew = (setFakePreload) => {
 	useEffect(() => {
 		setFakePreload(false);
 		if (!menu.length) {
-			fetch(`${api_url}/navigation`, {
+			fetch(`${api_url}navigation`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
