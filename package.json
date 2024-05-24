@@ -11,11 +11,12 @@
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.1.2",
-    "@studio-freight/react-lenis": "^0.0.47",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@uidotdev/usehooks": "^2.4.1",
     "classnames": "^2.5.1",
     "framer-motion": "^11.2.0",
     "html-react-parser": "^5.1.10",
+    "lenis": "^1.0.45",
     "react": "^18.2.0",
     "react-aria-components": "^1.2.0",
     "react-dom": "^18.2.0",

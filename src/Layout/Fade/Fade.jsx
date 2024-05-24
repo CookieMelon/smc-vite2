@@ -3,23 +3,23 @@ import { motion } from 'framer-motion';
 import { fadeVariants } from './anim';
 
 import { useContext, useEffect } from 'react';
-import Lenis from '@studio-freight/lenis';
+
 import { ThemeContext } from 'src/App';
 
 export default function Fade({ children, customStyle }) {
 	const { smcTheme } = useContext(ThemeContext);
 
-	useEffect(() => {
-		const lenis = new Lenis();
+	// useEffect(() => {
+	// 	const lenis = new Lenis();
 
-		const raf = (time) => {
-			lenis.raf(time);
+	// 	const raf = (time) => {
+	// 		lenis.raf(time);
 
-			requestAnimationFrame(raf);
-		};
+	// 		requestAnimationFrame(raf);
+	// 	};
 
-		requestAnimationFrame(raf);
-	}, []);
+	// 	requestAnimationFrame(raf);
+	// }, []);
 
 	return (
 		<motion.div

@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { getColors } from 'src/hooks/use-color';
 
-export default function OurStoryTab() {
+import parse from 'html-react-parser';
+
+export default function OurStoryTab({ data }) {
 	const { red, baseBlack } = getColors;
 	const [selected, setSelected] = useState(0);
 	const other_variants = {
@@ -76,94 +78,40 @@ export default function OurStoryTab() {
 				</h3>
 
 				<div className='tab-source tabsource-ourstory'>
-					<motion.button
-						className={`tab-links ${selected === 0 ? 'active' : ''}`}
-						animate={
-							selected === 0 ? 'enter' : 0 < selected ? 'done' : 'initial'
-						}
-						onTap={() => {
-							setSelected(0);
-						}}>
-						<motion.h3
-							custom={0}
-							variants={button_variants}
-							className='heading-3'>
-							Vision
-						</motion.h3>
-						<motion.div
-							className='ourstory-accordion'
-							animate={{
-								height: selected === 0 ? 'auto' : 0,
-							}}>
-							<div>
-								<p>
-									A resilient and globally-competitive Philippines where
-									everyone can enrich and enjoy their lives.
-								</p>
-							</div>
-						</motion.div>
-					</motion.button>
-					<motion.button
-						className={`tab-links ${selected === 1 ? 'active' : ''}`}
-						animate={
-							selected === 1 ? 'enter' : 1 < selected ? 'done' : 'initial'
-						}
-						onTap={() => {
-							setSelected(1);
-						}}>
-						<motion.h3
-							custom={2}
-							variants={button_variants}
-							className='heading-3'>
-							Purpose
-						</motion.h3>
-						<motion.div
-							className='ourstory-accordion'
-							animate={{
-								height: selected === 1 ? 'auto' : 0,
-							}}>
-							<div>
-								<p>
-									To lead in nation-building by creating opportunities that will
-									uplift generations of Filipinos,
-								</p>
-							</div>
-						</motion.div>
-					</motion.button>
-					<motion.button
-						className={`tab-links ${selected === 2 ? 'active' : ''}`}
-						animate={
-							selected === 2 ? 'enter' : 2 < selected ? 'done' : 'initial'
-						}
-						onTap={() => {
-							setSelected(2);
-						}}>
-						<motion.h3
-							custom={2}
-							variants={button_variants}
-							className='heading-3'>
-							Value
-						</motion.h3>
-						<motion.div
-							className='ourstory-accordion'
-							animate={{
-								height: selected === 2 ? 'auto' : 0,
-							}}>
-							<div>
-								<p>
-									<b>
-										<i>Malasakit</i>
-									</b>
-									is at the core of who we are as a company.
-								</p>
-								<ul>
-									<li>Excellence</li>
-									<li>Accountability</li>
-									<li>Sustainability</li>
-								</ul>
-							</div>
-						</motion.div>
-					</motion.button>
+					{data.map((content, index) => {
+						return (
+							<motion.button
+								key={`tab-links_${index}`}
+								className={`tab-links ${selected === index ? 'active' : ''}`}
+								animate={
+									selected === index
+										? 'enter'
+										: index < selected
+										? 'done'
+										: 'initial'
+								}
+								onTap={() => {
+									setSelected(index);
+								}}>
+								<motion.h3
+									custom={index}
+									variants={button_variants}
+									className='heading-3'>
+									{content.trigger.label}
+								</motion.h3>
+								<motion.div
+									className='ourstory-accordion'
+									animate={{
+										height: selected === index ? 'auto' : 0,
+									}}>
+									<div>
+										{content.trigger.subtitle &&
+											parse(content.trigger.subtitle)}
+									</div>
+								</motion.div>
+							</motion.button>
+						);
+					})}
 				</div>
 			</div>
 			<div
@@ -173,91 +121,44 @@ export default function OurStoryTab() {
 				}}>
 				<div className='tab-target'>
 					<div className='ourstory-grid'>
-						<motion.div
-							animate={
-								selected === 0 ? 'enter' : 0 < selected ? 'done' : 'initial'
-							}
-							className='ourstory-tab-item'
-							custom={0}
-							variants={tab_variants}>
-							<div className='mobile-only'>
-								<h3 className='heading-3'>Vision</h3>
-								<p>
-									A resilient and globally-competitive Philippines where
-									everyone can enrich and enjoy their lives.
-								</p>
-							</div>
-							<motion.img
-								variants={other_variants}
-								className='ourstory-tab-icon'
-								src={`/images/ph.svg`}
-							/>
-							<img src={`/images/OurStory/OurStory-4.png`} />
-							<motion.p variants={other_variants}>
-								Eu phasellus nunc neque porta laoreet maecenas tortor in. Magnis
-								sit leo at a tortor. Quis massa tellus ut arcu sit sed sed. In
-								ultrices curabitur leo eu.
-							</motion.p>
-						</motion.div>
-						<motion.div
-							className='ourstory-tab-item'
-							custom={1}
-							animate={
-								selected === 1 ? 'enter' : 1 < selected ? 'done' : 'initial'
-							}
-							variants={tab_variants}>
-							<div className='mobile-only'>
-								<h3 className='heading-3'>Purpose</h3>
-								<p>
-									To lead in nation-building by creating opportunities that will
-									uplift generations of Filipinos,
-								</p>
-							</div>
-							<motion.img
-								variants={other_variants}
-								className='ourstory-tab-icon'
-								src={`/images/tao.svg`}
-							/>
-							<img src={`/images/OurStory/OurStory-5.png`} />
-							<motion.p variants={other_variants}>
-								Eu phasellus nunc neque porta laoreet maecenas tortor in. Magnis
-								sit leo at a tortor. Quis massa tellus ut arcu sit sed sed. In
-								ultrices curabitur leo eu.
-							</motion.p>
-						</motion.div>
-						<motion.div
-							className='ourstory-tab-item'
-							custom={2}
-							animate={
-								selected === 2 ? 'enter' : 2 < selected ? 'done' : 'initial'
-							}
-							variants={tab_variants}>
-							<div className='mobile-only'>
-								<h3 className='heading-3'>Value</h3>
-								<p>
-									<b>
-										<i>Malasakit</i>
-									</b>
-									is at the core of who we are as a company.
-								</p>
-								<ul>
-									<li>Excellence</li>
-									<li>Accountability</li>
-									<li>Sustainability</li>
-								</ul>
-							</div>
-							<motion.img
-								variants={other_variants}
-								className='ourstory-tab-icon'
-								src={`/images/heart.svg`}
-							/>
-							<img src={`/images/OurStory/OurStory-6.png`} />
-							<motion.p variants={other_variants}>
-								Eu phasellus nunc neque porta laoreet maecenas tortor in. Magnis
-								sit leo at a tortor. Quis massa tellus ut arcu sit sed sed. In
-								ultrices curabitur leo eu.
-							</motion.p>
-						</motion.div>
+						{data.map((content, index) => {
+							console.log(content.target);
+							return (
+								<motion.div
+									key={`ourstory-tab-item_${index}`}
+									animate={
+										selected === index
+											? 'enter'
+											: index < selected
+											? 'done'
+											: 'initial'
+									}
+									className='ourstory-tab-item'
+									custom={index}
+									variants={tab_variants}>
+									<div className='mobile-only'>
+										<h3 className='heading-3'>{content.trigger.label}</h3>
+										{content.trigger.subtitle &&
+											parse(content.trigger.subtitle)}
+									</div>
+									<motion.img
+										variants={other_variants}
+										className='ourstory-tab-icon'
+										src={content.target.img_1.src}
+										alt={content.target.img_1.alt}
+									/>
+									<img
+										src={content.target.img_2.src}
+										alt={content.target.img_2.alt}
+									/>
+									<motion.p variants={other_variants}>
+										Eu phasellus nunc neque porta laoreet maecenas tortor in.
+										Magnis sit leo at a tortor. Quis massa tellus ut arcu sit
+										sed sed. In ultrices curabitur leo eu.
+									</motion.p>
+								</motion.div>
+							);
+						})}
 					</div>
 				</div>
 			</div>

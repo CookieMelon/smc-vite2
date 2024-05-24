@@ -1,18 +1,23 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 
-import { PiCaretDown, PiCaretDownBold } from 'react-icons/pi';
+import { PiCaretDown, PiCaretDownBold, PiXCircle } from 'react-icons/pi';
 import SocialIcons from './social-icon';
 import { Link } from 'react-router-dom';
 import { getColors } from 'src/hooks/use-color';
 import Button from 'src/Components/button/button';
 
 import 'src/styles/radix-accordion.scss';
+import 'src/styles/radix-dialog.scss';
 import SMC_SOR from 'src/images/SMC_SOR.png';
 import FooterLogos from 'src/images/footer-other-logo.png';
 
 import * as Accordion from '@radix-ui/react-accordion';
+import * as Dialog from '@radix-ui/react-dialog';
+
+import { ReactLenis } from 'lenis/react';
+import { LenixContext } from 'src/App';
 
 export default function Footer() {
 	const year = new Date().getFullYear();
@@ -38,17 +43,223 @@ export default function Footer() {
 						/>
 					</figure>
 					<SocialIcons />
-					<Button className='subsidiary-btn btn btn-bordered'>
-						Subsidiary Websites
-						<PiCaretDownBold fontSize={'1.35rem'} />
-					</Button>
+					<Dialog.Root modal={true}>
+						<Dialog.Trigger asChild>
+							<button className='Button violet'>View Subsidiary Website</button>
+							{/* <Button className='subsidiary-btn btn btn-bordered'>
+								Subsidiary Websites
+								<PiCaretDownBold fontSize={'1.35rem'} />
+							</Button> */}
+						</Dialog.Trigger>
+						<Dialog.Portal>
+							<Dialog.Overlay className='DialogOverlay' />
+							<Dialog.Content
+								className='DialogContent'
+								data-lenis-prevent='true'>
+								<h3 className='DialogContent-title'>Subsidiary Websites</h3>
+								<p>
+									<a
+										href='https://www.bankcom.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Bank of Commerce
+									</a>
+									<br />
+									<a
+										href='https://www.eaglecement.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Eagle Cement
+									</a>
+									<br />
+									<a
+										href='https://www.petron.com/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Petron Corp.
+									</a>
+									<br />
+									<a
+										href='https://www.ginebrasanmiguel.com/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Ginebra San Miguel
+									</a>
+									<br />
+									<a
+										href='https://www.sanmiguelproperties.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Miguel Properties, Inc
+									</a>
+									<br />
+									<a
+										href='https://www.sanmiguelfoods.com/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Miguel Foods
+									</a>
+									<br />
+									<a
+										href='https://greatfoodsolutions.com/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Great Food Solutions
+									</a>
+									<br />
+									<a
+										href='https://homefoodie.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Home Foodie
+									</a>
+									<br />
+									<a
+										href='https://magnoliachicken.com/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Magnolia Chicken
+									</a>
+									<br />
+									<a
+										href='https://www.monterey.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Monterey Foods Corp.
+									</a>
+									<br />
+									<a
+										href='https://www.ncc.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Northern Cement
+									</a>
+									<br />
+									<a
+										href='https://petrogen.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Petrogen Insurance Corporation
+									</a>
+									<br />
+									<a
+										href='https://www.sanmiguelbrewery.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Miguel Brewery Inc.
+									</a>
+									<br />
+									<a
+										href='https://www.smfb.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Miguel Food and Beverage
+									</a>
+									<br />
+									<a
+										href='https://www.facebook.com/redhorsebeer/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										Red Horse Beer
+									</a>
+									<br />
+									<a
+										href='https://www.facebook.com/sanmiguel.hk'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Miguel Brewery Hong Kong
+									</a>
+									<br />
+									<a
+										href='https://sanmiguelbrewery.com'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Miguel Brewing International Ltd.
+									</a>
+									<br />
+									<a
+										href='https://www.sanmiguelmart.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Miguel Mart
+									</a>
+									<br />
+									<a
+										href='https://www.facebook.com/SanMiguelPalePilsen/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Miguel Pale Pilsen
+									</a>
+									<br />
+									<a
+										href='https://www.facebook.com/sanmiglightph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Mig Light
+									</a>
+									<br />
+									<a
+										href='https://www.facebook.com/sanmiguelsuperdrybeer/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										San Miguel Super Dry
+									</a>
+									<br />
+									<a
+										href='https://smcstocktransfer.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										SMC Stock Transfer Service Corporation
+									</a>
+									<br />
+									<a
+										href='https://www.smcglobalpower.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										SMC Global Power Holdings Corp
+									</a>
+									<br />
+									<a
+										href='https://www.sltc.com.ph/'
+										target='_blank'
+										without='true'
+										rel='noopener noreferrer'>
+										South Luzon Tollway Corporation
+									</a>
+									<br />
+								</p>
+								<Dialog.Close className='IconButton' aria-label='Close' asChild>
+									<PiXCircle size={'2rem'} />
+								</Dialog.Close>
+							</Dialog.Content>
+						</Dialog.Portal>
+					</Dialog.Root>
 				</div>
 
-				<Accordion.Root
-					className='AccordionRoot'
-					type='single'
-					defaultValue='item-1'
-					collapsible>
+				<Accordion.Root className='AccordionRoot' type='single' collapsible>
 					<div className='footer-links-col'>
 						<Accordion.Item className='AccordionItem' value='item-1'>
 							<Accordion.AccordionHeader className='AccordionHeader'>

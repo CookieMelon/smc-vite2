@@ -25,8 +25,9 @@ import SustainabilitySection from 'src/CMS/SustainabilitySection/SustainabilityS
 import OurBusinesses from 'src/CMS/OurBusinesses/OurBusinesses';
 import Disclosures from './Disclosures';
 import HomepageWidget from 'src/CMS/HomepageWidget/HomepageWidget';
-
-const LinkElementNames = ['Button Stacked', 'React Link'];
+import OurCompanyTab from 'src/CMS/OurCompanyTab/OurCompanyTab';
+import { createCMSElement } from 'src/hooks/use-createElements';
+import AnnualReports from 'src/CMS/AnnualReports/AnnualReports';
 
 let defaultMenus = ['our-story', 'sustainability', 'corporate', 'careers'];
 export default function Builder() {
@@ -126,86 +127,6 @@ export default function Builder() {
 
 function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 	let our_story_tabs = [];
-
-	const createCMSElement = ({
-		elements_name,
-		api_childrens,
-		elements_tag,
-		elements_attributes,
-		element_code,
-		elements_class,
-		elements_slot,
-	}) => {
-		if (LinkElementNames.includes(elements_name)) elements_tag = Link;
-		if (elements_name === 'Icon') {
-			if (!elements_slot) return;
-			elements_tag = getIcon(elements_slot);
-			elements_attributes = {
-				...elements_attributes,
-				size: elements_attributes.size ? elements_attributes.size : '1.75rem',
-			};
-		}
-		if (elements_name === 'Image') {
-			if (!elements_attributes.src) return;
-		}
-		if (elements_name === 'Paragraph') {
-			return (
-				<React.Fragment key={element_code}>
-					{parse(elements_slot)}
-				</React.Fragment>
-			);
-		}
-
-		// let element = {};
-		// element.tag = e.elements_tag;
-		// element.attributes = {
-		// 	...e.elements_attributes,
-		// 	className: e.elements_class,
-		// };
-
-		return React.createElement(
-			elements_tag,
-			{
-				...elements_attributes,
-				key: element_code,
-				className: elements_class ? elements_class.join(' ') : '',
-			},
-			createCMSElementChild({
-				elements_slot,
-				api_childrens,
-				elements_tag,
-				element_code,
-			})
-		);
-	};
-
-	const createCMSElementChild = ({
-		elements_slot,
-		api_childrens,
-		elements_tag,
-		element_code,
-	}) => {
-		if (elements_tag === 'img') return null;
-		return (
-			<React.Fragment key={`${element_code}_children`}>
-				{elements_slot && elements_slot}
-				{api_childrens &&
-					api_childrens.map((children) => {
-						return createCMSElement(children);
-					})}
-			</React.Fragment>
-		);
-	};
-
-	const getIcon = (elements_slot) => {
-		if (elements_slot === 'PiCaretCircleRight') return PiCaretCircleRight;
-	};
-
-	const renderCombinedWidgets = ({ ourbusiness_widget, ourbusiness_key }) => {
-		if (ourbusiness_widget.length) {
-			return <OurBusinesses data={ourbusiness_widget} key={ourbusiness_key} />;
-		}
-	};
 
 	return (
 		<React.Fragment key={keyWidget}>
@@ -586,8 +507,6 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 						slides.push(data);
 					});
 
-					console.log('slides', slides);
-
 					return (
 						<ImageSlider
 							key={key}
@@ -596,6 +515,34 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 						/>
 					);
 				}
+
+				if (widget.widgets_name === 'Annual Reports') {
+					let slides = [];
+
+					children.map((div) => {
+						let title, desc, img, link;
+
+						title = div.api_childrens[0].elements_slot;
+						img = div.api_childrens[1].elements_attributes;
+						desc = div.api_childrens[2].elements_slot;
+
+						if (div.api_childrens[3].elements_attributes)
+							link = div.api_childrens[3].elements_attributes.src;
+						if (div.api_childrens[4].elements_attributes.to !== '')
+							link = div.api_childrens[4].elements_attributes.to;
+
+						let d = {};
+
+						if (title) d.title = title;
+						if (desc) d.desc = desc;
+						if (img) d.img = img;
+						if (link) d.link = link;
+
+						slides.push(d);
+					});
+					return <AnnualReports key={key} slides={slides} />;
+				}
+
 				if (widget.widgets_name === 'Custom Widget') {
 					if (children.elements_name !== 'Paragraph')
 						return (
@@ -637,12 +584,49 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 					return <OurBusinesses data={ourbusiness_widget} key={key} />;
 				}
 
-				if (widget.widgets_name === 'Our Story Tabs - Test') {
-					our_story_tabs.push(widget);
+				if (widget.widgets_name === 'Our Story Tabs') {
+					let data = [];
+					children.map((div) => {
+						let trigger = div.api_childrens[0];
+						let target = div.api_childrens[1];
+
+						let d = {
+							trigger: {
+								label: trigger.api_childrens[0].elements_slot,
+								subtitle: trigger.api_childrens[1].elements_slot,
+							},
+							target: {
+								img_1: target.api_childrens[0].elements_attributes,
+								img_2: target.api_childrens[1].elements_attributes,
+								content: target.api_childrens[2].elements_slot,
+							},
+						};
+
+						data.push(d);
+					});
+
+					return <OurStoryTab key={key} data={data} />;
 				}
 
-				if (our_story_tabs.length) {
-					<OurStoryTab />;
+				if (widget.widgets_name === 'Our Company - Tabs') {
+					let data = [];
+					children.map((div) => {
+						let trigger = div.api_childrens[0];
+						let target = div.api_childrens[1];
+
+						let d = {
+							trigger: {
+								label: trigger.api_childrens[0].elements_slot,
+								icon_1: trigger.api_childrens[1].elements_attributes,
+								icon_2: trigger.api_childrens[2].elements_attributes,
+							},
+
+							target: target,
+						};
+
+						data.push(d);
+					});
+					return <OurCompanyTab data={data} key={key} />;
 				}
 
 				// if (index === widgets.length - 1) {

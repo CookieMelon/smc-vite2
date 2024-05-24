@@ -19,7 +19,10 @@ import Escudo from '../../images/smc-logo.svg';
 import EscudoWhite from '../../images/smc-logo-white.svg';
 import EscudoGray from '../../images/smc-logo-gray.svg';
 
-import { PiCaretDownBold, PiCaretUpBold } from 'react-icons/pi';
+import 'src/styles/radix-dialog.scss';
+import * as Dialog from '@radix-ui/react-dialog';
+
+import { PiCaretDownBold, PiCaretUpBold, PiXCircle } from 'react-icons/pi';
 
 import {
 	floatingNavContent_variants,
@@ -362,6 +365,20 @@ export function MainNav({ c, animation = true, toggle }) {
 		});
 	};
 
+	const getLink = (parent_slug, item) => {
+		let link = {};
+		link.to = parent_slug;
+		link.to += `/${item.page_slug}`;
+
+		if (item.page_external_link) {
+			link.to += `${item.page_external_link}`;
+			link._target = '_blank';
+			link.rel = 'noopener';
+		}
+
+		return link;
+	};
+
 	return (
 		<motion.div
 			className={`${c} main-nav accordion-group`}
@@ -394,13 +411,11 @@ export function MainNav({ c, animation = true, toggle }) {
 			{menu.map((item_lvl1, index) => {
 				let activeClass = animation ? (index === 0 ? 'active' : '') : '';
 				let height = animation ? (index === 0 ? 'auto' : '0px') : 'auto';
-				let link = item_lvl1.page_external_link
-					? `${item_lvl1.page_external_link}`
-					: `/${item_lvl1.page_slug}`;
+				let link = getLink('', item_lvl1);
 
 				if (link === '/home') return;
 
-				let parent_slug = link;
+				let parent_slug = link.to;
 
 				return (
 					<motion.div
@@ -415,7 +430,7 @@ export function MainNav({ c, animation = true, toggle }) {
 						variants={navItem_variants}
 						key={`menuItem_lvl1_${item_lvl1.page_id}`}>
 						<div className='nav-item-link'>
-							<Link to={link} onClick={toggle}>
+							<Link {...link} onClick={toggle}>
 								{item_lvl1.page_title}
 							</Link>
 							{item_lvl1.navigations.length !== 0 && animation && (
@@ -456,10 +471,7 @@ export function MainNav({ c, animation = true, toggle }) {
 												: '0px'
 											: 'auto';
 
-										let link = parent_slug;
-										link = item_lvl2.page_external_link
-											? item_lvl2.page_external_link
-											: (link += '/' + item_lvl2.page_slug);
+										let link = getLink(parent_slug, item_lvl2);
 
 										let columnClass =
 											item_lvl2.navigations.length > 4
@@ -483,7 +495,7 @@ export function MainNav({ c, animation = true, toggle }) {
 												<motion.b
 													whileHover='hover'
 													className='inner-dropdown-link'>
-													<Link to={link} onClick={toggle}>
+													<Link {...link} onClick={toggle}>
 														{item_lvl2.page_title}
 													</Link>
 													{item_lvl2.navigations.length !== 0 && animation && (
@@ -516,82 +528,84 @@ export function MainNav({ c, animation = true, toggle }) {
 														}}
 														className={`${columnClass} inner_lvl2-dropdown accordion-target accordion-group`}>
 														{item_lvl2.navigations.map((item_lvl3, index) => {
-															let link = parent_slug;
-
-															link = item_lvl3.page_external_link
-																? item_lvl3.page_external_link
-																: (link += '/' + item_lvl3.page_slug);
-
-															return (
-																<div
-																	key={`menuItem_lvl3_${item_lvl3.page_id}`}
-																	className='accordion-source'
-																	style={{
-																		breakInside: 'avoid-column',
-																	}}>
+															let link = getLink(parent_slug, item_lvl3);
+															if (link.to !== 'find-us-on-social-media')
+																return (
 																	<div
-																		className={`inner_lvl2-dropdown-link ${
-																			bold ? 'bold' : ''
-																		}`}>
-																		<Link to={link} onClick={toggle}>
-																			{item_lvl3.page_title}
-																		</Link>
-
-																		{item_lvl3.navigations.length !== 0 && (
-																			<button
-																				onClick={(event) => {
-																					navAccordion(event);
-																				}}>
-																				<PiCaretDownBold
-																					className='open'
-																					fontSize={'1.25rem'}
-																				/>
-																				<PiCaretUpBold
-																					className='close'
-																					fontSize={'1.25rem'}
-																				/>
-																			</button>
-																		)}
-																	</div>
-																	{item_lvl3.navigations.length !== 0 && (
+																		key={`menuItem_lvl3_${item_lvl3.page_id}`}
+																		className='accordion-source'
+																		style={{
+																			breakInside: 'avoid-column',
+																		}}>
 																		<div
-																			className={`inner_lvl3-dropdown accordion-target`}
-																			style={{
-																				height: 0,
-																				listStyle: 'circle',
+																			className={`inner_lvl2-dropdown-link ${
+																				bold ? 'bold' : ''
+																			}`}>
+																			<Link {...link} onClick={toggle}>
+																				{item_lvl3.page_title}
+																			</Link>
 
-																				overflow: 'hidden',
-																			}}>
 																			{item_lvl3.navigations.length !== 0 && (
-																				<motion.ul>
-																					{item_lvl3.navigations.map(
-																						(item_lvl4, index) => {
-																							let link = parent_slug;
-																							link =
-																								item_lvl4.page_external_link
-																									? item_lvl4.page_external_link
-																									: (link +=
-																											'/' +
-																											item_lvl4.page_slug);
-
-																							return (
-																								<li
-																									key={`menuItem_lvl4_${item_lvl4.page_id}`}>
-																									<Link
-																										to={link}
-																										onClick={toggle}>
-																										{item_lvl4.page_title}
-																									</Link>
-																								</li>
-																							);
-																						}
-																					)}
-																				</motion.ul>
+																				<button
+																					onClick={(event) => {
+																						navAccordion(event);
+																					}}>
+																					<PiCaretDownBold
+																						className='open'
+																						fontSize={'1.25rem'}
+																					/>
+																					<PiCaretUpBold
+																						className='close'
+																						fontSize={'1.25rem'}
+																					/>
+																				</button>
 																			)}
 																		</div>
-																	)}
-																</div>
-															);
+																		{item_lvl3.navigations.length !== 0 && (
+																			<div
+																				className={`inner_lvl3-dropdown accordion-target`}
+																				style={{
+																					height: 0,
+																					listStyle: 'circle',
+
+																					overflow: 'hidden',
+																				}}>
+																				{item_lvl3.navigations.length !== 0 && (
+																					<motion.ul>
+																						{item_lvl3.navigations.map(
+																							(item_lvl4, index) => {
+																								let link = getLink(
+																									parent_slug,
+																									item_lvl4
+																								);
+
+																								return (
+																									<li
+																										key={`menuItem_lvl4_${item_lvl4.page_id}`}>
+																										<Link
+																											{...link}
+																											onClick={toggle}>
+																											{item_lvl4.page_title}
+																										</Link>
+																									</li>
+																								);
+																							}
+																						)}
+																					</motion.ul>
+																				)}
+																			</div>
+																		)}
+																	</div>
+																);
+															else
+																return (
+																	<FindUsPopup
+																		key={'finduspopup'}
+																		toggle={toggle}
+																		item_lvl3={item_lvl3}
+																		bold={bold}
+																	/>
+																);
 														})}
 													</div>
 												)}
@@ -605,6 +619,243 @@ export function MainNav({ c, animation = true, toggle }) {
 				);
 			})}
 		</motion.div>
+	);
+}
+
+function FindUsPopup({ toggle, item_lvl3, bold }) {
+	return (
+		<Dialog.Root modal={true}>
+			<Dialog.Trigger asChild>
+				<div
+					key={`menuItem_lvl3_${item_lvl3.page_id}`}
+					className='accordion-source'
+					style={{
+						breakInside: 'avoid-column',
+					}}>
+					<div className={`inner_lvl2-dropdown-link ${bold ? 'bold' : ''}`}>
+						<a onClick={toggle}>{item_lvl3.page_title}</a>
+
+						{item_lvl3.navigations.length !== 0 && (
+							<button
+								onClick={(event) => {
+									navAccordion(event);
+								}}>
+								<PiCaretDownBold className='open' fontSize={'1.25rem'} />
+								<PiCaretUpBold className='close' fontSize={'1.25rem'} />
+							</button>
+						)}
+					</div>
+				</div>
+
+				{/* <Button className='subsidiary-btn btn btn-bordered'>
+								Subsidiary Websites
+								<PiCaretDownBold fontSize={'1.35rem'} />
+							</Button> */}
+			</Dialog.Trigger>
+			<Dialog.Portal>
+				<Dialog.Overlay className='DialogOverlay' />
+				<Dialog.Content className='DialogContent' data-lenis-prevent='true'>
+					<h3 className='DialogContent-title'>Subsidiary Websites</h3>
+					<p>
+						<a
+							href='https://www.bankcom.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Bank of Commerce
+						</a>
+						<br />
+						<a
+							href='https://www.eaglecement.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Eagle Cement
+						</a>
+						<br />
+						<a
+							href='https://www.petron.com/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Petron Corp.
+						</a>
+						<br />
+						<a
+							href='https://www.ginebrasanmiguel.com/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Ginebra San Miguel
+						</a>
+						<br />
+						<a
+							href='https://www.sanmiguelproperties.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Miguel Properties, Inc
+						</a>
+						<br />
+						<a
+							href='https://www.sanmiguelfoods.com/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Miguel Foods
+						</a>
+						<br />
+						<a
+							href='https://greatfoodsolutions.com/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Great Food Solutions
+						</a>
+						<br />
+						<a
+							href='https://homefoodie.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Home Foodie
+						</a>
+						<br />
+						<a
+							href='https://magnoliachicken.com/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Magnolia Chicken
+						</a>
+						<br />
+						<a
+							href='https://www.monterey.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Monterey Foods Corp.
+						</a>
+						<br />
+						<a
+							href='https://www.ncc.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Northern Cement
+						</a>
+						<br />
+						<a
+							href='https://petrogen.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Petrogen Insurance Corporation
+						</a>
+						<br />
+						<a
+							href='https://www.sanmiguelbrewery.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Miguel Brewery Inc.
+						</a>
+						<br />
+						<a
+							href='https://www.smfb.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Miguel Food and Beverage
+						</a>
+						<br />
+						<a
+							href='https://www.facebook.com/redhorsebeer/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							Red Horse Beer
+						</a>
+						<br />
+						<a
+							href='https://www.facebook.com/sanmiguel.hk'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Miguel Brewery Hong Kong
+						</a>
+						<br />
+						<a
+							href='https://sanmiguelbrewery.com'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Miguel Brewing International Ltd.
+						</a>
+						<br />
+						<a
+							href='https://www.sanmiguelmart.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Miguel Mart
+						</a>
+						<br />
+						<a
+							href='https://www.facebook.com/SanMiguelPalePilsen/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Miguel Pale Pilsen
+						</a>
+						<br />
+						<a
+							href='https://www.facebook.com/sanmiglightph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Mig Light
+						</a>
+						<br />
+						<a
+							href='https://www.facebook.com/sanmiguelsuperdrybeer/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							San Miguel Super Dry
+						</a>
+						<br />
+						<a
+							href='https://smcstocktransfer.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							SMC Stock Transfer Service Corporation
+						</a>
+						<br />
+						<a
+							href='https://www.smcglobalpower.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							SMC Global Power Holdings Corp
+						</a>
+						<br />
+						<a
+							href='https://www.sltc.com.ph/'
+							target='_blank'
+							without='true'
+							rel='noopener noreferrer'>
+							South Luzon Tollway Corporation
+						</a>
+						<br />
+					</p>
+					<Dialog.Close className='IconButton' aria-label='Close' asChild>
+						<PiXCircle size={'2rem'} />
+					</Dialog.Close>
+				</Dialog.Content>
+			</Dialog.Portal>
+		</Dialog.Root>
 	);
 }
 

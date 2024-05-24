@@ -171,7 +171,6 @@ export default function ImageSlider({
 						);
 					})}
 				</div>
-				#02158W
 				{widgetClasses.includes('has-arrows') && (
 					<div className='controls'>
 						{selected > 0 && (
@@ -257,7 +256,7 @@ export default function ImageSlider({
 										},
 									},
 								}}>
-								{parse(slide.desc)}
+								{slide.desc && parse(slide.desc)}
 							</motion.div>
 						)
 					);

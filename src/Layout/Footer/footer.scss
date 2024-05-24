@@ -105,9 +105,16 @@
 }
 
 @media only screen and (max-width: 450px) {
-	.footer-links-col {
-		flex: 1 1 100%;
+	.main-footer {
+		.AccordionRoot {
+			flex-wrap: wrap;
+			gap: 0;
+		}
+		.footer-links-col {
+			flex: 1 1 100%;
+		}
 	}
+
 	.footer-links {
 		> div {
 			flex-wrap: wrap;
@@ -117,9 +124,4 @@
 			flex: 0 1 100%;
 		}
 	}
-}
-
-button,
-h3 {
-	all: unset;
 }

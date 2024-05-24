@@ -188,6 +188,9 @@
 	row-gap: 0 !important;
 }
 
+.container-fluid-width.row {
+	flex-direction: row;
+}
 .container-fluid-width.align-start {
 	align-items: flex-start !important;
 }

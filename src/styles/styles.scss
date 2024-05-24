@@ -11,6 +11,27 @@
 // --fs-xxl: clamp(2.14rem, 0vi + 2.14rem, 2.14rem);
 // --fs-xxxl: clamp(2.67rem, 0vi + 2.67rem, 2.67rem);
 
+html.lenis,
+html.lenis body {
+	height: auto;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+	pointer-events: none;
+}
+
 body {
 	--base-red: #f25a38;
 	--shade1-red: #b44026;
@@ -1119,8 +1140,10 @@ table {
 	.tab-links {
 		text-align: left;
 		display: block;
+		height: auto;
+		font-size: 1rem;
 		h3 {
-			margin-bottom: 0;
+			margin: 0;
 		}
 		p {
 			margin-top: 1rem;

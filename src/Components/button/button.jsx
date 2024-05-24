@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-import { useContext } from 'react';
+import React, { forwardRef, useContext } from 'react';
 
 import { ThemeContext } from 'src/App';
 import { getColors } from 'src/hooks/use-color';
@@ -8,7 +8,10 @@ import { useGetButtonColor } from 'src/data/data';
 import { useMeasure } from '@uidotdev/usehooks';
 import { Link } from 'react-router-dom';
 
-export default function Button({ className, link, children }) {
+const Button = React.forwardRef(function Button(
+	{ className, link, children },
+	ref
+) {
 	const { smcTheme } = useContext(ThemeContext);
 
 	const [button, { width, height }] = useMeasure();
@@ -72,4 +75,6 @@ export default function Button({ className, link, children }) {
 			</motion.span>
 		</motion.span>
 	);
-}
+});
+
+export default Button;

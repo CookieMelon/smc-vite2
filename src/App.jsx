@@ -17,8 +17,13 @@ import CompanyDisclosures from './Pages/CompanyDisclosures';
 export const MenuContext = createContext([]);
 export const ThemeContext = createContext();
 export const PreloadContext = createContext({});
+export const LenixContext = createContext({});
+
+import { ReactLenis, useLenis } from 'lenis/react';
 
 function App() {
+	const lenis = useLenis(({ scroll }) => {});
+
 	const [preload, setPreload] = useState(true);
 	const [fakePreload, setFakePreload] = useState(false);
 	const [doneIntro, setDoneIntro] = useState(false);
@@ -80,29 +85,33 @@ function App() {
 	if (!router) return null;
 
 	return (
-		<div className='App'>
-			<PreloadContext.Provider
-				value={{
-					preload,
-					fakePreload,
-					setFakePreload,
-					doneIntro,
-					setDoneIntro,
-				}}>
-				<MenuContext.Provider value={menu}>
-					<ThemeContext.Provider value={{ smcTheme }}>
-						<Nav />
-						<Preload />
-						<div style={{ minHeight: '100vh' }}>
-							<AnimatePresence mode='wait'>
-								{React.cloneElement(router, { key: location.pathname })}
-							</AnimatePresence>
-						</div>
-						<Footer />
-					</ThemeContext.Provider>
-				</MenuContext.Provider>
-			</PreloadContext.Provider>
-		</div>
+		<ReactLenis root>
+			<div className='App'>
+				<LenixContext.Provider value={lenis}>
+					<PreloadContext.Provider
+						value={{
+							preload,
+							fakePreload,
+							setFakePreload,
+							doneIntro,
+							setDoneIntro,
+						}}>
+						<MenuContext.Provider value={menu}>
+							<ThemeContext.Provider value={{ smcTheme }}>
+								<Nav />
+								<Preload />
+								<div style={{ minHeight: '100vh' }}>
+									<AnimatePresence mode='wait'>
+										{React.cloneElement(router, { key: location.pathname })}
+									</AnimatePresence>
+								</div>
+								<Footer />
+							</ThemeContext.Provider>
+						</MenuContext.Provider>
+					</PreloadContext.Provider>
+				</LenixContext.Provider>
+			</div>
+		</ReactLenis>
 	);
 }
 
