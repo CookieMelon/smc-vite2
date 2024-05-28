@@ -1,6 +1,6 @@
-import { ThemeContext } from '../../App';
 import { useContext, useRef, useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
+import { ThemeContext } from '../../App';
 
 import { motion } from 'framer-motion';
 import { getColors } from '../../hooks/use-color';

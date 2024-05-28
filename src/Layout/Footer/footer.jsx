@@ -1,23 +1,19 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-import React, { useContext, useRef } from 'react';
+import { useRef } from 'react';
 
-import { PiCaretDown, PiCaretDownBold, PiXCircle } from 'react-icons/pi';
-import SocialIcons from './social-icon';
+import { PiCaretDown, PiXCircle } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 import { getColors } from 'src/hooks/use-color';
-import Button from 'src/Components/button/button';
+import SocialIcons from './social-icon';
 
-import 'src/styles/radix-accordion.scss';
-import 'src/styles/radix-dialog.scss';
 import SMC_SOR from 'src/images/SMC_SOR.png';
 import FooterLogos from 'src/images/footer-other-logo.png';
+import 'src/styles/radix-accordion.scss';
+import 'src/styles/radix-dialog.scss';
 
 import * as Accordion from '@radix-ui/react-accordion';
 import * as Dialog from '@radix-ui/react-dialog';
-
-import { ReactLenis } from 'lenis/react';
-import { LenixContext } from 'src/App';
 
 export default function Footer() {
 	const year = new Date().getFullYear();

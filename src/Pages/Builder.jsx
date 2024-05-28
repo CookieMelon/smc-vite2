@@ -3,63 +3,41 @@ import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Pillar from 'src/CMS/Pillar/Pillar';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
-import Footer from 'src/Layout/Footer/footer';
-import { useGetContent } from 'src/data/data';
-import React, { createContext, useContext, useEffect } from 'react';
+
 import parse from 'html-react-parser';
-import StackedImages from 'src/CMS/StackedImages/stackedimages';
-import OurStoryTab from 'src/CMS/OurStoryTab/ourstorytab';
-import Marquee from 'src/CMS/Marquee/Marquee';
-import SingleImage from 'src/CMS/SingleImage/SingleImage';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import FullPageBanner from 'src/CMS/FullPageBanner/fullpagebanner';
 import MainBanner from 'src/CMS/MainBanner/MainBanner';
-import { Link, useLocation } from 'react-router-dom';
-import { ThemeContext } from 'src/App';
-import VideoContent from 'src/CMS/VideoContent/Video';
-import PDFWidget from 'src/CMS/PDFWidget/PDFWidget';
+import Marquee from 'src/CMS/Marquee/Marquee';
+import OurStoryTab from 'src/CMS/OurStoryTab/ourstorytab';
+import SingleImage from 'src/CMS/SingleImage/SingleImage';
+import StackedImages from 'src/CMS/StackedImages/stackedimages';
+import { useGetPage } from 'src/data/data';
 
-import { PiCaretCircleRight } from 'react-icons/pi';
+import PDFWidget from 'src/CMS/PDFWidget/PDFWidget';
+import VideoContent from 'src/CMS/VideoContent/Video';
+
 import ImageSlider from 'src/CMS/ImageSlider/ImageSlider';
 
-import SustainabilitySection from 'src/CMS/SustainabilitySection/SustainabilitySection';
-import OurBusinesses from 'src/CMS/OurBusinesses/OurBusinesses';
-import Disclosures from './Disclosures';
-import HomepageWidget from 'src/CMS/HomepageWidget/HomepageWidget';
-import OurCompanyTab from 'src/CMS/OurCompanyTab/OurCompanyTab';
-import { createCMSElement } from 'src/hooks/use-createElements';
+import { useContext } from 'react';
+import { LenixContext } from 'src/App';
 import AnnualReports from 'src/CMS/AnnualReports/AnnualReports';
+import HomepageWidget from 'src/CMS/HomepageWidget/HomepageWidget';
+import OurBusinesses from 'src/CMS/OurBusinesses/OurBusinesses';
+import OurCompanyTab from 'src/CMS/OurCompanyTab/OurCompanyTab';
+import SustainabilitySection from 'src/CMS/SustainabilitySection/SustainabilitySection';
+import OurBusinessControls from 'src/Components/OurBusinessControls/OurBusinessControls';
+import { createCMSElement } from 'src/hooks/use-createElements';
+import Disclosures from './Disclosures';
 
-let defaultMenus = ['our-story', 'sustainability', 'corporate', 'careers'];
 export default function Builder() {
-	// const location = useLocation();
-	// const sections = useState([]);
+	const lenis = useContext(LenixContext);
 
-	const location = useLocation();
+	const { title, sections, content_type_id, page_slug, parent_id, theme } =
+		useGetPage();
 
-	let index = defaultMenus.indexOf(location.pathname.split('/')[1]);
-	let theme;
-	if (location.pathname === '/') index = -2;
-
-	switch (index) {
-		case 0:
-		case -1:
-			theme = 'smc-red';
-			break;
-		case 1:
-			theme = 'smc-null';
-			break;
-		case 2:
-			theme = 'smc-blue';
-			break;
-		case 3:
-			theme = 'smc-yellow';
-			break;
-		default:
-			theme = 'smc-default';
-			break;
-	}
-
-	const { title, sections, content_type_id, page_slug } = useGetContent();
+	useEffect(() => {}, [content_type_id]);
 
 	return (
 		<Fade>
@@ -116,6 +94,11 @@ export default function Builder() {
 							</React.Fragment>
 						);
 				})}
+
+			{
+				/* Our Businesses */
+				content_type_id === 10 && <OurBusinessControls parent_id={parent_id} />
+			}
 
 			{
 				/* Disclosures */
@@ -422,7 +405,6 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 					let link = children[4];
 					if (link) link.elements_attributes.to = link.elements_attributes.href;
 
-					console.log(link);
 					return (
 						<Column key={key}>
 							<div className={`business-item ${widgetClasses}`}>

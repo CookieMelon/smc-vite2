@@ -1,6 +1,6 @@
-import SingleParallax from 'src/CMS/SingleParallax/single-parallax';
 import { motion, useScroll } from 'framer-motion';
 import { useRef } from 'react';
+import SingleParallax from 'src/CMS/SingleParallax/single-parallax';
 
 export default function Marquee({ images, widgetClasses }) {
 	const marquee = useRef();

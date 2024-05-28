@@ -1,10 +1,8 @@
 import * as SelectPrimitive from '@radix-ui/react-select';
-import * as ScrollArea from '@radix-ui/react-scroll-area';
 
-import './radix-select.scss';
 import React from 'react';
 import { PiCaretDown, PiCaretUp, PiCheckLight } from 'react-icons/pi';
-import classNames from 'classnames';
+import './radix-select.scss';
 
 export const Select = React.forwardRef(
 	({ children, ...props }, forwardedRef) => {

@@ -1,6 +1,6 @@
 import 'src/styles/styles.scss';
 import Nav from 'src/Layout/Nav/Nav';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import { useGetTheme, useGetMenuNew } from 'src/data/data';
 import { useLocation, useRoutes } from 'react-router-dom';
 import ErrorPage from 'src/error-page';
@@ -18,11 +18,14 @@ export const MenuContext = createContext([]);
 export const ThemeContext = createContext();
 export const PreloadContext = createContext({});
 export const LenixContext = createContext({});
+export const APIContext = createContext({});
 
 import { ReactLenis, useLenis } from 'lenis/react';
 
 function App() {
 	const lenis = useLenis(({ scroll }) => {});
+
+	const [ourBusinesses, setOurBusinesses] = useState([]);
 
 	const [preload, setPreload] = useState(true);
 	const [fakePreload, setFakePreload] = useState(false);
@@ -84,31 +87,45 @@ function App() {
 
 	if (!router) return null;
 
+	useEffect(() => {
+		console.log(lenis);
+		if (lenis)
+			lenis.scrollTo(0, {
+				duration: 0,
+			});
+	}, [location, lenis]);
+
 	return (
 		<ReactLenis root>
 			<div className='App'>
 				<LenixContext.Provider value={lenis}>
-					<PreloadContext.Provider
+					<APIContext.Provider
 						value={{
-							preload,
-							fakePreload,
-							setFakePreload,
-							doneIntro,
-							setDoneIntro,
+							ourBusinesses,
+							setOurBusinesses,
 						}}>
-						<MenuContext.Provider value={menu}>
-							<ThemeContext.Provider value={{ smcTheme }}>
-								<Nav />
-								<Preload />
-								<div style={{ minHeight: '100vh' }}>
-									<AnimatePresence mode='wait'>
-										{React.cloneElement(router, { key: location.pathname })}
-									</AnimatePresence>
-								</div>
-								<Footer />
-							</ThemeContext.Provider>
-						</MenuContext.Provider>
-					</PreloadContext.Provider>
+						<PreloadContext.Provider
+							value={{
+								preload,
+								fakePreload,
+								setFakePreload,
+								doneIntro,
+								setDoneIntro,
+							}}>
+							<MenuContext.Provider value={menu}>
+								<ThemeContext.Provider value={{ smcTheme }}>
+									<Nav />
+									<Preload />
+									<div style={{ minHeight: '100vh' }}>
+										<AnimatePresence mode='wait'>
+											{React.cloneElement(router, { key: location.pathname })}
+										</AnimatePresence>
+									</div>
+									<Footer />
+								</ThemeContext.Provider>
+							</MenuContext.Provider>
+						</PreloadContext.Provider>
+					</APIContext.Provider>
 				</LenixContext.Provider>
 			</div>
 		</ReactLenis>

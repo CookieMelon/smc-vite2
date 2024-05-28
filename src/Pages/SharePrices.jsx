@@ -1,22 +1,19 @@
 import './DividendHistory.scss';
 
+import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
-import Fade from 'src/Layout/Fade/Fade';
-import { useGetContent } from 'src/data/data';
-import parse from 'html-react-parser';
 import Section from 'src/CMS/Section/Section';
-import Column from 'src/CMS/Column/column';
-import { AnimatePresence } from 'framer-motion';
-import Select from 'react-select';
-import { Search_defaultSettings, monthValues } from './select-settings';
+import Fade from 'src/Layout/Fade/Fade';
+import { useGetPage } from 'src/data/data';
 import { useScript } from 'src/hooks/use-script';
+import { monthValues } from './select-settings';
 
 const api_url = import.meta.env.VITE_API_URL;
 
 export default function SharePrices() {
-	const { title } = useGetContent();
+	const { title, theme } = useGetPage();
 	const [content, setContent] = useState(null);
 	const location = useLocation();
 
@@ -78,7 +75,7 @@ export default function SharePrices() {
 
 	return (
 		<Fade>
-			<PageBanner title={title} widgetClasses={''} />
+			<PageBanner title={title} widgetClasses={theme} />
 
 			<Section containerClass={'medium'}>
 				{/* <div>

@@ -1,7 +1,7 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
-import ImageSlider from 'src/CMS/ImageSlider/ImageSlider';
 import { useState } from 'react';
+import ImageSlider from 'src/CMS/ImageSlider/ImageSlider';
 import { createCMSElement } from 'src/hooks/use-createElements';
 
 export default function OurCompanyTab({ data }) {

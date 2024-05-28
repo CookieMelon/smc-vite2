@@ -2,7 +2,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 import { useContext, useRef } from 'react';
 
-import { useGetBannerData } from 'src/data/data';
 import { PreloadContext } from 'src/App';
 
 export default function MainBanner({ images, video }) {

@@ -1,7 +1,7 @@
-import { PreloadContext } from 'src/App';
-import { useGetBannerData } from 'src/data/data';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useContext } from 'react';
+import { PreloadContext } from 'src/App';
+import { useGetBannerData } from 'src/data/data';
 
 export default function Preload() {
 	const { fakePreload } = useContext(PreloadContext);

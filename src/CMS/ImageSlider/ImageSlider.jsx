@@ -1,13 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useScroll } from 'framer-motion';
-import {
-	PiCaretCircleLeft,
-	PiCaretCircleRight,
-	PiCaretLeftBold,
-	PiCaretRightBold,
-} from 'react-icons/pi';
-import { getColors } from 'src/hooks/use-color';
 import parse from 'html-react-parser';
+import { useEffect, useRef, useState } from 'react';
+import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
+import { getColors } from 'src/hooks/use-color';
 
 export default function ImageSlider({
 	slides,

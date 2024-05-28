@@ -1,29 +1,28 @@
 import {
-	useGetBannerData,
-	useGetMenuNew,
-	useGetToggleFill,
-} from '../../data/data';
-import { MenuContext, PreloadContext, ThemeContext } from '../../App';
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
-import {
 	animate,
 	motion,
 	useCycle,
 	useMotionValueEvent,
 	useScroll,
 } from 'framer-motion';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { MenuContext, PreloadContext, ThemeContext } from '../../App';
+import { useGetBannerData, useGetToggleFill } from '../../data/data';
 import { enterDuration } from '../layout-anim';
 
-import Escudo from '../../images/smc-logo.svg';
-import EscudoWhite from '../../images/smc-logo-white.svg';
 import EscudoGray from '../../images/smc-logo-gray.svg';
+import EscudoWhite from '../../images/smc-logo-white.svg';
+import Escudo from '../../images/smc-logo.svg';
 
-import 'src/styles/radix-dialog.scss';
 import * as Dialog from '@radix-ui/react-dialog';
+import 'src/styles/radix-dialog.scss';
 
 import { PiCaretDownBold, PiCaretUpBold, PiXCircle } from 'react-icons/pi';
 
+import { useWindowSize } from '@uidotdev/usehooks';
+import { getColors } from '../../hooks/use-color';
+import SocialIcons, { FacebookIcon } from '../Footer/social-icon';
 import {
 	floatingNavContent_variants,
 	path1_variants,
@@ -32,10 +31,7 @@ import {
 	toggleSettings,
 	transitionSettings,
 } from './anim';
-import { useWindowSize } from '@uidotdev/usehooks';
-import { getColors } from '../../hooks/use-color';
 import Search from './search';
-import SocialIcons, { FacebookIcon } from '../Footer/social-icon';
 
 const preload_variants = {
 	initial: {

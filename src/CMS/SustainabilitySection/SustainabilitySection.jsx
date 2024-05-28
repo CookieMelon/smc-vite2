@@ -2,7 +2,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Button from 'src/Components/button/button';
 
 export default function SustainabilitySection({ images, label, link }) {
 	const cta = useRef();

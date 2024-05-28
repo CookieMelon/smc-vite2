@@ -1,28 +1,18 @@
+import parse from 'html-react-parser';
 import React, { useEffect, useState } from 'react';
 import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
-import { useGetContent } from 'src/data/data';
-import parse from 'html-react-parser';
-
-import { motion } from 'framer-motion';
+import { useGetPage } from 'src/data/data';
 
 const api_url = import.meta.env.VITE_API_URL;
 
-import {
-	Button,
-	Label,
-	ListBox,
-	ListBoxItem,
-	Popover,
-	Select,
-	SelectValue,
-} from 'react-aria-components';
 import { AnimatePresence } from 'framer-motion';
+import { Select, SelectItem } from 'src/Components/Select/Select';
 
 export default function FinancialHighlights() {
-	const { title } = useGetContent();
+	const { title, theme } = useGetPage();
 	const [content, setContent] = useState([]);
 
 	const [selected, setSelected] = useState();
@@ -40,31 +30,30 @@ export default function FinancialHighlights() {
 			})
 			.then((data) => {
 				setContent((prev) => (prev = data));
+				setSelected(data[0].id);
 			});
 	}, []);
 
+	console.log(content);
+
 	return (
 		<Fade>
-			<PageBanner title={title} widgetClasses={''} />
+			<PageBanner title={title} widgetClasses={theme} />
 			<Section containerClass={'medium'}>
 				<Column>
-					<Select placeholder='Select year' onSelectionChange={setSelected}>
-						<Label>Year</Label>
-						<Button>
-							<SelectValue />
-							<span aria-hidden='true'>▼</span>
-						</Button>
-						<Popover maxHeight={10}>
-							<ListBox items={content}>
-								{/* <ListBoxItem>Test</ListBoxItem>
-								{content.length !== 0 &&
-									content.map((c) => {
-										return <ListBoxItem>{c.title}</ListBoxItem>;
-									})} */}
-								{(item) => <ListBoxItem>{item.title}</ListBoxItem>}
-							</ListBox>
-						</Popover>
-					</Select>
+					<div className='disclosure-filter'>
+						<Select
+							placeholder='Select year'
+							value={selected}
+							onValueChange={setSelected}>
+							{content &&
+								content.map((c) => {
+									return <SelectItem value={c.id}>{c.title}</SelectItem>;
+								})}
+						</Select>
+					</div>
+				</Column>
+				<Column>
 					<AnimatePresence>
 						{content.length &&
 							content.map((c) => {

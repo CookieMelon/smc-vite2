@@ -1,11 +1,10 @@
-import Button from 'src/Components/button/button';
-import parse from 'html-react-parser';
 import {
 	motion,
 	useMotionValueEvent,
 	useScroll,
 	useTransform,
 } from 'framer-motion';
+import parse from 'html-react-parser';
 import { useEffect, useRef, useState } from 'react';
 
 import { useWindowSize } from '@uidotdev/usehooks';

@@ -1,10 +1,8 @@
-import { ThemeContext } from 'src/App';
-import { enterDuration } from 'src/Layout/layout-anim';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import useAnim from 'src/hooks/use-anim';
+import { enterDuration } from 'src/Layout/layout-anim';
 import { getColors } from 'src/hooks/use-color';
 
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function PageBanner({
 	title,

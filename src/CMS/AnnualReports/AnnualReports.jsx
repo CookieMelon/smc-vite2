@@ -1,12 +1,11 @@
-import { useScroll, motion, AnimatePresence } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from 'react';
 
 import parse from 'html-react-parser';
 
-import Button from 'src/Components/button/button';
 import { PiCaretCircleLeft, PiCaretCircleRight } from 'react-icons/pi';
-import { getColors } from 'src/hooks/use-color';
 import { Link } from 'react-router-dom';
+import { getColors } from 'src/hooks/use-color';
 
 export default function AnnualReports({ slides }) {
 	const { blue } = getColors;
@@ -81,7 +80,7 @@ export default function AnnualReports({ slides }) {
 									<Link
 										to={slides[index].link}
 										target='_blank'
-										className={'btn-bordered pri-btn'}>
+										className={'btn btn-bordered pri-btn'}>
 										Learn more
 									</Link>
 								</motion.p>
@@ -114,7 +113,9 @@ export default function AnnualReports({ slides }) {
 									z: i < index ? '0' : z[getDistance(i, index)],
 									x: `${(index - i) * 40 - index * 100}%`,
 								}}>
-								<img src={slide.img.src} alt={slide.img.alt} />
+								<Link to={slides[index].link} target='_blank'>
+									<img src={slide.img.src} alt={slide.img.alt} />
+								</Link>
 							</motion.div>
 						);
 					})}
@@ -132,7 +133,7 @@ export default function AnnualReports({ slides }) {
 							setIndex((prev) => prev - 1);
 							setDirection(-1);
 						}}>
-						<PiCaretCircleLeft size={'35px'} color={blue} />
+						<PiCaretCircleLeft size={'2.5rem'} color={blue} />
 					</motion.button>
 					<motion.button
 						className='button right'
@@ -146,7 +147,7 @@ export default function AnnualReports({ slides }) {
 							setIndex((prev) => prev + 1);
 							setDirection(1);
 						}}>
-						<PiCaretCircleRight size={'35px'} color={blue} />
+						<PiCaretCircleRight size={'2.5rem'} color={blue} />
 					</motion.button>
 				</div>
 			</div>

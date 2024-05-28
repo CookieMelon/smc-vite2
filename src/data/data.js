@@ -1,7 +1,7 @@
-import { ThemeContext } from '../App';
-import { getColors } from '../hooks/use-color';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { MenuContext, ThemeContext } from '../App';
+import { getColors } from '../hooks/use-color';
 // import { api_url } from 'src/hooks/use-env';
 
 const api_url = import.meta.env.VITE_API_URL;
@@ -205,12 +205,28 @@ export const useGetToggleFill = () => {
 	return { toggleFill };
 };
 
-export const useGetContent = () => {
+export const useGetPage = () => {
 	const location = useLocation();
-	const [[title, sections, content_type_id, page_slug], setData] = useState([
-		'',
-		[],
-	]);
+	const menu = useContext(MenuContext);
+	const [[title, sections, content_type_id, page_slug, parent_id], setData] =
+		useState(['', []]);
+
+	const [theme, setTheme] = useState('');
+	const getTheme = (index) => {
+		switch (index) {
+			case 0:
+			case -1:
+				return 'smc-red';
+			case 1:
+				return 'smc-null';
+			case 2:
+				return 'smc-blue';
+			case 3:
+				return 'smc-yellow';
+			default:
+				return 'smc-default';
+		}
+	};
 	useEffect(() => {
 		let path =
 			location.pathname === '/' ? 'home' : location.pathname.split('/').pop();
@@ -231,11 +247,21 @@ export const useGetContent = () => {
 					data.api_sections,
 					data.content_type_id,
 					data.page_slug,
+					data.parent_page_id,
 				]);
-			});
-	}, []);
 
-	return { title, sections, content_type_id, page_slug };
+				console.log(data.page_slug_full);
+
+				let parentLinks = menu.map((item) => item.page_slug);
+
+				let index = parentLinks.indexOf(data.page_slug_full.split('/')[0]);
+
+				if (location.pathname === '/') index = -2;
+				setTheme(getTheme(index));
+			});
+	}, [menu]);
+
+	return { title, sections, content_type_id, page_slug, parent_id, theme };
 };
 
 export const useGetDisclosureFiles = (page_slug, page, keyword, year) => {
@@ -302,4 +328,50 @@ export const useGetCompanyDiclosures = () => {
 				// console.log(data);
 			});
 	}, []);
+};
+
+export const useGetDataList = (content_type_id) => {
+	useEffect(() => {
+		fetch(`${api_url}page/${path}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				// Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				setData([
+					data.page_title,
+					data.api_sections,
+					data.content_type_id,
+					data.page_slug,
+					data.parent_page_id,
+				]);
+			});
+	}, []);
+};
+
+export const useSearchMenu = (id) => {
+	const [menuItem, setMenuItem] = useState();
+	const menu = useContext(MenuContext);
+
+	const searchMenu = (element, id) => {
+		element.map((item) => {
+			if (item.page_id === id) {
+				setMenuItem((prev) => (prev = item));
+			}
+			if (item.navigations.length !== 0)
+				return searchMenu(item.navigations, id);
+		});
+	};
+
+	useEffect(() => {
+		if (menu.length === 0) return;
+		searchMenu(menu, id);
+	}, [menu]);
+
+	return { menuItem };
 };

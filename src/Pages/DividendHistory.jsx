@@ -1,17 +1,16 @@
+import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import PageBanner from 'src/CMS/PageBanner/PageBanner';
-import Fade from 'src/Layout/Fade/Fade';
-import { useGetContent } from 'src/data/data';
-import parse from 'html-react-parser';
-import Section from 'src/CMS/Section/Section';
-import Column from 'src/CMS/Column/column';
-import { AnimatePresence } from 'framer-motion';
 import { Tab, TabList, TabPanel, Tabs } from 'react-tabs';
+import Column from 'src/CMS/Column/column';
+import PageBanner from 'src/CMS/PageBanner/PageBanner';
+import Section from 'src/CMS/Section/Section';
+import Fade from 'src/Layout/Fade/Fade';
+import { useGetPage } from 'src/data/data';
 const api_url = import.meta.env.VITE_API_URL;
 
 export default function DividendHistory() {
-	const { title } = useGetContent();
+	const { title } = useGetPage();
 	const [content, setContent] = useState(null);
 	const location = useLocation();
 	const search = useLocation().search;

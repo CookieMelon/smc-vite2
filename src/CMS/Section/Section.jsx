@@ -1,5 +1,5 @@
-import useAnim from 'src/hooks/use-anim';
 import { motion } from 'framer-motion';
+import useAnim from 'src/hooks/use-anim';
 
 export default function Section({
 	children,

@@ -143,9 +143,11 @@
 
 .tab__source {
 	// display: flex;
+	background-color: var(--base-blue);
 	align-items: flex-start;
 	flex-wrap: wrap;
 	span.active {
+		background-color: var(--shade1-blue);
 		letter-spacing: 0.05rem;
 	}
 	span {
@@ -191,6 +193,7 @@
 }
 
 .tab {
+	width: 100%;
 	// .btn, span {
 	//   cursor: pointer;
 	//   min-width: 0;

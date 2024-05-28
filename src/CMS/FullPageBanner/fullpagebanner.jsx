@@ -1,5 +1,5 @@
-import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 export default function FullPageBanner({ image, caption, children }) {
 	const banner = useRef();

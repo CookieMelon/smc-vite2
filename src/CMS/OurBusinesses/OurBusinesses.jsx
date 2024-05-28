@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
-import parse from 'html-react-parser';
 import {
+	AnimatePresence,
 	motion,
 	useMotionValueEvent,
 	useScroll,
-	AnimatePresence,
 } from 'framer-motion';
-
-import Button from 'src/Components/button/button';
+import parse from 'html-react-parser';
+import { useEffect, useRef, useState } from 'react';
 
 import { useWindowSize } from '@uidotdev/usehooks';
 

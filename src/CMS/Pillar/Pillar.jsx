@@ -2,8 +2,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 
 import { useEffect, useRef, useState } from 'react';
 
-import { easeInOut } from 'framer-motion';
 import { useWindowSize } from '@uidotdev/usehooks';
+import { easeInOut } from 'framer-motion';
 import parse from 'html-react-parser';
 
 export default function Pillar({ content, widgetClasses, children }) {

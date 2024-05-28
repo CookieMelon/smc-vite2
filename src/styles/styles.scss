@@ -138,17 +138,17 @@ h1,
 .heading-1 {
 	line-height: 1.065;
 	margin-bottom: 1em;
-	font-size: clamp(2.67rem, 0vi + 2.67rem, 2.67rem);
+	font-size: clamp(2.02rem, 1.79vi + 0.93rem, 2.67rem);
 	font-weight: 900;
 }
 
 h2,
 .heading-2 {
-	font-size: clamp(2.14rem, 0vi + 2.14rem, 2.14rem);
+	font-size: clamp(1.68rem, 1.25vi + 0.92rem, 2.14rem);
 }
 h3,
 .heading-3 {
-	font-size: clamp(1.71rem, 0vi + 1.71rem, 1.71rem);
+	font-size: clamp(1.4rem, 0.84vi + 0.89rem, 1.71rem);
 	line-height: 1.25;
 	margin-bottom: 1em;
 	font-weight: 600;
@@ -156,7 +156,7 @@ h3,
 
 h4,
 .heading-4 {
-	font-size: clamp(1.37rem, 0vi + 1.37rem, 1.37rem);
+	font-size: clamp(1.17rem, 0.54vi + 0.84rem, 1.37rem);
 	line-height: 1.45;
 	margin-bottom: 1em;
 	font-weight: 600;
@@ -164,7 +164,7 @@ h4,
 
 h5,
 .heading-5 {
-	font-size: clamp(1.09rem, 0vi + 1.09rem, 1.09rem);
+	font-size: clamp(0.97rem, 0.33vi + 0.77rem, 1.09rem);
 	font-weight: 600;
 	line-height: 1.55;
 }
@@ -172,7 +172,7 @@ h5,
 h6,
 .heading-6 {
 	margin-top: 2rem;
-	font-size: clamp(0.88rem, 0vi + 0.88rem, 0.88rem);
+	font-size: clamp(0.81rem, 0.17vi + 0.71rem, 0.88rem);
 	font-weight: 600;
 }
 
@@ -1090,12 +1090,12 @@ table {
 			text-align: left;
 			line-height: 1.25;
 			&:first-child {
-				border-top-left-radius: 10px;
-				border-bottom-left-radius: 10px;
+				// border-top-left-radius: 10px;
+				// border-bottom-left-radius: 10px;
 			}
 			&:last-child {
-				border-top-right-radius: 10px;
-				border-bottom-right-radius: 10px;
+				// border-top-right-radius: 10px;
+				// border-bottom-right-radius: 10px;
 				text-align: right;
 			}
 			&:last-child:only-child {
@@ -1312,10 +1312,10 @@ table {
 	}
 }
 @media only screen and (max-width: 980px) {
-	body,
-	html {
-		font-size: 13px;
-	}
+	// body,
+	// html {
+	// 	font-size: 13px;
+	// }
 
 	p,
 	table {
@@ -1356,10 +1356,10 @@ table {
 }
 
 @media only screen and (max-width: 768px) {
-	body,
-	html {
-		font-size: 12px;
-	}
+	// body,
+	// html {
+	// 	font-size: 12px;
+	// }
 
 	.float {
 		width: 100%;
@@ -1520,7 +1520,7 @@ table {
 	body {
 		--section-padding: 3rem;
 		--container-padding: 2rem;
-		--gap-padding: 1.5rem;
+		// --gap-padding: 1.5rem;
 	}
 
 	.section-content:last-of-type {

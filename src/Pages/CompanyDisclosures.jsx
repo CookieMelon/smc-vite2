@@ -1,23 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import PageBanner from 'src/CMS/PageBanner/PageBanner';
-import Fade from 'src/Layout/Fade/Fade';
-import {
-	useGetCompanyDiclosures,
-	useGetContent,
-	useGetDisclosureFiles,
-} from 'src/data/data';
-import parse from 'html-react-parser';
-import Section from 'src/CMS/Section/Section';
 import Column from 'src/CMS/Column/column';
-import { AnimatePresence } from 'framer-motion';
 import PDFItem from 'src/CMS/PDFItem/PDFItem';
-import { PiCaretCircleLeft, PiCaretCircleRight } from 'react-icons/pi';
 import PDFWidget from 'src/CMS/PDFWidget/PDFWidget';
+import PageBanner from 'src/CMS/PageBanner/PageBanner';
+import Section from 'src/CMS/Section/Section';
+import Fade from 'src/Layout/Fade/Fade';
+import { useGetPage } from 'src/data/data';
 const api_url = import.meta.env.VITE_API_URL;
 
 export default function CompanyDisclosures({ page_slug }) {
-	const { title } = useGetContent();
+	const { title, theme } = useGetPage();
 	const [page, setPage] = useState(1);
 	const [keyword, setKeyword] = useState('');
 	const [year, setYear] = useState('');
@@ -79,8 +71,11 @@ export default function CompanyDisclosures({ page_slug }) {
 
 	return (
 		<Fade>
-			<PageBanner title={title} widgetClasses={''} />
-			<Section containerClass='medium' sectionClass={'column-4'}>
+			<PageBanner title={title} widgetClasses={theme} />
+			<Section
+				containerClass='medium'
+				sectionClass={'column-4'}
+				containerStyle={{ '--column-gap': '1rem' }}>
 				<Column columnClasses={'full'}>
 					{parent.map((item) => {
 						if (item.children.length === 0)

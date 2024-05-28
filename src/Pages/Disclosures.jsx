@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { useGetContent, useGetDisclosureFiles } from 'src/data/data';
+import { useGetDisclosureFiles } from 'src/data/data';
 
-import Section from 'src/CMS/Section/Section';
 import Column from 'src/CMS/Column/column';
+import Section from 'src/CMS/Section/Section';
 
-import PDFItem from 'src/CMS/PDFItem/PDFItem';
 import { PiCaretCircleLeft, PiCaretCircleRight } from 'react-icons/pi';
+import PDFItem from 'src/CMS/PDFItem/PDFItem';
 import { Select, SelectItem } from 'src/Components/Select/Select';
 
 const api_url = import.meta.env.VITE_API_URL;
