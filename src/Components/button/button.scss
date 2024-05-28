@@ -1,58 +1,28 @@
 .smc-red {
 	.btn {
-		color: var(--base-red);
-	}
+		--button-color-default: var(--base-red);
+		--button-bg-default: white;
+		--button-border-default: var(--base-red);
 
-	.btn.btn-bordered {
-		border-color: var(--base-red);
-		&:hover {
-			background-color: var(--base-red);
-		}
-	}
-	.btn.btn-stacked {
-		&:hover {
-			background-color: var(--base-red);
-			color: white;
-		}
+		--button-color-hover: white;
+		--button-bg-hover: var(--base-red);
+		--button-border-hover: var(--base-red);
 	}
 }
 
 .smc-blue {
 	.btn {
-		color: var(--base-blue);
-	}
+		--button-color-default: var(--base-blue);
+		--button-bg-default: white;
+		--button-border-default: var(--base-blue);
 
-	.btn.btn-bordered {
-		border-color: var(--base-blue);
-		&:hover {
-			background-color: var(--base-blue);
-		}
-	}
-	.btn.btn-stacked {
-		&:hover {
-			background-color: var(--base-blue);
-			color: white;
-		}
+		--button-color-hover: white;
+		--button-bg-hover: var(--base-blue);
+		--button-border-hover: var(--base-blue);
 	}
 }
 
 .smc-yellow {
-	.btn {
-		color: var(--base-black);
-	}
-
-	.btn.btn-bordered {
-		border-color: var(--base-black);
-		&:hover {
-			background-color: var(--base-black);
-		}
-	}
-	.btn.btn-stacked {
-		&:hover {
-			background-color: var(--base-black);
-			color: white;
-		}
-	}
 }
 
 button {
@@ -62,14 +32,27 @@ button {
 	outline: 0;
 	cursor: pointer;
 }
+
 .btn {
+	--button-color-default: var(--base-black);
+	--button-bg-default: white;
+	--button-border-default: var(--base-black);
+
+	--button-color-hover: white;
+	--button-bg-hover: var(--base-black);
+	--button-border-hover: var(--base-black);
+
 	cursor: pointer;
 	border-radius: 2rem;
 	display: inline-flex;
 	padding: 0.5rem 2rem;
 	align-items: center;
 	border: 2px solid transparent;
-	background-color: var(--gray-2);
+
+	background-color: var(--button-bg-default);
+	border-color: var(--button-border-default);
+	color: var(--button-color-default);
+
 	font-weight: bold;
 	transform-origin: center;
 	position: relative;
@@ -80,8 +63,13 @@ button {
 	transition: background-color 0.1s ease-in;
 	transition-property: background-color, color;
 	&:hover {
-		font-weight: bold;
+		color: var(--button-color-hover);
+		background-color: var(--button-bg-hover);
+		border-color: var(--button-border-hover);
+
+		font-weight: initial;
 		text-decoration: none;
+		font-weight: bold;
 	}
 
 	&.active {
@@ -109,8 +97,13 @@ button {
 	color: var(--base-blue);
 }
 .btn.btn-bordered {
-	background-color: transparent;
-	border-color: var(--base-black);
+	background-color: var(--button-bg-default);
+	border-color: var(--button-border-default);
+	&:hover {
+		background-color: var(--button-bg-hover);
+		border-color: var(--button-border-hover);
+		color: var(--button-color-hover);
+	}
 }
 
 .btn.btn-bordered.pri {
@@ -171,17 +164,13 @@ button {
 
 .subsidiary-btn {
 	margin-left: auto;
-	text-transform: uppercase;
-	font-weight: normal;
 	border-radius: 2rem !important;
-	padding: 1.5rem !important;
 	svg {
 		margin-left: 0.5rem;
 	}
 	&:hover {
 		background-color: var(--base-black) !important;
 		color: white;
-		font-weight: 600 !important;
 	}
 }
 
