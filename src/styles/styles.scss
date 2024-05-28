@@ -89,7 +89,16 @@ a {
 	text-decoration: none;
 	&:hover {
 		text-decoration: underline;
-		font-weight: 500;
+		font-weight: inherit;
+	}
+}
+
+p {
+	a {
+		&:hover {
+			text-decoration: underline;
+			font-weight: bolder;
+		}
 	}
 }
 
@@ -168,8 +177,8 @@ h6,
 }
 
 p {
-	margin: 2rem 0;
-	&:first-child {
+	margin: 1.5rem 0;
+	&:first-of-type {
 		margin-top: 0;
 	}
 	&:last-child {
@@ -192,6 +201,7 @@ strong {
 }
 
 .radio-box,
+.SelectTrigger,
 button,
 input,
 select,
@@ -206,7 +216,6 @@ textarea {
 	display: flex;
 	align-items: center;
 	border: 1px solid #a7a9ac;
-	border-radius: 0;
 	padding: 0.25rem 1rem;
 	line-height: normal;
 	border-radius: 1rem;
@@ -804,7 +813,7 @@ a {
 	border-top: 1px solid var(--gray-3);
 	padding: var(--gap-padding) 0;
 	.business-name {
-		margin: 0 0 0.5rem;
+		margin: 0 0 1rem;
 		color: var(--base-red);
 	}
 
@@ -1032,6 +1041,11 @@ a {
 
 .bd-column {
 	flex: 1 1 500px !important;
+	img {
+		display: block;
+		margin: 2rem 0;
+		width: 100%;
+	}
 	h2 {
 		margin-top: 2rem;
 	}
@@ -1040,7 +1054,13 @@ a {
 	}
 }
 .bo-column {
-	flex: 0 1 250px !important;
+	position: sticky;
+	top: 0;
+	flex: 0 1 300px !important;
+	font-size: 0.85rem;
+	text-wrap: pretty;
+	padding-right: 2rem;
+	overflow-wrap: break-word;
 	.line {
 		height: 2px;
 		width: 100px;
@@ -1068,6 +1088,7 @@ table {
 		td,
 		th {
 			text-align: left;
+			line-height: 1.25;
 			&:first-child {
 				border-top-left-radius: 10px;
 				border-bottom-left-radius: 10px;
@@ -1204,6 +1225,9 @@ table {
 	transform: translate(0, 0%);
 	grid-area: 1 / 1;
 	position: relative;
+	img {
+		max-width: 100%;
+	}
 }
 .ourstory-tab-icon {
 	position: absolute;
@@ -1243,6 +1267,13 @@ table {
 	}
 }
 
+.disclosure-filter {
+	display: flex;
+	gap: 2rem;
+	input:first-child {
+		margin-left: auto;
+	}
+}
 @media only screen and (min-width: 1560px) {
 	h1,
 	.heading-1 {
@@ -1320,6 +1351,10 @@ table {
 	}
 }
 
+.table-responsive {
+	font-size: 0.75rem;
+}
+
 @media only screen and (max-width: 768px) {
 	body,
 	html {
@@ -1360,7 +1395,6 @@ table {
 	}
 
 	.table-responsive {
-		font-size: 1rem;
 		.table__header {
 			display: none;
 		}
@@ -1461,6 +1495,12 @@ table {
 }
 
 @media only screen and (max-width: 450px) {
+	.disclosure-filter {
+		flex-wrap: wrap;
+		> * {
+			flex: 1 1 0%;
+		}
+	}
 	.exchange-item {
 		flex-direction: column;
 		justify-content: center;

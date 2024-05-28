@@ -122,7 +122,6 @@ export default function OurStoryTab({ data }) {
 				<div className='tab-target'>
 					<div className='ourstory-grid'>
 						{data.map((content, index) => {
-							console.log(content.target);
 							return (
 								<motion.div
 									key={`ourstory-tab-item_${index}`}

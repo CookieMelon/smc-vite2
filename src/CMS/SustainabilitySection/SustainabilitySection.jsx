@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Button from 'src/Components/button/button';
 
 export default function SustainabilitySection({ images, label, link }) {
@@ -38,21 +39,29 @@ export default function SustainabilitySection({ images, label, link }) {
 								}}></motion.div>
 						);
 					})}
-					<motion.h2
-						className='heading-2'
-						style={{
-							x: '-50%',
-							y: yTextValues,
-							zIndex: images.length / 2 - 1,
-						}}>
-						At vero eos et accusamus
-					</motion.h2>
-					<div className='sustainability-btn'>
-						<Button href='/' className='btn btn-bordered white' link='/'>
-							Visit our sustainability site
-						</Button>
-					</div>
+
+					{label && (
+						<motion.h2
+							className='heading-2'
+							style={{
+								x: '-50%',
+								y: yTextValues,
+								zIndex: images.length / 2 - 1,
+							}}>
+							{label}
+						</motion.h2>
+					)}
 				</div>
+				{link && (
+					<div className='sustainability-btn'>
+						<Link
+							to={link.elements_attributes.to}
+							className='btn btn-bordered white'
+							target='_blank'>
+							{link.elements_slot}
+						</Link>
+					</div>
+				)}
 			</div>
 		</div>
 	);

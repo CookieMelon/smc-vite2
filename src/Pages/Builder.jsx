@@ -283,8 +283,7 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 
 					return (
 						<Column key={key} columnClasses={childrenClasses}>
-							{parse(content)}
-							{}
+							{children.map((child) => createCMSElement(child))}
 						</Column>
 					);
 				}
@@ -292,27 +291,7 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 				if (widget.widgets_name === 'Text Column') {
 					return (
 						<Column key={key} columnClasses={widgetClasses}>
-							<h2>{children[0].elements_slot}</h2>
-							{parse(children[1].elements_slot)}
-
-							<p>
-								{children[1].api_childrens.map((child) => {
-									if (child.elements_name === 'Hyperlink') {
-										let elementClasses = child.elements_class
-											? child.elements_class.join(' ')
-											: '';
-
-										return (
-											<Link
-												key={child.element_code}
-												className={elementClasses}
-												to={child.elements_attributes.src}>
-												{child.elements_attributes.value}
-											</Link>
-										);
-									}
-								})}
-							</p>
+							{children.map((child) => createCMSElement(child))}
 						</Column>
 					);
 				}
@@ -441,15 +420,26 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 						: 'heading-3';
 					let desc = children[3];
 					let link = children[4];
+					if (link) link.elements_attributes.to = link.elements_attributes.href;
 
+					console.log(link);
 					return (
 						<Column key={key}>
 							<div className={`business-item ${widgetClasses}`}>
 								<div className='img-container'>
-									<img
-										src={image.elements_attributes.src}
-										alt={image.elements_attributes.alt}
-									/>
+									{link ? (
+										<Link {...link.elements_attributes}>
+											<img
+												src={image.elements_attributes.src}
+												alt={image.elements_attributes.alt}
+											/>
+										</Link>
+									) : (
+										<img
+											src={image.elements_attributes.src}
+											alt={image.elements_attributes.alt}
+										/>
+									)}
 								</div>
 								<div className='desc-container'>
 									{small.elements_slot && (
@@ -459,12 +449,17 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 									)}
 									{title.elements_slot && (
 										<h3 className={`business-name ${titleClass}`}>
-											{title.elements_slot}
+											{link ? (
+												<Link {...link.elements_attributes}>
+													{title.elements_slot}
+												</Link>
+											) : (
+												title.elements_slot
+											)}
 										</h3>
 									)}
 
 									{desc.elements_slot && parse(desc.elements_slot)}
-									{}
 								</div>
 							</div>
 						</Column>
@@ -560,7 +555,17 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 					images.push(children[1].elements_attributes.src);
 					images.push(children[2].elements_attributes.src);
 
-					return <SustainabilitySection images={images} key={key} />;
+					let label = children[3].elements_slot;
+					let link = children[4];
+
+					return (
+						<SustainabilitySection
+							images={images}
+							label={label}
+							link={link}
+							key={key}
+						/>
+					);
 				}
 
 				let ourbusiness_widget = [];
@@ -573,12 +578,13 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 					// let link = div[3].;
 
 					children.forEach((d) => {
-						ourbusiness_widget.push({
-							img: d.api_childrens[0].elements_attributes,
-							title: d.api_childrens[1].elements_slot,
-							description: d.api_childrens[2].elements_slot,
-							link: d.api_childrens[3].elements_attributes.to,
-						});
+						if (d.api_childrens.length)
+							ourbusiness_widget.push({
+								img: d.api_childrens[0].elements_attributes,
+								title: d.api_childrens[1].elements_slot,
+								description: d.api_childrens[2].elements_slot,
+								link: d.api_childrens[3].elements_attributes.to,
+							});
 					});
 
 					return <OurBusinesses data={ourbusiness_widget} key={key} />;
@@ -611,6 +617,8 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 				if (widget.widgets_name === 'Our Company - Tabs') {
 					let data = [];
 					children.map((div) => {
+						if (div.api_childrens === 0) return;
+
 						let trigger = div.api_childrens[0];
 						let target = div.api_childrens[1];
 

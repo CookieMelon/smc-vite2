@@ -85,7 +85,6 @@
 
 .table th,
 .table .table__header {
-	background-color: #ed6b5a;
 	color: white;
 	text-transform: uppercase;
 	text-decoration: none;
@@ -237,7 +236,8 @@
 .top20.table th,
 .top20.table tr,
 .top20.table td {
-	padding: 5px;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
 }
 
 form[name='frmc'],

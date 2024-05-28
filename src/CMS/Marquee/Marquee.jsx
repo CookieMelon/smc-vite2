@@ -12,7 +12,7 @@ export default function Marquee({ images, widgetClasses }) {
 	const reversed = widgetClasses.includes('reversed');
 
 	return (
-		<div className='marquee' useRef={marquee}>
+		<div className='marquee' ref={marquee}>
 			<motion.div
 				className='marquee-overflow'
 				initial={{

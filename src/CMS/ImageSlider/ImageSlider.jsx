@@ -236,10 +236,11 @@ export default function ImageSlider({
 					</div>
 				)}
 			</div>
-			<AnimatePresence>
+			<AnimatePresence mode='popLayout'>
 				{slides.map((slide, index) => {
 					return (
-						selected === index && (
+						selected === index &&
+						slide.desc && (
 							<motion.div
 								key={`image-description_${index}`}
 								className={`image-description ${widgetClasses}`}

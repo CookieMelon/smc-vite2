@@ -45,7 +45,9 @@ export default function Footer() {
 					<SocialIcons />
 					<Dialog.Root modal={true}>
 						<Dialog.Trigger asChild>
-							<button className='Button violet'>View Subsidiary Website</button>
+							<button className='subsidiary-btn btn btn-bordered'>
+								View Subsidiary Website
+							</button>
 							{/* <Button className='subsidiary-btn btn btn-bordered'>
 								Subsidiary Websites
 								<PiCaretDownBold fontSize={'1.35rem'} />
@@ -262,7 +264,7 @@ export default function Footer() {
 				<Accordion.Root className='AccordionRoot' type='single' collapsible>
 					<div className='footer-links-col'>
 						<Accordion.Item className='AccordionItem' value='item-1'>
-							<Accordion.AccordionHeader className='AccordionHeader'>
+							<Accordion.AccordionHeader className='AccordionHeader heading-6'>
 								<Accordion.AccordionTrigger className='AccordionTrigger'>
 									<span>Corporate Head Office</span>
 									<PiCaretDown />
@@ -284,7 +286,7 @@ export default function Footer() {
 						</Accordion.Item>
 
 						<Accordion.Item className='AccordionItem' value='item-2'>
-							<Accordion.AccordionHeader className='AccordionHeader'>
+							<Accordion.AccordionHeader className='AccordionHeader heading-6'>
 								<Accordion.AccordionTrigger className='AccordionTrigger'>
 									<span>San Miguel Customer Care Hotline</span>
 									<PiCaretDown />
@@ -300,14 +302,16 @@ export default function Footer() {
 									<br />
 									Toll Free 1-800-1888-7621
 									<br />
-									customercare@sanmiguel.com.ph
+									<a href='customercare@sanmiguel.com.ph'>
+										customercare@sanmiguel.com.ph
+									</a>
 									<br />
 								</p>
 							</Accordion.AccordionContent>
 						</Accordion.Item>
 
 						<Accordion.Item className='AccordionItem' value='item-3'>
-							<Accordion.AccordionHeader className='AccordionHeader'>
+							<Accordion.AccordionHeader className='AccordionHeader heading-6'>
 								<Accordion.AccordionTrigger className='AccordionTrigger'>
 									<span>Shareholder Services and Assistance</span>
 									<PiCaretDown />
@@ -325,7 +329,9 @@ export default function Footer() {
 									<br />
 									Telephone: (+632) 8-632-3000
 									<br />
-									smc_stsc@sanmiguel.com.ph
+									<a href='mailto:smc_stsc@sanmiguel.com.ph'>
+										smc_stsc@sanmiguel.com.ph
+									</a>
 									<br />
 								</p>
 							</Accordion.AccordionContent>
@@ -333,7 +339,7 @@ export default function Footer() {
 					</div>
 					<div className='footer-links-col'>
 						<Accordion.Item className='AccordionItem' value='item-4'>
-							<Accordion.AccordionHeader className='AccordionHeader'>
+							<Accordion.AccordionHeader className='AccordionHeader heading-6'>
 								<Accordion.AccordionTrigger className='AccordionTrigger'>
 									<span>Whistleblowing Office</span>
 									<PiCaretDown />
@@ -355,13 +361,15 @@ export default function Footer() {
 									<br />
 									[0917-7976-762]
 									<br />
-									smcwhistleblower@sanmiguel.com.ph
+									<a href='mailto:smcwhistleblower@sanmiguel.com.ph'>
+										smcwhistleblower@sanmiguel.com.ph
+									</a>
 								</p>
 							</Accordion.AccordionContent>
 						</Accordion.Item>
 
 						<Accordion.Item className='AccordionItem' value='item-5'>
-							<Accordion.AccordionHeader className='AccordionHeader'>
+							<Accordion.AccordionHeader className='AccordionHeader heading-6'>
 								<Accordion.AccordionTrigger className='AccordionTrigger'>
 									<span>Investor Relations</span>
 									<PiCaretDown />
@@ -369,27 +377,18 @@ export default function Footer() {
 							</Accordion.AccordionHeader>
 							<Accordion.AccordionContent className='AccordionContent'>
 								<p className='small-text'>
-									ATTY. NOEL D. BALSICAS
+									SAN MIGUEL CORPORATION <br />
+									<a href='mailto:SMCInvestorRelations@sanmiguel.com.ph'>
+										SMCInvestorRelations@sanmiguel.com.ph
+									</a>
 									<br />
-									WHISTLEBLOWER RELATIONS
-									<br />
-									OFFICER (WRO)
-									<br />
-									Telephone: 86322-WRO
-									<br />
-									[86322-976]
-									<br />
-									Mobile: 09177-WRO-SMC
-									<br />
-									[0917-7976-762]
-									<br />
-									smcwhistleblower@sanmiguel.com.ph
+									Telephone: (+632) 8-632-8742 <br />
 								</p>
 							</Accordion.AccordionContent>
 						</Accordion.Item>
 
 						<Accordion.Item className='AccordionItem' value='item-6'>
-							<Accordion.AccordionHeader className='AccordionHeader'>
+							<Accordion.AccordionHeader className='AccordionHeader heading-6'>
 								<Accordion.AccordionTrigger className='AccordionTrigger'>
 									<span>Data Privacy and Security Office</span>
 									<PiCaretDown />

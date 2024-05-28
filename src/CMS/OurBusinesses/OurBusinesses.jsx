@@ -12,6 +12,7 @@ import Button from 'src/Components/button/button';
 import { useWindowSize } from '@uidotdev/usehooks';
 
 import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
+import { Link } from 'react-router-dom';
 
 export default function OurBusinesses({ data, className, link, children }) {
 	const { height, width } = useWindowSize();
@@ -77,9 +78,6 @@ export default function OurBusinesses({ data, className, link, children }) {
 		},
 	};
 
-	useEffect(() => {
-		console.log(selected);
-	}, [selected]);
 	return (
 		<motion.div
 			className='ourbusinesses-section'
@@ -193,13 +191,15 @@ export default function OurBusinesses({ data, className, link, children }) {
 												<motion.div variants={text_variants}>
 													{parse(data.description)}
 												</motion.div>
-												<motion.p variants={text_variants}>
-													<Button
-														link={data.link}
-														className='btn btn-bordered white'>
-														Read More
-													</Button>
-												</motion.p>
+												{data.link && (
+													<motion.p variants={text_variants}>
+														<Link
+															to={data.link}
+															className='btn btn-bordered white'>
+															Read More
+														</Link>
+													</motion.p>
+												)}
 											</motion.div>
 										)
 									);
@@ -280,7 +280,6 @@ export default function OurBusinesses({ data, className, link, children }) {
 							key={`control_${index}`}
 							className='test2'
 							whileInView={() => {
-								console.log('in view ' + selected);
 								if (!isMobile) setSelected((prev) => (prev = index));
 							}}
 							viewport={{

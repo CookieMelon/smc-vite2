@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { easeInOut } from 'framer-motion';
 import { useWindowSize } from '@uidotdev/usehooks';
+import parse from 'html-react-parser';
 
 export default function Pillar({ content, widgetClasses, children }) {
 	const { width } = useWindowSize();
@@ -384,11 +385,14 @@ export default function Pillar({ content, widgetClasses, children }) {
 						data-text={content.text2}>
 						{content.text2}
 					</motion.h2>
-					<motion.p
-						className='pillar-text'
-						style={{ opacity: text3[0], y: text3[1] }}
-						data-text={content.text3}
-						dangerouslySetInnerHTML={{ __html: content.text3 }}></motion.p>
+					{content.text3 && (
+						<motion.div
+							className='pillar-text'
+							style={{ opacity: text3[0], y: text3[1] }}>
+							{parse(content.text3)}
+						</motion.div>
+					)}
+
 					<div className='line-con' style={{}}>
 						<motion.div
 							className='line'

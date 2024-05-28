@@ -239,13 +239,17 @@ export const useGetContent = () => {
 };
 
 export const useGetDisclosureFiles = (page_slug, page, keyword, year) => {
-	const [[files, oldest_date], setData] = useState([null, '']);
+	const [[files, oldest_date, last_page], setData] = useState([null, '']);
+	const [years, setYears] = useState([]);
+	const controller = new AbortController();
+	const signal = controller.signal;
 
 	useEffect(() => {
 		fetch(
 			`${api_url}disclosure_category/${page_slug}?page=${page}&&src=${keyword}&&year=${year}`,
 			{
 				method: 'GET',
+				signal: signal,
 				headers: {
 					'Content-Type': 'application/json',
 					// Authorization: `Bearer ${token}`,
@@ -259,11 +263,27 @@ export const useGetDisclosureFiles = (page_slug, page, keyword, year) => {
 				setData([
 					data.disclosure_files.files,
 					data.disclosure_files.oldest_date,
+					data.disclosure_files.files.last_page,
 				]);
+
+				let yearNow = new Date().getFullYear();
+				let oldestYear = new Date(
+					data.disclosure_files.oldest_date
+				).getFullYear();
+
+				setYears(
+					(prev) =>
+						(prev = Array.from({ length: yearNow - oldestYear + 1 }, (v, i) => {
+							return {
+								id: oldestYear + i,
+								name: oldestYear + i,
+							};
+						}).reverse())
+				);
 			});
 	}, [page_slug, page, keyword, year]);
 
-	return { files, oldest_date };
+	return { files, oldest_date, last_page, years };
 };
 
 export const useGetCompanyDiclosures = () => {

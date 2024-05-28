@@ -1,5 +1,5 @@
 .image-slider-container {
-	overflow: hidden;
+	// overflow: hidden;
 	margin: 2rem auto;
 	width: 100%;
 	&.has-arrows {
@@ -29,9 +29,12 @@
 .image-slider {
 	width: 100%;
 	position: relative;
-
+	&.overflow-hidden {
+		overflow: hidden;
+	}
 	&.projects-slider {
 		width: 35rem;
+		max-width: 100%;
 		margin: auto;
 	}
 	.button {
@@ -46,11 +49,11 @@
 		border-radius: 100%;
 		position: absolute;
 		&.left {
-			left: -3.5rem;
+			left: -1.5rem;
 		}
 		&.right {
 			left: auto;
-			right: -3.5rem;
+			right: -1.5rem;
 		}
 	}
 	.image-slider-track {
@@ -77,6 +80,7 @@
 	padding: 2rem 0;
 	&.projects-slider {
 		width: 35rem;
+		max-width: 100%;
 		margin: auto;
 	}
 	p {

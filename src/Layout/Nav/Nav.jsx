@@ -35,6 +35,7 @@ import {
 import { useWindowSize } from '@uidotdev/usehooks';
 import { getColors } from '../../hooks/use-color';
 import Search from './search';
+import SocialIcons, { FacebookIcon } from '../Footer/social-icon';
 
 const preload_variants = {
 	initial: {
@@ -371,8 +372,8 @@ export function MainNav({ c, animation = true, toggle }) {
 		link.to += `/${item.page_slug}`;
 
 		if (item.page_external_link) {
-			link.to += `${item.page_external_link}`;
-			link._target = '_blank';
+			link.to = `${item.page_external_link}`;
+			link.target = '_blank';
 			link.rel = 'noopener';
 		}
 
@@ -655,201 +656,20 @@ function FindUsPopup({ toggle, item_lvl3, bold }) {
 			<Dialog.Portal>
 				<Dialog.Overlay className='DialogOverlay' />
 				<Dialog.Content className='DialogContent' data-lenis-prevent='true'>
-					<h3 className='DialogContent-title'>Subsidiary Websites</h3>
+					<h3 className='DialogContent-title'>Find us on Social media</h3>
 					<p>
-						<a
-							href='https://www.bankcom.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Bank of Commerce
-						</a>
-						<br />
-						<a
-							href='https://www.eaglecement.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Eagle Cement
-						</a>
-						<br />
-						<a
-							href='https://www.petron.com/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Petron Corp.
-						</a>
-						<br />
-						<a
-							href='https://www.ginebrasanmiguel.com/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Ginebra San Miguel
-						</a>
-						<br />
-						<a
-							href='https://www.sanmiguelproperties.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Miguel Properties, Inc
-						</a>
-						<br />
-						<a
-							href='https://www.sanmiguelfoods.com/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Miguel Foods
-						</a>
-						<br />
-						<a
-							href='https://greatfoodsolutions.com/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Great Food Solutions
-						</a>
-						<br />
-						<a
-							href='https://homefoodie.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Home Foodie
-						</a>
-						<br />
-						<a
-							href='https://magnoliachicken.com/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Magnolia Chicken
-						</a>
-						<br />
-						<a
-							href='https://www.monterey.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Monterey Foods Corp.
-						</a>
-						<br />
-						<a
-							href='https://www.ncc.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Northern Cement
-						</a>
-						<br />
-						<a
-							href='https://petrogen.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Petrogen Insurance Corporation
-						</a>
-						<br />
-						<a
-							href='https://www.sanmiguelbrewery.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Miguel Brewery Inc.
-						</a>
-						<br />
-						<a
-							href='https://www.smfb.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Miguel Food and Beverage
-						</a>
-						<br />
-						<a
-							href='https://www.facebook.com/redhorsebeer/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							Red Horse Beer
-						</a>
-						<br />
-						<a
-							href='https://www.facebook.com/sanmiguel.hk'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Miguel Brewery Hong Kong
-						</a>
-						<br />
-						<a
-							href='https://sanmiguelbrewery.com'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Miguel Brewing International Ltd.
-						</a>
-						<br />
-						<a
-							href='https://www.sanmiguelmart.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Miguel Mart
-						</a>
-						<br />
-						<a
-							href='https://www.facebook.com/SanMiguelPalePilsen/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Miguel Pale Pilsen
-						</a>
-						<br />
-						<a
-							href='https://www.facebook.com/sanmiglightph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Mig Light
-						</a>
-						<br />
-						<a
-							href='https://www.facebook.com/sanmiguelsuperdrybeer/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							San Miguel Super Dry
-						</a>
-						<br />
-						<a
-							href='https://smcstocktransfer.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							SMC Stock Transfer Service Corporation
-						</a>
-						<br />
-						<a
-							href='https://www.smcglobalpower.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							SMC Global Power Holdings Corp
-						</a>
-						<br />
-						<a
-							href='https://www.sltc.com.ph/'
-							target='_blank'
-							without='true'
-							rel='noopener noreferrer'>
-							South Luzon Tollway Corporation
-						</a>
-						<br />
+						<b>San Miguel Social Media</b>
 					</p>
+
+					<SocialIcons />
+
+					<p>
+						<b>Follow RSA on social media!</b>
+					</p>
+
+					<div style={{ display: 'flex', gap: '7.5px' }}>
+						<FacebookIcon link={'https://www.facebook.com/smcramonang/'} />
+					</div>
 					<Dialog.Close className='IconButton' aria-label='Close' asChild>
 						<PiXCircle size={'2rem'} />
 					</Dialog.Close>

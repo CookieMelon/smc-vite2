@@ -6,7 +6,6 @@ import { createCMSElement } from 'src/hooks/use-createElements';
 
 export default function OurCompanyTab({ data }) {
 	const [selected, setSelected] = useState(0);
-	console.log(data);
 	return (
 		<>
 			<div className='column sticky tab-source tabsource-ourcompany'>
@@ -39,19 +38,23 @@ export default function OurCompanyTab({ data }) {
 							{item.target.api_childrens.map((child) => {
 								if (child.elements_class) {
 									if (child.elements_class.includes('slider')) {
-										// let slides = [];
-										// child.api_childrens.map((div) => {
-										// 	let image = div.api_childrens[0];
-										// 	let desc = div.api_childrens[1];
-										// 	let data = {
-										// 		image: image.elements_attributes,
-										// 		desc: desc.elements_slot,
-										// 	};
-										// 	slides.push(data);
-										// });
-										// return (
-										// 	<ImageSlider key={`slider_${child.elements_code}`} />
-										// );
+										let slides = [];
+										child.api_childrens.map((div) => {
+											let data = {};
+											data.image = div.elements_attributes;
+											slides.push(data);
+										});
+
+										let sliderClasses = 'has-dots overflow-hidden ';
+										sliderClasses += child.elements_class;
+										return (
+											<ImageSlider
+												dots={true}
+												widgetClasses={sliderClasses}
+												key={`slider_${child.elements_code}`}
+												slides={slides}
+											/>
+										);
 									}
 								}
 								return createCMSElement(child);

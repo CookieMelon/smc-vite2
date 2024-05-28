@@ -9,6 +9,7 @@ import {
 import { useEffect, useRef, useState } from 'react';
 
 import { useWindowSize } from '@uidotdev/usehooks';
+import { Link } from 'react-router-dom';
 
 export default function HomepageWidget({ src, title, desc, link }) {
 	const ref = useRef(null);
@@ -123,9 +124,9 @@ export default function HomepageWidget({ src, title, desc, link }) {
 									y: 25,
 								},
 							}}>
-							<Button link={link.to} className='btn btn-bordered white'>
+							<Link to={link.to} className='btn btn-bordered white'>
 								{link.elements_slot}
-							</Button>
+							</Link>
 						</motion.p>
 					</motion.div>
 				</motion.div>

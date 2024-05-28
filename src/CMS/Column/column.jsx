@@ -28,7 +28,7 @@ export default function Column({
 			initial='initial'
 			whileInView='animate'
 			variants={columnVariants}
-			viewport={{ once: true, amount: 0.15 }}
+			viewport={{ once: true, amount: 0.05 }}
 			className={columnClass}
 			style={{ ...columnStyle }}
 			ref={column}>

@@ -83,6 +83,11 @@ button {
 		font-weight: bold;
 		text-decoration: none;
 	}
+
+	&.active {
+		background-color: black !important;
+		color: white;
+	}
 }
 
 .btn.no-padding {
@@ -177,5 +182,17 @@ button {
 		background-color: var(--base-black) !important;
 		color: white;
 		font-weight: 600 !important;
+	}
+}
+
+.pagination {
+	.btn {
+		height: 2.5rem;
+		width: 2.5rem;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+		text-align: center;
+		line-height: 1;
 	}
 }

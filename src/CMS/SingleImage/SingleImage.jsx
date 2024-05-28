@@ -2,10 +2,10 @@ import SingleParallax from 'src/CMS/SingleParallax/single-parallax';
 
 export default function SingleImage({ image }) {
 	return (
-		<div class='image-content'>
-			<div class='img-container'>
+		<div classname='image-content'>
+			<div classname='img-container'>
 				<SingleParallax>
-					<img src={image.src} />
+					<img src={image.src} alt={image.alt} />
 				</SingleParallax>
 			</div>
 		</div>
