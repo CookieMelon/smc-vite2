@@ -5,6 +5,7 @@ import parse from 'html-react-parser';
 
 import { PiCaretCircleLeft, PiCaretCircleRight } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
+import { Select, SelectItem } from 'src/Components/Select/Select';
 import { getColors } from 'src/hooks/use-color';
 
 export default function AnnualReports({ slides }) {
@@ -59,6 +60,24 @@ export default function AnnualReports({ slides }) {
 
 	return (
 		<>
+			<div className='column full'>
+				<div className='disclosure-filter'>
+					<span>Select a year for quick search</span>
+					<Select
+						placeholder='Select year'
+						// value={selected}
+						onValueChange={(event, index) => {
+							window.open(event, '_blank');
+						}}>
+						<SelectItem value=' '>Select a year</SelectItem>
+						{slides &&
+							slides.map((c) => {
+								console.log(c);
+								return <SelectItem value={c.link}>{c.subtitle}</SelectItem>;
+							})}
+					</Select>
+				</div>
+			</div>
 			<div className='column annual-desc'>
 				<AnimatePresence mode='popLayout'>
 					<motion.div
@@ -118,9 +137,11 @@ export default function AnnualReports({ slides }) {
 									z: i < index ? '0' : z[getDistance(i, index)],
 									x: `${(index - i) * 40 - index * 100}%`,
 								}}>
-								<Link to={slides[index].link} target='_blank'>
-									<img src={slide.img.src} alt={slide.img.alt} />
-								</Link>
+								{slide.img && (
+									<Link to={slides[index].link} target='_blank'>
+										<img src={slide.img.src} alt={slide.img.alt} />
+									</Link>
+								)}
 							</motion.div>
 						);
 					})}

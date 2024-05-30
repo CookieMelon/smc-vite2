@@ -1236,6 +1236,7 @@ table {
 .disclosure-filter {
 	display: flex;
 	gap: 2rem;
+	align-items: center;
 	input:first-child {
 		margin-left: auto;
 	}

@@ -508,21 +508,38 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 
 					children.map((div) => {
 						let title, desc, img, link, subtitle;
+						div.api_childrens.map((child) => {
+							if (
+								child.elements_name === 'Title' ||
+								child.elements_name === 'H1'
+							)
+								title = child.elements_slot;
+							if (child.elements_name === 'Image')
+								img = child.elements_attributes;
+							if (child.elements_name === 'Paragraph')
+								desc = child.elements_slot;
+							if (
+								child.elements_name === 'Corporate Files' &&
+								child.elements_attributes
+							) {
+								link = child.elements_attributes.src;
+							}
 
-						title = div.api_childrens[0].elements_slot;
-						img = div.api_childrens[1].elements_attributes;
-						desc = div.api_childrens[2].elements_slot;
+							if (
+								(child.elements_name === 'React Button' ||
+									child.elements_name === 'React Link') &&
+								child.elements_attributes.to !== ''
+							)
+								link = child.elements_attributes.to;
 
-						if (div.api_childrens[3].elements_attributes)
-							link = div.api_childrens[3].elements_attributes.src;
-						if (div.api_childrens[4].elements_attributes.to !== '')
-							link = div.api_childrens[4].elements_attributes.to;
-
-						subtitle = div.api_childrens[5].elements_slot;
-
-						console.log(subtitle);
+							if (child.elements_name === 'Subtitle')
+								subtitle = child.elements_slot;
+						});
 
 						let d = {};
+
+						console.log('title', title);
+						console.log('link', link);
 
 						if (title) d.title = title;
 						if (desc) d.desc = desc;
