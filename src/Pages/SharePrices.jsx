@@ -2,11 +2,11 @@ import './DividendHistory.scss';
 
 import parse from 'html-react-parser';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
-import { useGetPage } from 'src/data/data';
+import { useGetPage, useGetSharePrices } from 'src/data/data';
 import { useScript } from 'src/hooks/use-script';
 import { monthValues } from './select-settings';
 
@@ -14,8 +14,9 @@ const api_url = import.meta.env.VITE_API_URL;
 
 export default function SharePrices() {
 	const { title, theme } = useGetPage();
-	const [content, setContent] = useState(null);
+
 	const location = useLocation();
+	const navigate = useNavigate();
 
 	const [month, setMonth] = useState(monthValues[0].value);
 
@@ -36,11 +37,13 @@ export default function SharePrices() {
 			: 'all'
 	);
 
+	const { content } = useGetSharePrices(sely, selm);
+
 	useEffect(() => {
 		if (content) {
 			let filter_form = document.querySelector('.disclosure__heading form');
-			filter_form.setAttribute('action', '/share-prices');
-
+			filter_form.setAttribute('action', 'share-prices');
+			filter_form.setAttribute('method', 'get');
 			filter_form.addEventListener('submit', (event) => {
 				event.preventDefault();
 
@@ -48,28 +51,38 @@ export default function SharePrices() {
 
 				setSely(fd.get('sely'));
 				setSelm(fd.get('selm'));
+				// navigate({
+				// 	pathname: '/share-prices',
+				// 	search: createSearchParams({
+				// 		selm: selm,
+				// 		sely: sely,
+				// 	}).toString(),
+				// });
+
+				// filter_form.submit();
 			});
 			let search = document.querySelector('.sbtn');
 			search.classList.add('btn');
-			search.classList.add('sec-btn');
+			search.classList.add('btn-bordered');
+
+			let table = document.querySelector('.table-responsive');
+			let tableHeader = table.querySelectorAll('.table__header th');
+			let tableRows = table.querySelectorAll('tr:not(.table__header)');
+			let tableHeader_text = [];
+
+			tableHeader.forEach((header) => {
+				tableHeader_text.push(header.innerHTML);
+			});
+
+			tableRows.forEach((tr) => {
+				tr.querySelectorAll('td').forEach((td, index) => {
+					td.dataset.label = tableHeader_text[index];
+				});
+			});
+
+			console.log(tableHeader_text);
 		}
 	}, [content]);
-
-	useEffect(() => {
-		fetch(`${api_url}share_prices?year=${sely}&&month=${selm}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				setContent((prev) => (prev = data));
-			});
-	}, []);
 
 	useScript('/smc_js/share-prices.js', 'script3', content);
 
@@ -78,28 +91,6 @@ export default function SharePrices() {
 			<PageBanner title={title} widgetClasses={theme} />
 
 			<Section containerClass={'medium'}>
-				{/* <div>
-					<Select
-						{...Search_defaultSettings}
-						options={monthValues}
-						label={'Select month'}
-					/>
-					<Select
-						{...Search_defaultSettings}
-						label={'Select year'}
-						options={[
-							{
-								value: '2012',
-								label: '2012',
-							},
-							{
-								value: '2011',
-								label: '2011',
-							},
-						]}
-					/>
-				</div> */}
-
 				{content !== null && parse(content.data)}
 			</Section>
 		</Fade>

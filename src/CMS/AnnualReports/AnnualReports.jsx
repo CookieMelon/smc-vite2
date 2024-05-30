@@ -60,7 +60,7 @@ export default function AnnualReports({ slides }) {
 	return (
 		<>
 			<div className='column annual-desc'>
-				<AnimatePresence>
+				<AnimatePresence mode='popLayout'>
 					<motion.div
 						key={`slider_desc-${index}`}
 						initial='initial'
@@ -70,7 +70,12 @@ export default function AnnualReports({ slides }) {
 							staggerChildren: 0.015,
 						}}
 						className='desc-container'>
-						<motion.h3 variants={text_variants} className='heading-3'>
+						<motion.h5 variants={text_variants} className='heading-5 year'>
+							{slides[index].subtitle}
+						</motion.h5>
+						<motion.h3
+							variants={text_variants}
+							className='annual-title heading-2'>
 							{slides[index].title}
 						</motion.h3>
 						{slides[index].desc && (

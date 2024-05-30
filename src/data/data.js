@@ -211,6 +211,7 @@ export const useGetPage = () => {
 	const [[title, sections, content_type_id, page_slug, parent_id], setData] =
 		useState(['', []]);
 
+	const [error, setError] = useState(false);
 	const [theme, setTheme] = useState('');
 	const getTheme = (index) => {
 		switch (index) {
@@ -242,6 +243,11 @@ export const useGetPage = () => {
 				return res.json();
 			})
 			.then((data) => {
+				if (data.error) {
+					setError(true);
+					return;
+				}
+
 				setData([
 					data.page_title,
 					data.api_sections,
@@ -250,18 +256,22 @@ export const useGetPage = () => {
 					data.parent_page_id,
 				]);
 
-				console.log(data.page_slug_full);
-
 				let parentLinks = menu.map((item) => item.page_slug);
-
 				let index = parentLinks.indexOf(data.page_slug_full.split('/')[0]);
-
 				if (location.pathname === '/') index = -2;
 				setTheme(getTheme(index));
 			});
 	}, [menu]);
 
-	return { title, sections, content_type_id, page_slug, parent_id, theme };
+	return {
+		error,
+		title,
+		sections,
+		content_type_id,
+		page_slug,
+		parent_id,
+		theme,
+	};
 };
 
 export const useGetDisclosureFiles = (page_slug, page, keyword, year) => {
@@ -374,4 +384,70 @@ export const useSearchMenu = (id) => {
 	}, [menu]);
 
 	return { menuItem };
+};
+
+export const useGetFinancialStatements = () => {
+	const [content, setContent] = useState([]);
+
+	fetch(`${api_url}financial_statements`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			// Authorization: `Bearer ${token}`,
+		},
+	})
+		.then((res) => {
+			return res.json();
+		})
+		.then((data) => {
+			setContent((prev) => (prev = data));
+			console.log(data);
+		});
+
+	return { content };
+};
+
+export const useGetSearch = (searchParams) => {
+	const [result, setResult] = useState([]);
+
+	useEffect(() => {
+		if (!searchParams.get('search')) return;
+		fetch(`${api_url}search?search=${searchParams.get('search')}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				// Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				setResult(data);
+				console.log(data);
+			});
+	}, [searchParams]);
+
+	return { result };
+};
+
+export const useGetSharePrices = (sely, selm) => {
+	const [content, setContent] = useState(null);
+	useEffect(() => {
+		fetch(`${api_url}share_prices?year=${sely}&&month=${selm}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				// Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				setContent((prev) => (prev = data));
+			});
+	}, [sely, selm]);
+
+	return { content };
 };

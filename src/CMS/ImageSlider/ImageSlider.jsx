@@ -20,9 +20,9 @@ export default function ImageSlider({
 
 	const sliderClasses = `image-slider ${widgetClasses}`;
 	const sliderContainerClasses = `image-slider-container`;
-	const business = useRef(null);
+
 	const { scrollYProgress } = useScroll({
-		target: business,
+		target: slider,
 		offset: ['start end', 'end start'],
 	});
 

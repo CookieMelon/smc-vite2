@@ -297,19 +297,19 @@
 					background-color: white;
 					border-radius: 100%;
 					padding: 0.5rem;
-					top: 50%;
-					height: 2.5rem;
-					width: 2.5rem;
+					top: calc(50% - 1.25rem);
+					height: 2rem;
+					width: 2rem;
 					display: flex;
 					align-items: center;
 					justify-content: center;
 					// transform: translate(0, -50%);
 				}
 				.prev {
-					left: -3rem;
+					left: -3.5rem;
 				}
 				.next {
-					right: -3rem;
+					right: -3.5rem;
 				}
 			}
 		}

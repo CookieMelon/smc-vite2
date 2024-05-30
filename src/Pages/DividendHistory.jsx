@@ -10,7 +10,7 @@ import { useGetPage } from 'src/data/data';
 const api_url = import.meta.env.VITE_API_URL;
 
 export default function DividendHistory() {
-	const { title } = useGetPage();
+	const { title, theme } = useGetPage();
 	const [content, setContent] = useState(null);
 	const location = useLocation();
 	const search = useLocation().search;
@@ -60,6 +60,11 @@ export default function DividendHistory() {
 
 		let forms = document.querySelectorAll('.disclosure__heading form');
 
+		let search = document.querySelector('.sbtn');
+		search.classList.add('btn');
+		search.classList.add('btn-bordered');
+
+		let frmc = document.querySelector('.sbtn');
 		forms.forEach((form) => {
 			form.addEventListener('submit', (event) => {
 				event.preventDefault();
@@ -74,7 +79,7 @@ export default function DividendHistory() {
 
 	return (
 		<Fade>
-			<PageBanner title={title} widgetClasses={''} />
+			<PageBanner title={title} widgetClasses={theme} />
 
 			<Section containerClass={'medium'}>
 				<Column>

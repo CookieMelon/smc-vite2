@@ -141,14 +141,24 @@
 		border-radius: 100%;
 	}
 }
+.annual-container {
+	align-items: center;
+}
 
 .annual-desc {
 	position: relative;
 	flex-grow: 0 !important;
-	margin-top: 6rem;
-	div {
+	.year {
+		margin-bottom: 0.5rem;
+	}
+	.annual-title {
+		margin-top: 0.5rem;
+	}
+	> div {
 		width: 100%;
 		position: absolute;
+		top: 50%;
+		transform: translate(0, -50%);
 	}
 }
 .annual-image {
@@ -171,6 +181,11 @@
 	img {
 		margin: auto;
 		width: 100%;
+	}
+
+	a,
+	img {
+		display: block;
 	}
 
 	.controls {
@@ -210,11 +225,15 @@
 		grid-row: 3 / span 1;
 		> div {
 			position: static;
+			transform: none;
 		}
 	}
 }
 
 @media only screen and (max-width: 450px) {
+	.image-slider-container {
+		overflow: visible;
+	}
 	.filter {
 		.full {
 			flex-wrap: wrap;

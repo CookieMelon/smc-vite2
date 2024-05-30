@@ -146,6 +146,9 @@
 	margin-left: auto;
 	button {
 		color: inherit;
+		svg {
+			display: block;
+		}
 	}
 	.nav-input {
 		display: flex;
@@ -156,8 +159,9 @@
 		left: 0;
 		top: 0;
 		background-color: var(--base-red);
-		padding-right: calc(var(--container-padding) + 3rem);
+		padding-right: var(--container-padding);
 		input {
+			color: white;
 			border: 0;
 			background-color: transparent;
 			height: 100%;
@@ -413,7 +417,7 @@
 	.nav-search {
 		margin-right: 4.5rem;
 		.nav-input {
-			padding-right: calc(var(--container-padding) + 6.5rem);
+			padding-right: calc(var(--container-padding) + 4.5rem);
 		}
 	}
 	.nav-toggle-trigger {

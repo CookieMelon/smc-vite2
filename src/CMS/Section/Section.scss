@@ -46,9 +46,6 @@
 		h2 {
 			margin-top: 4rem;
 		}
-		*:first-child {
-			margin-top: 0 !important;
-		}
 	}
 	.column:only-child {
 		width: 100%;
@@ -291,6 +288,10 @@
 		.container-fluid-width {
 			row-gap: 2rem;
 		}
+	}
+
+	.projects-section {
+		overflow: hidden;
 	}
 	.section-content.column-3 .column {
 	}

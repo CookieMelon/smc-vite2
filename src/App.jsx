@@ -1,18 +1,12 @@
-import 'src/styles/styles.scss';
-import Nav from 'src/Layout/Nav/Nav';
-import React, { createContext, useEffect, useState } from 'react';
-import { useGetTheme, useGetMenuNew } from 'src/data/data';
-import { useLocation, useRoutes } from 'react-router-dom';
-import ErrorPage from 'src/error-page';
 import { AnimatePresence } from 'framer-motion';
+import React, { createContext, useEffect, useState } from 'react';
+import { useLocation, useRoutes } from 'react-router-dom';
+import Nav from 'src/Layout/Nav/Nav';
+import { useGetMenuNew, useGetTheme } from 'src/data/data';
+import 'src/styles/styles.scss';
 
-import Builder from 'src/Pages/Builder';
 import Preload from 'src/Components/Preload/preload';
 import Footer from 'src/Layout/Footer/footer';
-import FinancialHighlights from './Pages/FinancialHighlights';
-import DividendHistory from './Pages/DividendHistory';
-import SharePrices from './Pages/SharePrices';
-import CompanyDisclosures from './Pages/CompanyDisclosures';
 
 export const MenuContext = createContext([]);
 export const ThemeContext = createContext();
@@ -21,70 +15,25 @@ export const LenixContext = createContext({});
 export const APIContext = createContext({});
 
 import { ReactLenis, useLenis } from 'lenis/react';
+import { routes } from './routes/routes';
 
 function App() {
 	const lenis = useLenis(({ scroll }) => {});
-
+	// API context
 	const [ourBusinesses, setOurBusinesses] = useState([]);
+	// const [token, setToken] = useGetToken();
 
 	const [preload, setPreload] = useState(true);
 	const [fakePreload, setFakePreload] = useState(false);
 	const [doneIntro, setDoneIntro] = useState(false);
+	// menu context
 	const { menu } = useGetMenuNew(setFakePreload);
+
+	// theme context
 	const { smcTheme } = useGetTheme(menu);
+
 	const location = useLocation();
-	const router = useRoutes([
-		{
-			path: '/',
-			element: <Builder />,
-		},
-		{
-			path: '/our-story',
-			element: <Builder />,
-		},
-		{
-			path: '/our-story/:id',
-			element: <Builder />,
-		},
-		{
-			path: '/corporate',
-			element: <Builder />,
-		},
-		{
-			path: '/corporate/company-disclosures',
-			element: <CompanyDisclosures />,
-		},
-		{
-			path: '/corporate/financial-highlights',
-			element: <FinancialHighlights />,
-		},
-		{
-			path: '/corporate/dividend-history',
-			element: <DividendHistory />,
-		},
-		{
-			path: '/corporate/share-prices',
-			element: <SharePrices />,
-		},
-
-		{
-			path: '/corporate/:id',
-			element: <Builder />,
-		},
-		{
-			path: '/careers',
-			element: <Builder />,
-		},
-		{
-			path: '/search',
-			element: <Builder />,
-		},
-		{
-			path: '*',
-			Component: ErrorPage,
-		},
-	]);
-
+	let router = useRoutes(routes);
 	if (!router) return null;
 
 	useEffect(() => {

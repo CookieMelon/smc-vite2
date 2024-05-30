@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { getColors } from '../../hooks/use-color';
 
 import { IoCloseOutline } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 export default function Search({ preload_variants }) {
 	const navigate = useNavigate();
 
@@ -29,6 +29,19 @@ export default function Search({ preload_variants }) {
 		},
 	};
 
+	const searchSubmit = (event) => {
+		event.preventDefault();
+		console.log('regex', /s*/gm.test(event.target[0].value));
+
+		// toggleSearch(false);
+		navigate({
+			pathname: '/search',
+			search: createSearchParams({
+				search: event.target[0].value,
+			}).toString(),
+		});
+	};
+
 	return (
 		<motion.div
 			className={`nav-search ${smcTheme}`}
@@ -42,11 +55,7 @@ export default function Search({ preload_variants }) {
 					display: searchOpen ? 'flex' : 'none',
 				}}
 				variants={search_variants}
-				onSubmit={(event) => {
-					event.preventDefault();
-					toggleSearch(false);
-					navigate('/search');
-				}}
+				onSubmit={searchSubmit}
 				onBlur={() => {
 					toggleSearch(false);
 				}}>
@@ -58,11 +67,15 @@ export default function Search({ preload_variants }) {
 					<IoCloseOutline size={'2rem'} />
 				</button>
 			</motion.form>
-			<button className='nav-icon'>
+			<button
+				className='nav-icon'
+				style={{
+					display: searchOpen ? 'none' : 'block',
+				}}>
 				<IoIosSearch
 					onClick={() => {
 						if (searchOpen) {
-							// router.push('/search');
+							searchForm.current.submit();
 						} else {
 							setTimeout(() => {
 								searchInput.current.focus();

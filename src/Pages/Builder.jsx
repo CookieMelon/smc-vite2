@@ -28,16 +28,26 @@ import OurBusinesses from 'src/CMS/OurBusinesses/OurBusinesses';
 import OurCompanyTab from 'src/CMS/OurCompanyTab/OurCompanyTab';
 import SustainabilitySection from 'src/CMS/SustainabilitySection/SustainabilitySection';
 import OurBusinessControls from 'src/Components/OurBusinessControls/OurBusinessControls';
+import ErrorPage from 'src/error-page';
 import { createCMSElement } from 'src/hooks/use-createElements';
 import Disclosures from './Disclosures';
 
 export default function Builder() {
 	const lenis = useContext(LenixContext);
 
-	const { title, sections, content_type_id, page_slug, parent_id, theme } =
-		useGetPage();
+	const {
+		error,
+		title,
+		sections,
+		content_type_id,
+		page_slug,
+		parent_id,
+		theme,
+	} = useGetPage();
 
 	useEffect(() => {}, [content_type_id]);
+
+	if (error) return <ErrorPage />;
 
 	return (
 		<Fade>
@@ -497,7 +507,7 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 					let slides = [];
 
 					children.map((div) => {
-						let title, desc, img, link;
+						let title, desc, img, link, subtitle;
 
 						title = div.api_childrens[0].elements_slot;
 						img = div.api_childrens[1].elements_attributes;
@@ -508,12 +518,17 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 						if (div.api_childrens[4].elements_attributes.to !== '')
 							link = div.api_childrens[4].elements_attributes.to;
 
+						subtitle = div.api_childrens[5].elements_slot;
+
+						console.log(subtitle);
+
 						let d = {};
 
 						if (title) d.title = title;
 						if (desc) d.desc = desc;
 						if (img) d.img = img;
 						if (link) d.link = link;
+						if (subtitle) d.subtitle = subtitle;
 
 						slides.push(d);
 					});

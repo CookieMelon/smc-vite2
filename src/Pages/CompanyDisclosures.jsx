@@ -1,4 +1,6 @@
+import { SelectItem } from '@radix-ui/react-select';
 import React, { useEffect, useState } from 'react';
+import { Select } from 'react-aria-components';
 import Column from 'src/CMS/Column/column';
 import PDFItem from 'src/CMS/PDFItem/PDFItem';
 import PDFWidget from 'src/CMS/PDFWidget/PDFWidget';
@@ -77,6 +79,25 @@ export default function CompanyDisclosures({ page_slug }) {
 				sectionClass={'column-4'}
 				containerStyle={{ '--column-gap': '1rem' }}>
 				<Column columnClasses={'full'}>
+					<div className='disclosure-filter'>
+						<input
+							placeholder='Enter keyword'
+							value={keyword}
+							type='text'
+							required
+							onChange={(event) => {
+								setKeyword(event.target.value);
+							}}
+						/>
+						<Select placeholder='Select a year' onValueChange={setYear}>
+							<SelectItem value={' '}>All</SelectItem>
+							{years &&
+								years.map((year) => {
+									return <SelectItem value={year.name}>{year.name}</SelectItem>;
+								})}
+						</Select>
+					</div>
+
 					{parent.map((item) => {
 						if (item.children.length === 0)
 							return (
