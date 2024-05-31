@@ -48,7 +48,11 @@ export default function FinancialHighlights() {
 							onValueChange={setSelected}>
 							{content &&
 								content.map((c) => {
-									return <SelectItem value={c.id}>{c.title}</SelectItem>;
+									return (
+										<SelectItem key={`year_${c.id}`} value={c.id}>
+											{c.title}
+										</SelectItem>
+									);
 								})}
 						</Select>
 					</div>

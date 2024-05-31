@@ -80,7 +80,7 @@ export default function OurBusinesses({ data, className, link, children }) {
 		<motion.div
 			className='ourbusinesses-section'
 			style={{
-				height: `${data.length * 50}vh`,
+				height: `${data.length * 100}vh`,
 			}}
 			initial='initial'
 			whileInView='visible'
@@ -267,9 +267,10 @@ export default function OurBusinesses({ data, className, link, children }) {
 					position: 'absolute',
 					top: 0,
 					left: 0,
-					// paddingTop: '50vh',
-					// paddingBottom: '50vh',
+					paddingTop: '100vh',
+					paddingBottom: '50vh',
 					height: '100%',
+
 					zIndex: 0,
 				}}>
 				{data.map((val, index) => {
@@ -284,6 +285,7 @@ export default function OurBusinesses({ data, className, link, children }) {
 								amount: 'all',
 							}}
 							style={{
+								// border: '2px solid red',
 								height: `${100 / data.length}%`,
 							}}>
 							{val.title}

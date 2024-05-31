@@ -1,15 +1,15 @@
 .smc-red {
-	.section-content a {
-		--heading-color: var(--base-red);
-		color: var(--base-red);
-	}
 	.section-content {
+		--heading-color: var(--base-red);
+		a {
+			color: var(--base-red);
+		}
 	}
 }
 .smc-blue {
 	.section-content {
 		--heading-color: var(--base-blue);
-		.section-content a {
+		a {
 			color: var(--base-blue);
 		}
 	}
@@ -241,6 +241,7 @@
 		linear-gradient(rgb(56, 131, 172), rgb(170, 191, 107), rgb(181, 130, 130));
 	background-size: cover;
 	transform: none;
+	--heading-color: white;
 	img {
 		display: block;
 		width: 100%;
@@ -255,8 +256,8 @@
 	}
 	h2 {
 		margin-top: 0 !important;
-
-		font-size: 500%;
+		font-size: clamp(2.25rem, 17.71vi + -5.62rem, 5rem);
+		margin-bottom: 0.5rem;
 	}
 	h2,
 	h3 {
@@ -270,9 +271,12 @@
 
 .content-breaker {
 	width: 768px;
+	margin: 0;
+	max-width: 100%;
 	margin-left: auto;
-	font-size: 3rem;
+	font-size: clamp(1.81rem, 17.71vi + -5.62rem, 3.01rem);
 	padding: 5rem 0;
+	padding-left: 4rem;
 	color: var(--heading-color);
 }
 
@@ -297,6 +301,11 @@
 }
 
 @media only screen and (max-width: 768px) {
+	.content-breaker {
+		padding-right: 2rem;
+		padding-left: 2rem;
+		text-align: center;
+	}
 	.section-content {
 		&.column-2 {
 			--flex-items: 1;

@@ -96,6 +96,7 @@ button {
 .btn.pri {
 	color: var(--base-blue);
 }
+
 .btn.btn-bordered {
 	background-color: var(--button-bg-default);
 	border-color: var(--button-border-default);
@@ -103,6 +104,12 @@ button {
 		background-color: var(--button-bg-hover);
 		border-color: var(--button-border-hover);
 		color: var(--button-color-hover);
+	}
+}
+
+.btn.btn-bordered.white {
+	&:hover {
+		color: var(--base-black);
 	}
 }
 

@@ -14,7 +14,7 @@ export default function AnnualReports({ slides }) {
 	const [direction, setDirection] = useState(0);
 	const text_variants = {
 		initial: {
-			x: '150px',
+			x: '50px',
 			opacity: 0,
 			transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
 		},
@@ -24,9 +24,15 @@ export default function AnnualReports({ slides }) {
 			transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
 		},
 		exit: {
-			x: '-150px',
+			x: '-100px',
 			opacity: 0,
-			transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+			transition: {
+				duration: 0.5,
+				ease: [0.76, 0, 0.24, 1],
+				opacity: {
+					duration: 0.25,
+				},
+			},
 		},
 	};
 
@@ -39,7 +45,7 @@ export default function AnnualReports({ slides }) {
 	});
 
 	const z = slides.map((slide, index) => {
-		return `-${index * 50}px`;
+		return `-${index * 20}px`;
 	});
 
 	const rotate = slides.map((slide, index) => {
@@ -73,7 +79,13 @@ export default function AnnualReports({ slides }) {
 						{slides &&
 							slides.map((c) => {
 								console.log(c);
-								return <SelectItem value={c.link}>{c.subtitle}</SelectItem>;
+								return (
+									<SelectItem
+										key={`annual_report_${c.subtitle}`}
+										value={c.link}>
+										{c.subtitle}
+									</SelectItem>
+								);
 							})}
 					</Select>
 				</div>
@@ -86,7 +98,7 @@ export default function AnnualReports({ slides }) {
 						exit='exit'
 						animate='enter'
 						transition={{
-							staggerChildren: 0.015,
+							staggerChildren: 0.0025,
 						}}
 						className='desc-container'>
 						<motion.h5 variants={text_variants} className='heading-5 year'>
@@ -125,7 +137,7 @@ export default function AnnualReports({ slides }) {
 									duration: 0.5,
 									ease: [0.76, 0, 0.24, 1],
 									zIndex: {
-										delay: 0 > direction ? 0.25 : 0.35,
+										delay: 0 > direction ? 0.15 : 0.25,
 									},
 								}}
 								style={{
@@ -135,7 +147,7 @@ export default function AnnualReports({ slides }) {
 									opacity: i < index ? 0 : o[getDistance(i, index)],
 									zIndex: zindex[getDistance(i, index)],
 									z: i < index ? '0' : z[getDistance(i, index)],
-									x: `${(index - i) * 40 - index * 100}%`,
+									x: `${(index - i) * 70 - index * 100}%`,
 								}}>
 								{slide.img && (
 									<Link to={slides[index].link} target='_blank'>

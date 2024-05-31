@@ -505,6 +505,12 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 
 				if (widget.widgets_name === 'Annual Reports') {
 					let slides = [];
+					// title = checkTitle(child);
+					// img = checkImage(child);
+					// desc = checkParagraph(child);
+					// link = checkCorporateFiles(child);
+					// link = checkReactLink(child);
+					// subtitle = checkSubTitle(child);
 
 					children.map((div) => {
 						let title, desc, img, link, subtitle;
@@ -564,18 +570,32 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 				}
 
 				if (widget.widgets_name === 'Sustainability Widget') {
+					let title, desc, link;
 					let images = [];
-					images.push(children[0].elements_attributes.src);
-					images.push(children[1].elements_attributes.src);
-					images.push(children[2].elements_attributes.src);
 
-					let label = children[3].elements_slot;
-					let link = children[4];
+					children.map((child) => {
+						if (child.elements_name === 'Title' || child.elements_name === 'H1')
+							title = child.elements_slot;
 
+						if (child.elements_name === 'Image')
+							images.push(child.elements_attributes);
+
+						if (child.elements_name === 'Paragraph') desc = child.elements_slot;
+
+						if (
+							(child.elements_name === 'React Button' ||
+								child.elements_name === 'React Link') &&
+							child.elements_attributes.to !== ''
+						)
+							link = child;
+					});
+
+					console.log(title);
 					return (
 						<SustainabilitySection
 							images={images}
-							label={label}
+							label={title}
+							desc={desc}
 							link={link}
 							key={key}
 						/>
