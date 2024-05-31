@@ -45,6 +45,7 @@ export default function Preload() {
 				<motion.div
 					className='preload-cover'
 					style={{
+						display: 'none',
 						backgroundImage: `radial-gradient(at bottom, ${bg[0]} 0%, ${bg[1]} 100%)`,
 					}}
 					exit={{

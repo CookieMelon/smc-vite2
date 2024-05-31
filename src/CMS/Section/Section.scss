@@ -1,19 +1,17 @@
 .smc-red {
 	.section-content a {
+		--heading-color: var(--base-red);
 		color: var(--base-red);
 	}
 	.section-content {
-		h2 {
-			color: var(--base-red);
-		}
 	}
 }
-.smc-blue .section-content {
-	.section-content a {
-		color: var(--base-blue);
-	}
-	h2 {
-		color: var(--base-blue);
+.smc-blue {
+	.section-content {
+		--heading-color: var(--base-blue);
+		.section-content a {
+			color: var(--base-blue);
+		}
 	}
 }
 .section-content {
@@ -27,6 +25,7 @@
 	padding-bottom: var(--section-padding);
 	--flex-items: 1;
 	--column-gap: var(--container-padding);
+	--heading-color: var(--base-black);
 	.subheading {
 		width: 768px;
 		max-width: 100%;
@@ -45,6 +44,7 @@
 
 		h2 {
 			margin-top: 4rem;
+			color: var(--heading-color);
 		}
 	}
 	.column:only-child {
@@ -96,6 +96,9 @@
 			gap: var(--column-gap);
 			flex-wrap: wrap;
 			align-items: flex-start;
+		}
+		h2 {
+			margin-top: 0;
 		}
 	}
 
@@ -244,6 +247,33 @@
 		margin-top: 5rem;
 		margin-bottom: calc(var(--section-padding) * -1);
 	}
+}
+
+.presidents-message {
+	h5 {
+		margin-bottom: 0.5rem;
+	}
+	h2 {
+		margin-top: 0 !important;
+
+		font-size: 500%;
+	}
+	h2,
+	h3 {
+		width: 768px;
+		max-width: 100%;
+	}
+	h3 {
+		margin-bottom: 4rem;
+	}
+}
+
+.content-breaker {
+	width: 768px;
+	margin-left: auto;
+	font-size: 3rem;
+	padding: 5rem 0;
+	color: var(--heading-color);
 }
 
 @media only screen and (max-width: 980px) {

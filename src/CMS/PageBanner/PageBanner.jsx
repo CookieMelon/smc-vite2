@@ -11,15 +11,14 @@ export default function PageBanner({
 	image,
 	containerSize = 'medium',
 
-	noBg = false,
 	bannerShade = false,
 	widgetClasses,
 	headingSize = 'heading-1',
 	children,
 }) {
 	const { red, yellow, blue, blueShade1, blueShade2 } = getColors;
-	const headingColor = noBg ? '' : 'white';
-	const bannerClasses = `page-banner ${widgetClasses} ${headingColor} ${
+
+	const bannerClasses = `page-banner ${widgetClasses}  ${
 		!image ? 'no-image' : ''
 	}`;
 	const bannerContainerClasses = `container-fluid-width ${containerSize}`;

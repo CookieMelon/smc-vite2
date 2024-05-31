@@ -23,6 +23,14 @@
 	width: 100%;
 	perspective: 200px;
 	perspective-origin: 50% 100%;
+}
+.pillar-desc {
+	position: relative;
+	width: 300px;
+	color: white;
+	margin-left: auto;
+	margin-right: 15vw;
+	font-family: 'Merriweather Sans', sans-serif;
 	&:before {
 		content: '';
 		height: 100%;
@@ -32,16 +40,8 @@
 		right: 0;
 		top: 0;
 		mix-blend-mode: multiply;
-		z-index: 1;
+		z-index: 0;
 	}
-}
-.pillar-desc {
-	position: relative;
-	width: 300px;
-	color: white;
-	margin-left: auto;
-	margin-right: 15vw;
-	font-family: 'Merriweather Sans', sans-serif;
 	.uppercase {
 		margin-bottom: 1rem;
 	}
@@ -180,15 +180,15 @@
 
 .left.pillar-section {
 	.pillar-clip {
+	}
+	.pillar-desc {
+		margin-right: auto;
+		margin-left: 10vw;
 		&:before {
 			right: auto;
 			left: 0;
 			background-image: linear-gradient(90deg, #00000066, #00000000 90%);
 		}
-	}
-	.pillar-desc {
-		margin-right: auto;
-		margin-left: 10vw;
 		> * {
 			position: relative;
 		}

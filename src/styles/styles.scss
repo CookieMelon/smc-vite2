@@ -203,7 +203,7 @@ strong {
 .radio-box,
 .SelectTrigger,
 button,
-input,
+input:not([type='file']),
 select,
 textarea {
 	font-size: 0.9rem;
@@ -216,12 +216,23 @@ textarea {
 	display: flex;
 	align-items: center;
 	border: 1px solid #a7a9ac;
-	padding: 0.25rem 1rem;
+	padding: 0.5rem 1rem;
 	line-height: normal;
 	border-radius: 1rem;
 	font-style: normal;
 }
 
+input[type='file'] {
+	display: block;
+	padding: 0.5rem 0;
+}
+
+input[type='radio'],
+input[type='checkbox'] {
+	height: auto;
+	width: auto;
+	display: inline;
+}
 button {
 	outline: none;
 	border: none;
@@ -360,11 +371,18 @@ a {
 .align-center {
 	align-items: center;
 }
+
 .grid {
 	display: grid;
-	gap: 8rem;
+	gap: 1rem;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
 	.desc-container {
 		align-self: center;
+	}
+	.full {
+		grid-column: 1 / -1;
+	}
+	.column-3 {
 	}
 }
 
@@ -1245,6 +1263,7 @@ table {
 .table-responsive {
 	font-size: 0.75rem;
 }
+
 @media only screen and (min-width: 1560px) {
 	h1,
 	.heading-1 {
@@ -1282,39 +1301,39 @@ table {
 		font-size: clamp(0.7rem, 0.18vi + 0.65rem, 0.8rem);
 	}
 }
-@media only screen and (max-width: 980px) {
+@media only screen and (max-width: 960px) {
 	body,
 	html {
-		font-size: clamp(0.75rem, 0.16cqi + 0.71rem, 0.81rem);
+		font-size: clamp(0.81rem, 0.18vi + 0.77rem, 0.88rem);
 	}
 
 	h1,
 	.heading-1 {
-		font-size: clamp(1.21rem, 2.1cqi + 0.74rem, 2.02rem);
+		font-size: clamp(1.31rem, 2.48vi + 0.69rem, 2.18rem);
 	}
 
 	h2,
 	.heading-2 {
-		font-size: clamp(1.1rem, 1.51cqi + 0.76rem, 1.68rem);
+		font-size: clamp(1.19rem, 1.79vi + 0.74rem, 1.81rem);
 	}
 	h3,
 	.heading-3 {
-		font-size: clamp(1.4rem, 0.84vi + 0.89rem, 1.71rem);
+		font-size: clamp(1.08rem, 1.23vi + 0.77rem, 1.51rem);
 	}
 
 	h4,
 	.heading-4 {
-		font-size: clamp(0.91rem, 0.68cqi + 0.76rem, 1.17rem);
+		font-size: clamp(0.98rem, 0.79vi + 0.79rem, 1.26rem);
 	}
 
 	h5,
 	.heading-5 {
-		font-size: clamp(0.83rem, 0.39cqi + 0.74rem, 0.97rem);
+		font-size: clamp(0.89rem, 0.45vi + 0.78rem, 1.05rem);
 	}
 
 	h6,
 	.heading-6 {
-		font-size: clamp(0.75rem, 0.16cqi + 0.71rem, 0.81rem);
+		font-size: clamp(0.81rem, 0.18vi + 0.77rem, 0.88rem);
 	}
 
 	.small-text {

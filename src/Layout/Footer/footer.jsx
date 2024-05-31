@@ -42,7 +42,7 @@ export default function Footer() {
 					<Dialog.Root modal={true}>
 						<Dialog.Trigger asChild>
 							<button className='subsidiary-btn btn btn-bordered'>
-								View subsidiary website
+								View subsidiary websites
 							</button>
 							{/* <Button className='subsidiary-btn btn btn-bordered'>
 								Subsidiary Websites

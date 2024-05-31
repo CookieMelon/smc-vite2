@@ -3,6 +3,7 @@ import CompanyDisclosures from 'src/Pages/CompanyDisclosures';
 import DividendHistory from 'src/Pages/DividendHistory';
 import FinancialHighlights from 'src/Pages/FinancialHighlights';
 import FinancialStatements from 'src/Pages/FinancialStatement';
+import Forms from 'src/Pages/Form';
 import Search from 'src/Pages/Search';
 import SharePrices from 'src/Pages/SharePrices';
 import ErrorPage from 'src/error-page';
@@ -28,6 +29,11 @@ export const routes = [
 		path: '/corporate',
 		element: <Builder />,
 	},
+	{
+		path: '/corporate/companys-policies/whistle-blower-form',
+		element: <Forms />,
+	},
+
 	{
 		path: '/corporate/company-disclosures',
 		element: <CompanyDisclosures />,

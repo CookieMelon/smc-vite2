@@ -1,0 +1,52 @@
+.FormLabel {
+	font-size: 0.8rem;
+	font-weight: bolder;
+	span {
+		color: red;
+	}
+}
+
+.FormField {
+	.FormControl,
+	textarea,
+	select {
+		width: 100%;
+		display: block;
+	}
+
+	textarea {
+		resize: none;
+		min-height: 5rem;
+	}
+
+	input[type='radio'],
+	input[type='checkbox'] {
+		display: inline;
+		width: auto;
+		height: auto;
+		vertical-align: middle;
+	}
+
+	.FormMessage {
+		font-size: 0.85rem;
+		color: red;
+	}
+}
+
+.FormField[data-invalid='true'] {
+	.FormLabel {
+		color: red;
+	}
+
+	.FormControl,
+	textarea,
+	select {
+		border-width: 2px;
+		border-color: red;
+	}
+}
+
+.FormHeader {
+	background-color: var(--gray-2);
+	padding: 0.5rem 1rem;
+}

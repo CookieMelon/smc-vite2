@@ -33,6 +33,9 @@ export const createCMSElement = ({
 				</React.Fragment>
 			);
 	}
+	if (elements_name === 'Quote') {
+		if (elements_slot) elements_slot = parse(elements_slot);
+	}
 
 	// let element = {};
 	// element.tag = e.elements_tag;
