@@ -564,7 +564,6 @@ function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 				}
 
 				if (widget.widgets_name === 'Custom Widget') {
-					console.log(children);
 					if (
 						children.elements_name !== 'Paragraph' &&
 						children.elements_name !== 'Content'
@@ -680,11 +679,9 @@ function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 				}
 
 				if (widget.widgets_name === 'Parent-Child - Data List') {
-					let slugs = children.map((child) => {
-						return child.elements_attributes.href;
-					});
-
-					return <ParentChildDataList key={key} slugs={slugs} />;
+					let slug = children[0].elements_attributes.href;
+					let title = children[1].elements_slot;
+					return <ParentChildDataList key={key} slug={slug} title={title} />;
 				}
 
 				// if (index === widgets.length - 1) {
@@ -695,8 +692,8 @@ function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 	);
 }
 
-function ParentChildDataList({ slugs }) {
-	const { list } = useGetDataList(slugs);
+function ParentChildDataList({ slug, title }) {
+	const { header, list } = useGetDataList(slug, title);
 	// const { list: sublist } = useGetDataList(list);
 	// useEffect(() => {
 	// 	if (list.length) console.log(list);
@@ -705,16 +702,19 @@ function ParentChildDataList({ slugs }) {
 	// 	console.log(sublist);
 	// }, [sublist]);
 	useEffect(() => {
-		console.log(list);
-	}, []);
+		console.log(header);
+	}, [header]);
 
-	// return (
-	// 	<Section>
-	// 		{list.length &&
-	// 			list.map((item, index) => {
-	// 				console.log(item);
-	// 				return <h2>{item.page_title}</h2>;
-	// 			})}
-	// 	</Section>
-	// );
+	return (
+		<div className='link-listing'>
+			<h2>{header}</h2>
+			<div className='link-listing_links'>
+				{list.length &&
+					list.map((item, index) => {
+						console.log(item);
+						return <Link to=''>{item.page_title}</Link>;
+					})}
+			</div>
+		</div>
+	);
 }

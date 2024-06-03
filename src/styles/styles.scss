@@ -1264,6 +1264,26 @@ table {
 	font-size: 0.75rem;
 }
 
+.link-listing {
+	display: flex;
+	gap: 2rem;
+	h2 {
+		margin: 0;
+		flex: 1 0 250px;
+	}
+}
+
+.link-listing_links {
+	gap: 2rem;
+	flex: 1 1 100%;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	a {
+		display: block;
+		line-height: 1.25;
+	}
+}
+
 @media only screen and (min-width: 1560px) {
 	h1,
 	.heading-1 {

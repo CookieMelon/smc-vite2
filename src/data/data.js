@@ -454,30 +454,30 @@ export const useGetDisclosureFiles = (category, keyword, page, year) => {
 	return { files, years, last_page };
 };
 
-export const useGetDataList = (slugs) => {
-	const [list, setList] = useState([]);
+export const useGetDataList = (slug, title) => {
+	const [[header, list], setList] = useState([title, []]);
 
-	useEffect(() => {}, []);
 	useEffect(() => {
-		slugs.forEach((page, index) => {
-			fetch(`${api_url}page/${page}/data-list`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					// Authorization: `Bearer ${token}`,
-				},
-			})
-				.then((res) => {
-					return res.json();
-				})
-				.then((data) => {
-					console.log(data);
-					setList((prev) => [...prev, [...data]]);
-				});
-		});
-	}, [slugs]);
+		console.log(slug);
 
-	return { list };
+		fetch(`${api_url}page/${slug}/data-list`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				// Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				console.log(slug);
+				console.log(data);
+				setList([title, data]);
+			});
+	}, [slug]);
+
+	return { header, list };
 };
 
 export const useSearchMenu = (id) => {
