@@ -31,6 +31,7 @@ import {
 	toggleSettings,
 	transitionSettings,
 } from './anim';
+import { getLink } from './nav-helper';
 import Search from './search';
 
 const preload_variants = {
@@ -362,20 +363,6 @@ export function MainNav({ c, animation = true, toggle }) {
 		});
 	};
 
-	const getLink = (parent_slug, item) => {
-		let link = {};
-		link.to = parent_slug;
-		link.to += `/${item.page_slug}`;
-
-		if (item.page_external_link) {
-			link.to = `${item.page_external_link}`;
-			link.target = '_blank';
-			link.rel = 'noopener';
-		}
-
-		return link;
-	};
-
 	return (
 		<motion.div
 			className={`${c} main-nav accordion-group`}
@@ -408,11 +395,9 @@ export function MainNav({ c, animation = true, toggle }) {
 			{menu.map((item_lvl1, index) => {
 				let activeClass = animation ? (index === 0 ? 'active' : '') : '';
 				let height = animation ? (index === 0 ? 'auto' : '0px') : 'auto';
-				let link = getLink('', item_lvl1);
+				let link = getLink(item_lvl1);
 
 				if (link === '/home') return;
-
-				let parent_slug = link.to;
 
 				return (
 					<motion.div
@@ -446,10 +431,7 @@ export function MainNav({ c, animation = true, toggle }) {
 								className='nav-dropdown accordion-target'
 								style={{
 									height: height,
-									// pointerEvents:
-									// 	navHovered && navIndex === index ? 'all' : 'none',
 									zIndex: navHovered && navIndex === index ? 1 : -1,
-									// opacity: navHovered && navIndex === index ? 1 : 0,
 									display: navHovered && navIndex === index ? 'block' : 'none',
 								}}>
 								<div className='container-fluid-width medium accordion-group'>
@@ -468,7 +450,7 @@ export function MainNav({ c, animation = true, toggle }) {
 												: '0px'
 											: 'auto';
 
-										let link = getLink(parent_slug, item_lvl2);
+										let link = getLink(item_lvl2);
 
 										let columnClass =
 											item_lvl2.navigations.length > 4
@@ -520,7 +502,7 @@ export function MainNav({ c, animation = true, toggle }) {
 														}}
 														className={`${columnClass} inner_lvl2-dropdown accordion-target accordion-group`}>
 														{item_lvl2.navigations.map((item_lvl3, index) => {
-															let link = getLink(parent_slug, item_lvl3);
+															let link = getLink(item_lvl3);
 															if (link.to !== 'find-us-on-social-media')
 																return (
 																	<div
@@ -566,10 +548,7 @@ export function MainNav({ c, animation = true, toggle }) {
 																					<motion.ul>
 																						{item_lvl3.navigations.map(
 																							(item_lvl4, index) => {
-																								let link = getLink(
-																									parent_slug,
-																									item_lvl4
-																								);
+																								let link = getLink(item_lvl4);
 
 																								return (
 																									<li

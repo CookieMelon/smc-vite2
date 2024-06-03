@@ -1,5 +1,4 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { enterDuration } from 'src/Layout/layout-anim';
 import { getColors } from 'src/hooks/use-color';
 
 import { useEffect, useRef, useState } from 'react';
@@ -50,7 +49,9 @@ export default function PageBanner({
 	];
 
 	useEffect(() => {
+		console.log(widgetClasses);
 		if (widgetClasses.includes('smc-blue')) {
+			console.log('test');
 			setRotate(45);
 		}
 	}, []);
@@ -63,7 +64,6 @@ export default function PageBanner({
 			scale: 1,
 			transition: {
 				duration: 1,
-				delay: 0.5,
 				ease: [0.76, 0, 0.24, 1],
 			},
 		},
@@ -72,33 +72,33 @@ export default function PageBanner({
 		},
 	};
 
-	const text_anim = {
-		initial: {
-			y: 20,
-			opacity: 0,
-		},
-		enter: {
-			y: 0,
-			opacity: 1,
-			transition: {
-				duration: 1,
-				delay: 0.7,
-				ease: [0.76, 0, 0.24, 1],
-			},
-		},
-		exit: {
-			y: -20,
-			opacity: 0,
-			transition: {
-				duration: 0.75,
-				delay: 0.5,
-				ease: [0.76, 0, 0.24, 1],
-			},
-		},
-	};
+	// const text_anim = {
+	// 	initial: {
+	// 		y: 20,
+	// 		opacity: 0,
+	// 	},
+	// 	enter: {
+	// 		y: 0,
+	// 		opacity: 1,
+	// 		transition: {
+	// 			duration: 1,
+	// 			delay: 0.7,
+	// 			ease: [0.76, 0, 0.24, 1],
+	// 		},
+	// 	},
+	// 	exit: {
+	// 		y: -20,
+	// 		opacity: 0,
+	// 		transition: {
+	// 			duration: 0.75,
+	// 			delay: 0.5,
+	// 			ease: [0.76, 0, 0.24, 1],
+	// 		},
+	// 	},
+	// };
 
 	const path_transitions = {
-		delay: enterDuration - 0.5,
+		// delay: enterDuration - 0.5,
 	};
 
 	const path_settings = [

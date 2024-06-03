@@ -235,6 +235,8 @@ export const useGetPage = () => {
 		}
 	};
 	useEffect(() => {
+		if (menu.length === 0) return;
+
 		let path =
 			location.pathname === '/' ? 'home' : location.pathname.split('/').pop();
 
@@ -249,7 +251,6 @@ export const useGetPage = () => {
 				return res.json();
 			})
 			.then((data) => {
-				console.log(data);
 				if (data.error) {
 					setError(true);
 					return;
@@ -326,7 +327,6 @@ export const useGetDisclosureCategoryFiles = (
 				return res.json();
 			})
 			.then((data) => {
-				console.log(data);
 				setData([
 					data.title,
 					data.disclosure_files.files,
@@ -391,7 +391,6 @@ export const useGetDisclosureFiles = (category, keyword, page, year) => {
 	const [[files, last_page], setContent] = useState([[], '']);
 	const [years, setYears] = useState([]);
 	useEffect(() => {
-		console.log('category', category !== '');
 		if (category === '')
 			fetch(
 				`${api_url}disclosure_file?src=${keyword}&&page=${page}&&year=${year}`,
@@ -407,7 +406,6 @@ export const useGetDisclosureFiles = (category, keyword, page, year) => {
 					return res.json();
 				})
 				.then((data) => {
-					console.log('Entered blank category');
 					setContent([
 						data.files.data,
 						// data.disclosure_files.oldest_date,
@@ -435,8 +433,6 @@ export const useGetDisclosureFiles = (category, keyword, page, year) => {
 					return res.json();
 				})
 				.then((data) => {
-					console.log('Entered not blank category');
-					console.log(data);
 					setContent([
 						data.disclosure_files.files.data,
 						data.disclosure_files.files.last_page,
@@ -458,8 +454,6 @@ export const useGetDataList = (slug, title) => {
 	const [[header, list], setList] = useState([title, []]);
 
 	useEffect(() => {
-		console.log(slug);
-
 		fetch(`${api_url}page/${slug}/data-list`, {
 			method: 'GET',
 			headers: {
@@ -471,8 +465,6 @@ export const useGetDataList = (slug, title) => {
 				return res.json();
 			})
 			.then((data) => {
-				console.log(slug);
-				console.log(data);
 				setList([title, data]);
 			});
 	}, [slug]);

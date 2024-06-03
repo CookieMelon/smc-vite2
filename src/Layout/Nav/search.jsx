@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { getColors } from '../../hooks/use-color';
 
 import { IoCloseOutline } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 export default function Search({ preload_variants }) {
 	const navigate = useNavigate();
 

@@ -1,18 +1,15 @@
-import { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
+import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
+import { getLink } from 'src/Layout/Nav/nav-helper';
 import { useGetSearch } from 'src/data/data';
 
 export default function Search({}) {
 	const [searchParams] = useSearchParams();
 	const { result } = useGetSearch(searchParams);
-
-	useEffect(() => {
-		console.log(result);
-	}, [result]);
-
+	console.log(result);
 	if (result.length === 0) return;
 	return (
 		<Fade>
@@ -20,21 +17,25 @@ export default function Search({}) {
 				title={'Search Result'}
 				widgetClasses={'smc-red'}></PageBanner>
 			<Section containerClass={'medium'}>
-				<div className='column'>
-					<p className='small-text'>
-						About <b>{result.length + 1} </b>found{' '}
-					</p>
-					{result.map((r) => {
-						let content = r.teaser ? r.teaser.teaser_content : null;
-						return <SearchItem title={r.page_title} content={content} />;
-					})}
-				</div>
+				<p className='small-text'>
+					About <b>{result.length + 1} </b>found{' '}
+				</p>
+				{result.map((r) => {
+					let link = getLink(r);
+
+					let content = r.teaser ? r.teaser.teaser_content : null;
+					return (
+						<Column key={`page_id-${r.page_id}`}>
+							<SearchItem link={link} title={r.page_title} content={content} />
+						</Column>
+					);
+				})}
 			</Section>
 		</Fade>
 	);
 }
 
-function SearchItem({ title, content }) {
+function SearchItem({ title, content, link }) {
 	// const { red } = getColors;
 	return (
 		<div className='search-item'>
@@ -42,7 +43,7 @@ function SearchItem({ title, content }) {
 				Search Tag
 			</Tag> */}
 			<h5 className='search-title heading-5'>
-				<Link to={'/test'}>{title}</Link>
+				<Link to={link.to}>{title}</Link>
 			</h5>
 			{content && (
 				<p>

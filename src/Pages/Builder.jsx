@@ -5,7 +5,7 @@ import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
 
 import parse from 'html-react-parser';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import FullPageBanner from 'src/CMS/FullPageBanner/fullpagebanner';
 import MainBanner from 'src/CMS/MainBanner/MainBanner';
@@ -679,9 +679,12 @@ function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 				}
 
 				if (widget.widgets_name === 'Parent-Child - Data List') {
-					let slug = children[0].elements_attributes.href;
-					let title = children[1].elements_slot;
-					return <ParentChildDataList key={key} slug={slug} title={title} />;
+					if (!children[0]) return;
+					if (!children[1]) return;
+					let slug = children[0] && children[0].elements_attributes.href;
+					let title = children[1] && children[1].elements_slot;
+					if (slug && title)
+						return <ParentChildDataList key={key} slug={slug} title={title} />;
 				}
 
 				// if (index === widgets.length - 1) {
@@ -694,25 +697,20 @@ function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 
 function ParentChildDataList({ slug, title }) {
 	const { header, list } = useGetDataList(slug, title);
-	// const { list: sublist } = useGetDataList(list);
-	// useEffect(() => {
-	// 	if (list.length) console.log(list);
-	// }, [list]);
-	// useEffect(() => {
-	// 	console.log(sublist);
-	// }, [sublist]);
-	useEffect(() => {
-		console.log(header);
-	}, [header]);
 
 	return (
 		<div className='link-listing'>
 			<h2>{header}</h2>
 			<div className='link-listing_links'>
-				{list.length &&
+				{list.length !== 0 &&
 					list.map((item, index) => {
-						console.log(item);
-						return <Link to=''>{item.page_title}</Link>;
+						return (
+							<Link
+								key={`id_${item.page_id}`}
+								to={`/corporate/${item.page_slug}`}>
+								{item.page_title}
+							</Link>
+						);
 					})}
 			</div>
 		</div>
