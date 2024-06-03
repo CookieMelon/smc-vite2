@@ -15,6 +15,7 @@ export const LenixContext = createContext({});
 export const APIContext = createContext({});
 
 import { ReactLenis, useLenis } from 'lenis/react';
+import PrivacyStatement from './Components/PrivacyStatement/PrivacyStatement';
 import { routes } from './routes/routes';
 
 function App() {
@@ -37,7 +38,6 @@ function App() {
 	if (!router) return null;
 
 	useEffect(() => {
-		console.log(lenis);
 		if (lenis)
 			lenis.scrollTo(0, {
 				duration: 0,
@@ -65,6 +65,7 @@ function App() {
 								<ThemeContext.Provider value={{ smcTheme }}>
 									<Nav />
 									<Preload />
+									<PrivacyStatement />
 									<div style={{ minHeight: '100vh' }}>
 										<AnimatePresence mode='wait'>
 											{React.cloneElement(router, { key: location.pathname })}

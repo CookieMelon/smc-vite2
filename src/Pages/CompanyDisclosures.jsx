@@ -1,42 +1,40 @@
-import { SelectItem } from '@radix-ui/react-select';
 import React, { useEffect, useState } from 'react';
-import { Select } from 'react-aria-components';
 import Column from 'src/CMS/Column/column';
 import PDFItem from 'src/CMS/PDFItem/PDFItem';
 import PDFWidget from 'src/CMS/PDFWidget/PDFWidget';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
+import { Select, SelectItem } from 'src/Components/Select/Select';
 import Fade from 'src/Layout/Fade/Fade';
-import { useGetPage } from 'src/data/data';
+import { useGetDisclosureAll, useGetDisclosureFiles } from 'src/data/data';
+import { Pagination } from './Disclosures';
 const api_url = import.meta.env.VITE_API_URL;
 
+import * as SelectPrimitive from '@radix-ui/react-select';
+
 export default function CompanyDisclosures({ page_slug }) {
-	const { title, theme } = useGetPage();
+	// const { title, theme } = useGetPage();
 	const [page, setPage] = useState(1);
 	const [keyword, setKeyword] = useState('');
-	const [year, setYear] = useState('');
+	const [year, setYear] = useState(' ');
+	const [category, setCategory] = useState('');
 
-	const [content, setContent] = useState(null);
+	const { content } = useGetDisclosureAll();
+
+	const { files, last_page, years } = useGetDisclosureFiles(
+		category,
+		keyword,
+		page,
+		year
+	);
+
 	const currentYear = new Date().getFullYear();
 	// const test = useGetCompanyDiclosures();
 
-	const [parent, setParent] = useState([]);
-
 	useEffect(() => {
-		fetch(`${api_url}disclosure_all`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				setContent((prev) => (prev = data));
-			});
-	}, []);
+		console.log('files', files);
+	}, [files]);
+	const [parent, setParent] = useState([]);
 
 	useEffect(() => {
 		if (content && content.length) {
@@ -71,15 +69,120 @@ export default function CompanyDisclosures({ page_slug }) {
 		}
 	}, [content]);
 
+	// company disclosure
+	// clean
+	// no filter selected
+	if (year === '' && keyword === '')
+		return (
+			<Fade>
+				<PageBanner title={'Company Disclosures'} widgetClasses={'smc-blue'} />
+				<Section
+					containerClass='medium'
+					sectionClass={'column-4'}
+					containerStyle={{ '--column-gap': '1rem' }}>
+					<Column columnClasses={'full'}>
+						<div className='disclosure-filter'>
+							<input
+								placeholder='Enter keyword'
+								value={keyword}
+								type='text'
+								required
+								onChange={(event) => {
+									setKeyword(event.target.value);
+								}}
+							/>
+							<YearSelect
+								year={year}
+								setYear={setYear}
+								setPage={setPage}
+								years={years}
+							/>
+						</div>
+
+						{parent.map((item) => {
+							if (item.children.length === 0)
+								return (
+									<PDFItem
+										key={`disclosure_${item.id}`}
+										title={item.title}
+										link={'/pdf/test-pdf.pdf'}
+									/>
+								);
+						})}
+					</Column>
+
+					{parent.map((item) => {
+						if (item.children.length !== 0) {
+							return (
+								<React.Fragment key={`disclosure_${item.id}`}>
+									<h2 className='heading-3 column full'>{item.title}</h2>
+
+									{item.children.map((item) => {
+										return (
+											<Column key={`disclosure_${item.id}`}>
+												<PDFWidget
+													// headingSize={headingSize}
+													title={item.title}
+													link={`/disclosures/${item.slug}`}
+												/>
+											</Column>
+										);
+									})}
+								</React.Fragment>
+							);
+						}
+					})}
+				</Section>
+			</Fade>
+		);
+
 	return (
 		<Fade>
-			<PageBanner title={title} widgetClasses={theme} />
+			<PageBanner title={'Company Disclosures'} widgetClasses={'smc-blue'} />
 			<Section
 				containerClass='medium'
 				sectionClass={'column-4'}
 				containerStyle={{ '--column-gap': '1rem' }}>
 				<Column columnClasses={'full'}>
 					<div className='disclosure-filter'>
+						<Select
+							placeholder='Select category'
+							defaultValue={year}
+							onValueChange={(value) => {
+								console.log(value);
+								setCategory(value);
+								setPage(1);
+							}}>
+							<SelectItem value={' '}>All</SelectItem>
+							{parent &&
+								parent.map((item) => {
+									if (!item.children.length)
+										return (
+											<SelectItem
+												key={`category_${item.slug}`}
+												value={item.slug}>
+												{item.title}
+											</SelectItem>
+										);
+
+									return (
+										<SelectPrimitive.Group key={`group_${item.id}`}>
+											<SelectPrimitive.Label className='SelectLabel'>
+												{item.title}
+											</SelectPrimitive.Label>
+											{item.children.map((item) => {
+												return (
+													<SelectItem
+														key={`category_${item.slug}`}
+														value={item.slug}>
+														{item.title}
+													</SelectItem>
+												);
+											})}
+										</SelectPrimitive.Group>
+									);
+								})}
+						</Select>
 						<input
 							placeholder='Enter keyword'
 							value={keyword}
@@ -89,49 +192,54 @@ export default function CompanyDisclosures({ page_slug }) {
 								setKeyword(event.target.value);
 							}}
 						/>
-						<Select placeholder='Select a year' onValueChange={setYear}>
-							<SelectItem value={' '}>All</SelectItem>
-							{years &&
-								years.map((year) => {
-									return <SelectItem value={year.name}>{year.name}</SelectItem>;
-								})}
-						</Select>
+						<YearSelect
+							year={year}
+							setYear={setYear}
+							setPage={setPage}
+							years={years}
+						/>
 					</div>
-
-					{parent.map((item) => {
-						if (item.children.length === 0)
-							return (
-								<PDFItem
-									key={`disclosure_${item.id}`}
-									title={item.title}
-									link={'/pdf/test-pdf.pdf'}
-								/>
-							);
-					})}
 				</Column>
-
-				{parent.map((item) => {
-					if (item.children.length !== 0) {
-						return (
-							<React.Fragment key={`disclosure_${item.id}`}>
-								<h2 className='heading-3 column full'>{item.title}</h2>
-
-								{item.children.map((item) => {
-									return (
-										<Column key={`disclosure_${item.id}`}>
-											<PDFWidget
-												// headingSize={headingSize}
-												title={item.title}
-												link={''}
-											/>
-										</Column>
-									);
-								})}
-							</React.Fragment>
-						);
-					}
-				})}
+				<Column columnClasses='full'>
+					<div className='pdf-listing'>
+						{files.length &&
+							files.map((file) => {
+								return (
+									<PDFItem
+										key={`${file.title}_${file.date} `}
+										date={file.date}
+										title={file.title}
+										link={file.file_url}
+									/>
+								);
+							})}
+					</div>
+					<Pagination last_page={last_page} page={page} setPage={setPage} />
+				</Column>
 			</Section>
 		</Fade>
+	);
+}
+
+function YearSelect({ year, setYear, setPage, years }) {
+	return (
+		<Select
+			placeholder='Select year'
+			defaultValue={year}
+			onValueChange={(value) => {
+				console.log(value);
+				setYear(value);
+				setPage(1);
+			}}>
+			<SelectItem value={' '}>All</SelectItem>
+			{years &&
+				years.map((year) => {
+					return (
+						<SelectItem key={`year_${year.name}`} value={year.name}>
+							{year.name}
+						</SelectItem>
+					);
+				})}
+		</Select>
 	);
 }

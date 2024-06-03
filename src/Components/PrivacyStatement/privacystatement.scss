@@ -1,0 +1,13 @@
+.privacy-statement {
+	display: none;
+	color: white;
+	position: fixed;
+	bottom: 0;
+	z-index: 5000;
+	width: 100%;
+	padding-top: var(--container-padding);
+	padding-bottom: var(--container-padding);
+	background-color: rgba(0, 0, 0, 0.65);
+	backdrop-filter: blur(10px);
+	border-top: 2px solid var(--base-red);
+}

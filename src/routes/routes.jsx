@@ -1,9 +1,11 @@
 import Builder from 'src/Pages/Builder';
 import CompanyDisclosures from 'src/Pages/CompanyDisclosures';
+import Disclosures from 'src/Pages/Disclosures';
 import DividendHistory from 'src/Pages/DividendHistory';
 import FinancialHighlights from 'src/Pages/FinancialHighlights';
 import FinancialStatements from 'src/Pages/FinancialStatement';
 import Forms from 'src/Pages/Form';
+import News from 'src/Pages/News';
 import Search from 'src/Pages/Search';
 import SharePrices from 'src/Pages/SharePrices';
 import ErrorPage from 'src/error-page';
@@ -30,6 +32,14 @@ export const routes = [
 		element: <Builder />,
 	},
 	{
+		path: '/corporate/news',
+		element: <News />,
+	},
+	{
+		path: '/corporate/news/:id',
+		element: <Builder />,
+	},
+	{
 		path: '/corporate/companys-policies/whistle-blower-form',
 		element: <Forms />,
 	},
@@ -37,6 +47,10 @@ export const routes = [
 	{
 		path: '/corporate/company-disclosures',
 		element: <CompanyDisclosures />,
+	},
+	{
+		path: '/disclosures/:id',
+		element: <Disclosures />,
 	},
 	{
 		path: '/corporate/financial-highlights',

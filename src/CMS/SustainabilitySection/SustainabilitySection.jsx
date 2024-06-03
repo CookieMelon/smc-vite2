@@ -13,10 +13,10 @@ export default function SustainabilitySection({ images, desc, label, link }) {
 	});
 
 	let yValues = [
-		useTransform(scrollYProgress, [0, 1], ['0%', `${(0 * 25) / 2}%`]),
-		useTransform(scrollYProgress, [0, 1], ['0%', `${(1 * 25) / 2}%`]),
-		useTransform(scrollYProgress, [0, 1], ['0%', `${(2 * 25) / 2}%`]),
-		useTransform(scrollYProgress, [0, 1], ['0%', `${(3 * 25) / 2}%`]),
+		useTransform(scrollYProgress, [0, 1], ['-5%', `${1 * 5}%`]),
+		useTransform(scrollYProgress, [0, 1], ['-5%', `${1 * 5}%`]),
+		useTransform(scrollYProgress, [0, 1], ['-5%', `${2 * 5}%`]),
+		useTransform(scrollYProgress, [0, 1], ['-5%', `${4 * 5}%`]),
 	];
 
 	let yTextValues = useTransform(
@@ -28,13 +28,13 @@ export default function SustainabilitySection({ images, desc, label, link }) {
 	return (
 		<div className='sustainability-section' ref={cta}>
 			<div className='sustainability-images'>
-				{images.map((val, index) => {
+				{images.reverse().map((val, index) => {
 					return (
 						<motion.div
 							key={`cta_image_${index}`}
 							style={{
 								zIndex: index,
-								y: yValues[index - 1],
+								y: yValues[index],
 								backgroundImage: `url(${val.src})`,
 							}}></motion.div>
 					);
@@ -70,7 +70,7 @@ export default function SustainabilitySection({ images, desc, label, link }) {
 						<div className='sustainability-btn'>
 							<Link
 								to={link.elements_attributes.to}
-								className='btn btn-bordered white'
+								className='btn btn-bordered'
 								target='_blank'>
 								{link.elements_slot}
 							</Link>

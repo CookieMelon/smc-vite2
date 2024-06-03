@@ -69,11 +69,7 @@ export default function PDFWidget({
 			whileTap='tap'
 			variants={widgetVariants}>
 			{link && (
-				<Link
-					to={link}
-					target='_blank'
-					rel='noopener noreferrer'
-					className='link-cover'></Link>
+				<Link to={link} rel='noopener noreferrer' className='link-cover'></Link>
 			)}
 
 			<h3 className={`${headingSize} pdf-widget-title`}>

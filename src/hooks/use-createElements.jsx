@@ -25,7 +25,7 @@ export const createCMSElement = ({
 	if (elements_name === 'Image') {
 		if (!elements_attributes.src) return;
 	}
-	if (elements_name === 'Paragraph') {
+	if (elements_name === 'Paragraph' || elements_name === 'Content') {
 		if (elements_slot)
 			return (
 				<React.Fragment key={element_code}>

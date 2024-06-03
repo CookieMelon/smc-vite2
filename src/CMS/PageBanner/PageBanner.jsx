@@ -12,7 +12,7 @@ export default function PageBanner({
 	containerSize = 'medium',
 
 	bannerShade = false,
-	widgetClasses,
+	widgetClasses = '',
 	headingSize = 'heading-1',
 	children,
 }) {
@@ -50,7 +50,7 @@ export default function PageBanner({
 	];
 
 	useEffect(() => {
-		if (widgetClasses.includes('smc-blue') && widgetClasses.includes('full')) {
+		if (widgetClasses.includes('smc-blue')) {
 			setRotate(45);
 		}
 	}, []);

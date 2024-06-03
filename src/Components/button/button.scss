@@ -8,6 +8,9 @@
 		--button-bg-hover: var(--base-red);
 		--button-border-hover: var(--base-red);
 	}
+
+	.btn.btn-stacked {
+	}
 }
 
 .smc-blue {
@@ -35,7 +38,7 @@ button {
 
 .btn {
 	--button-color-default: var(--base-black);
-	--button-bg-default: white;
+	--button-bg-default: transparent;
 	--button-border-default: var(--base-black);
 
 	--button-color-hover: white;
@@ -139,6 +142,9 @@ button {
 	padding: 2rem;
 	display: flex;
 	justify-content: space-between;
+	&:hover {
+		color: var(--button-color-hover);
+	}
 }
 
 .btn.white {

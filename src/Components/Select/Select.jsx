@@ -6,7 +6,7 @@ import './radix-select.scss';
 
 export const Select = React.forwardRef(
 	({ children, ...props }, forwardedRef) => {
-		console.log(props);
+		// console.log(props);
 		return (
 			<SelectPrimitive.Root {...props}>
 				<SelectPrimitive.Trigger className='SelectTrigger' ref={forwardedRef}>

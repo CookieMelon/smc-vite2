@@ -6,7 +6,7 @@ import {
 	useScroll,
 } from 'framer-motion';
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { MenuContext, PreloadContext, ThemeContext } from '../../App';
 import { useGetBannerData, useGetToggleFill } from '../../data/data';
 import { enterDuration } from '../layout-anim';
@@ -214,7 +214,7 @@ export default function Nav({}) {
 					variants={navContainer_variants}
 					className='container-fluid-width large'>
 					<motion.div variants={preload_variants} className='brand-logo'>
-						<Link to='/'>
+						<NavLink to='/'>
 							<figure>
 								<motion.img
 									variants={{
@@ -265,7 +265,7 @@ export default function Nav({}) {
 									alt='SMC Logo White'
 								/>
 							</figure>
-						</Link>
+						</NavLink>
 					</motion.div>
 
 					<MainNav animation={false} />
@@ -427,9 +427,9 @@ export function MainNav({ c, animation = true, toggle }) {
 						variants={navItem_variants}
 						key={`menuItem_lvl1_${item_lvl1.page_id}`}>
 						<div className='nav-item-link'>
-							<Link {...link} onClick={toggle}>
+							<NavLink {...link} onClick={toggle}>
 								{item_lvl1.page_title}
-							</Link>
+							</NavLink>
 							{item_lvl1.navigations.length !== 0 && animation && (
 								<button
 									className={`${activeClass}`}
@@ -492,9 +492,9 @@ export function MainNav({ c, animation = true, toggle }) {
 												<motion.b
 													whileHover='hover'
 													className='inner-dropdown-link'>
-													<Link {...link} onClick={toggle}>
+													<NavLink {...link} onClick={toggle}>
 														{item_lvl2.page_title}
-													</Link>
+													</NavLink>
 													{item_lvl2.navigations.length !== 0 && animation && (
 														<button
 															className={`${activeClass}`}
@@ -511,11 +511,6 @@ export function MainNav({ c, animation = true, toggle }) {
 															/>
 														</button>
 													)}
-													<motion.span
-														className='line'
-														style={{
-															display: bold ? 'none' : 'block',
-														}}></motion.span>
 												</motion.b>
 
 												{item_lvl2.navigations.length !== 0 && (
@@ -538,9 +533,9 @@ export function MainNav({ c, animation = true, toggle }) {
 																			className={`inner_lvl2-dropdown-link ${
 																				bold ? 'bold' : ''
 																			}`}>
-																			<Link {...link} onClick={toggle}>
+																			<NavLink {...link} onClick={toggle}>
 																				{item_lvl3.page_title}
-																			</Link>
+																			</NavLink>
 
 																			{item_lvl3.navigations.length !== 0 && (
 																				<button
@@ -579,11 +574,11 @@ export function MainNav({ c, animation = true, toggle }) {
 																								return (
 																									<li
 																										key={`menuItem_lvl4_${item_lvl4.page_id}`}>
-																										<Link
+																										<NavLink
 																											{...link}
 																											onClick={toggle}>
 																											{item_lvl4.page_title}
-																										</Link>
+																										</NavLink>
 																									</li>
 																								);
 																							}

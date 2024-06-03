@@ -183,6 +183,8 @@ export const useGetTheme = (menu) => {
 
 		let index = parentLinks.indexOf(location.pathname.split('/')[1]);
 		if (location.pathname === '/') index = -2;
+		if (location.pathname.split('/')[1] === 'disclosures') index = 2;
+
 		getTheme(index, setsmcTheme);
 	}, [location, menu]);
 
@@ -208,11 +210,15 @@ export const useGetToggleFill = () => {
 export const useGetPage = () => {
 	const location = useLocation();
 	const menu = useContext(MenuContext);
-	const [[title, sections, content_type_id, page_slug, parent_id], setData] =
-		useState(['', []]);
+	const [
+		[title, sections, content_type_id, page_slug, parent_id, theme],
+		setData,
+	] = useState(['', []]);
+
+	const [[date], setNewsData] = useState([]);
 
 	const [error, setError] = useState(false);
-	const [theme, setTheme] = useState('');
+
 	const getTheme = (index) => {
 		switch (index) {
 			case 0:
@@ -243,10 +249,15 @@ export const useGetPage = () => {
 				return res.json();
 			})
 			.then((data) => {
+				console.log(data);
 				if (data.error) {
 					setError(true);
 					return;
 				}
+
+				let parentLinks = menu.map((item) => item.page_slug);
+				let index = parentLinks.indexOf(data.page_slug_full.split('/')[0]);
+				if (location.pathname === '/') index = -2;
 
 				setData([
 					data.page_title,
@@ -254,12 +265,10 @@ export const useGetPage = () => {
 					data.content_type_id,
 					data.page_slug,
 					data.parent_page_id,
+					getTheme(index),
 				]);
 
-				let parentLinks = menu.map((item) => item.page_slug);
-				let index = parentLinks.indexOf(data.page_slug_full.split('/')[0]);
-				if (location.pathname === '/') index = -2;
-				setTheme(getTheme(index));
+				setNewsData([data.publish_date]);
 			});
 	}, [menu]);
 
@@ -271,11 +280,32 @@ export const useGetPage = () => {
 		page_slug,
 		parent_id,
 		theme,
+
+		// news data
+		date,
 	};
 };
 
-export const useGetDisclosureFiles = (page_slug, page, keyword, year) => {
-	const [[files, oldest_date, last_page], setData] = useState([null, '']);
+const populateYear = (oldestYear) => {
+	let yearNow = new Date().getFullYear();
+
+	return Array.from({ length: yearNow - oldestYear + 1 }, (v, i) => {
+		return {
+			id: oldestYear + i,
+			name: oldestYear + i,
+		};
+	}).reverse();
+};
+export const useGetDisclosureCategoryFiles = (
+	page_slug,
+	page,
+	keyword,
+	year
+) => {
+	const [[title, files, oldest_date, last_page], setData] = useState([
+		null,
+		'',
+	]);
 	const [years, setYears] = useState([]);
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -296,33 +326,50 @@ export const useGetDisclosureFiles = (page_slug, page, keyword, year) => {
 				return res.json();
 			})
 			.then((data) => {
+				console.log(data);
 				setData([
+					data.title,
 					data.disclosure_files.files,
 					data.disclosure_files.oldest_date,
 					data.disclosure_files.files.last_page,
 				]);
 
-				let yearNow = new Date().getFullYear();
-				let oldestYear = new Date(
-					data.disclosure_files.oldest_date
-				).getFullYear();
-
 				setYears(
 					(prev) =>
-						(prev = Array.from({ length: yearNow - oldestYear + 1 }, (v, i) => {
-							return {
-								id: oldestYear + i,
-								name: oldestYear + i,
-							};
-						}).reverse())
+						(prev = populateYear(
+							new Date(data.disclosure_files.oldest_date).getFullYear()
+						))
 				);
 			});
 	}, [page_slug, page, keyword, year]);
 
-	return { files, oldest_date, last_page, years };
+	return { title, files, oldest_date, last_page, years };
+};
+
+export const useGetDisclosureAll = () => {
+	const [content, setContent] = useState(null);
+	useEffect(() => {
+		fetch(`${api_url}disclosure_all`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				// Authorization: `Bearer ${token}`,
+			},
+		})
+			.then((res) => {
+				return res.json();
+			})
+			.then((data) => {
+				setContent((prev) => (prev = data));
+			});
+	}, []);
+
+	return { content };
 };
 
 export const useGetCompanyDiclosures = () => {
+	const [list, setList] = useState([]);
+
 	useEffect(() => {
 		fetch(`${api_url}company_disclosure`, {
 			method: 'GET',
@@ -340,28 +387,97 @@ export const useGetCompanyDiclosures = () => {
 	}, []);
 };
 
-export const useGetDataList = (content_type_id) => {
+export const useGetDisclosureFiles = (category, keyword, page, year) => {
+	const [[files, last_page], setContent] = useState([[], '']);
+	const [years, setYears] = useState([]);
 	useEffect(() => {
-		fetch(`${api_url}page/${path}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
+		console.log('category', category !== '');
+		if (category === '')
+			fetch(
+				`${api_url}disclosure_file?src=${keyword}&&page=${page}&&year=${year}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						// Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					console.log('Entered blank category');
+					setContent([
+						data.files.data,
+						// data.disclosure_files.oldest_date,
+						data.files.last_page,
+					]);
+					// let yearNow = new Date().getFullYear();
+
+					setYears(
+						(prev) =>
+							(prev = populateYear(new Date(data.oldest_date).getFullYear()))
+					);
+				});
+		if (category !== '')
+			fetch(
+				`${api_url}disclosure_category/${category}?page=${page}&&src=${keyword}&&year=${year}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						// Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					console.log('Entered not blank category');
+					console.log(data);
+					setContent([
+						data.disclosure_files.files.data,
+						data.disclosure_files.files.last_page,
+					]);
+
+					setYears(
+						(prev) =>
+							(prev = populateYear(
+								new Date(data.disclosure_files.oldest_date).getFullYear()
+							))
+					);
+				});
+	}, [keyword, page, year, category]);
+
+	return { files, years, last_page };
+};
+
+export const useGetDataList = (slugs) => {
+	const [list, setList] = useState([]);
+
+	useEffect(() => {}, []);
+	useEffect(() => {
+		slugs.forEach((page, index) => {
+			fetch(`${api_url}page/${page}/data-list`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
 			})
-			.then((data) => {
-				setData([
-					data.page_title,
-					data.api_sections,
-					data.content_type_id,
-					data.page_slug,
-					data.parent_page_id,
-				]);
-			});
-	}, []);
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					console.log(data);
+					setList((prev) => [...prev, [...data]]);
+				});
+		});
+	}, [slugs]);
+
+	return { list };
 };
 
 export const useSearchMenu = (id) => {
@@ -401,7 +517,6 @@ export const useGetFinancialStatements = () => {
 		})
 		.then((data) => {
 			setContent((prev) => (prev = data));
-			console.log(data);
 		});
 
 	return { content };
@@ -424,7 +539,6 @@ export const useGetSearch = (searchParams) => {
 			})
 			.then((data) => {
 				setResult(data);
-				console.log(data);
 			});
 	}, [searchParams]);
 

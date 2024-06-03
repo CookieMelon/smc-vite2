@@ -13,7 +13,7 @@ import Marquee from 'src/CMS/Marquee/Marquee';
 import OurStoryTab from 'src/CMS/OurStoryTab/ourstorytab';
 import SingleImage from 'src/CMS/SingleImage/SingleImage';
 import StackedImages from 'src/CMS/StackedImages/stackedimages';
-import { useGetPage } from 'src/data/data';
+import { useGetDataList, useGetPage } from 'src/data/data';
 
 import PDFWidget from 'src/CMS/PDFWidget/PDFWidget';
 import VideoContent from 'src/CMS/VideoContent/Video';
@@ -45,12 +45,16 @@ export default function Builder() {
 		theme,
 	} = useGetPage();
 
-	useEffect(() => {}, [content_type_id]);
-
 	if (error) return <ErrorPage />;
 
 	return (
 		<Fade>
+			{
+				/* News Inner Page*/
+				content_type_id === 9 && (
+					<PageBanner title={title} widgetClasses='no-bg smc-blue' />
+				)
+			}
 			{sections.length !== 0 &&
 				sections.map((section) => {
 					let widgets = section.api_widgets;
@@ -86,6 +90,7 @@ export default function Builder() {
 										widgets={widgets}
 										hasColumn={hasColumn}
 										theme={theme}
+										page_slug={page_slug}
 									/>
 								)}
 							</Section>
@@ -118,7 +123,7 @@ export default function Builder() {
 	);
 }
 
-function Widgets({ widgets, hasColumn, keyWidget, theme }) {
+function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 	let our_story_tabs = [];
 
 	return (
@@ -522,7 +527,10 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 								title = child.elements_slot;
 							if (child.elements_name === 'Image')
 								img = child.elements_attributes;
-							if (child.elements_name === 'Paragraph')
+							if (
+								child.elements_name === 'Paragraph' ||
+								child.elements_name === 'Content'
+							)
 								desc = child.elements_slot;
 							if (
 								child.elements_name === 'Corporate Files' &&
@@ -544,9 +552,6 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 
 						let d = {};
 
-						console.log('title', title);
-						console.log('link', link);
-
 						if (title) d.title = title;
 						if (desc) d.desc = desc;
 						if (img) d.img = img;
@@ -559,7 +564,11 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 				}
 
 				if (widget.widgets_name === 'Custom Widget') {
-					if (children.elements_name !== 'Paragraph')
+					console.log(children);
+					if (
+						children.elements_name !== 'Paragraph' &&
+						children.elements_name !== 'Content'
+					)
 						return (
 							<Column key={key} columnClasses={widgetClasses}>
 								{children.map((child) => createCMSElement(child))}
@@ -590,7 +599,6 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 							link = child;
 					});
 
-					console.log(title);
 					return (
 						<SustainabilitySection
 							images={images}
@@ -671,10 +679,42 @@ function Widgets({ widgets, hasColumn, keyWidget, theme }) {
 					return <OurCompanyTab data={data} key={key} />;
 				}
 
+				if (widget.widgets_name === 'Parent-Child - Data List') {
+					let slugs = children.map((child) => {
+						return child.elements_attributes.href;
+					});
+
+					return <ParentChildDataList key={key} slugs={slugs} />;
+				}
+
 				// if (index === widgets.length - 1) {
 				// 	return renderCombinedWidgets({ ourbusiness_widget, ourbusiness_key });
 				// }
 			})}
 		</React.Fragment>
 	);
+}
+
+function ParentChildDataList({ slugs }) {
+	const { list } = useGetDataList(slugs);
+	// const { list: sublist } = useGetDataList(list);
+	// useEffect(() => {
+	// 	if (list.length) console.log(list);
+	// }, [list]);
+	// useEffect(() => {
+	// 	console.log(sublist);
+	// }, [sublist]);
+	useEffect(() => {
+		console.log(list);
+	}, []);
+
+	// return (
+	// 	<Section>
+	// 		{list.length &&
+	// 			list.map((item, index) => {
+	// 				console.log(item);
+	// 				return <h2>{item.page_title}</h2>;
+	// 			})}
+	// 	</Section>
+	// );
 }

@@ -77,7 +77,7 @@
 
 .image-description {
 	white-space: normal;
-	padding: 2rem 0;
+	// padding: 2rem 0;
 	&.projects-slider {
 		width: 35rem;
 		max-width: 100%;
@@ -204,10 +204,10 @@
 			}
 		}
 		.button.left {
-			left: 0;
+			left: -1.5rem;
 		}
 		.button.right {
-			right: 0;
+			right: -1.5rem;
 		}
 	}
 }
