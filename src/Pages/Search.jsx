@@ -9,7 +9,6 @@ import { useGetSearch } from 'src/data/data';
 export default function Search({}) {
 	const [searchParams] = useSearchParams();
 	const { result } = useGetSearch(searchParams);
-	console.log(result);
 	if (result.length === 0) return;
 	return (
 		<Fade>

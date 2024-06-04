@@ -45,6 +45,7 @@
 		h2 {
 			margin-top: 4rem;
 			color: var(--heading-color);
+			transition: color 0.5s 0.5s cubic-bezier(0.76, 0, 0.24, 1);
 		}
 	}
 	.column:only-child {

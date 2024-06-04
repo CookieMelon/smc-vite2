@@ -74,7 +74,9 @@ export default function OurStoryTab({ data }) {
 					flex: '1 1 47%',
 				}}>
 				<h3>
-					Pellentesque cras tortor viverra dui tempor semper cum sed. Sit ut.
+					We are driven by our aspirations for our company, and our ambition for
+					our country—on whose stability, growth, and prosperity our success
+					ultimately lies.
 				</h3>
 
 				<div className='tab-source tabsource-ourstory'>
@@ -150,11 +152,9 @@ export default function OurStoryTab({ data }) {
 										src={content.target.img_2.src}
 										alt={content.target.img_2.alt}
 									/>
-									<motion.p variants={other_variants}>
-										Eu phasellus nunc neque porta laoreet maecenas tortor in.
-										Magnis sit leo at a tortor. Quis massa tellus ut arcu sit
-										sed sed. In ultrices curabitur leo eu.
-									</motion.p>
+									<motion.div variants={other_variants}>
+										{content.target.content && parse(content.target.content)}
+									</motion.div>
 								</motion.div>
 							);
 						})}

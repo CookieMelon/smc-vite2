@@ -27,9 +27,6 @@ export default function News() {
 			});
 	}, []);
 
-	useEffect(() => {
-		console.log(news);
-	}, [news]);
 	return (
 		<Fade>
 			<PageBanner title={'News'} widgetClasses='smc-blue' />
@@ -42,7 +39,7 @@ export default function News() {
 							news_details.page_title = n.page_title;
 							news_details.date = n.publish_date;
 							news_details.link = n.page_slug;
-							console.log(news_details.link);
+
 							if (n.teaser) {
 								let teaser = n.teaser;
 

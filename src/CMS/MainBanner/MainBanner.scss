@@ -48,7 +48,7 @@
 
 .banner-parallax h1 {
 	position: fixed;
-	top: 40vh;
+	top: 35vh;
 	bottom: auto;
 	text-align: center;
 	width: 600px;
@@ -62,7 +62,7 @@
 	line-height: 1.25;
 	font-weight: 700;
 	z-index: 30000 !important;
-	font-size: clamp(3.05rem, 3.54vw + 2.17rem, 5rem);
+	font-size: clamp(4.05rem, 4.2vw + 2.17rem, 8rem);
 	span {
 		display: inline-block;
 	}

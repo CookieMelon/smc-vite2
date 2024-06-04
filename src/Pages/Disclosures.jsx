@@ -9,6 +9,7 @@ import PDFItem from 'src/CMS/PDFItem/PDFItem';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import { Select, SelectItem } from 'src/Components/Select/Select';
 import Fade from 'src/Layout/Fade/Fade';
+import { useGetDisclosureCategoryFiles } from 'src/data/data';
 
 const api_url = import.meta.env.VITE_API_URL;
 

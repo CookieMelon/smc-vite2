@@ -30,7 +30,11 @@ export const useGetMenuNew = (setFakePreload) => {
 			if (child.navigations.length !== 0)
 				filteredNavigation = removeUnpublished(child.navigations);
 			child.navigations = filteredNavigation;
-			return child.page_is_published && child.page_slug !== 'home';
+			return (
+				(child.set_as_sub_menu || child.set_as_main_menu) &&
+				child.page_is_published &&
+				child.page_slug !== 'home'
+			);
 		});
 
 		return filteredItem;
