@@ -373,6 +373,7 @@ a {
 }
 
 .grid {
+	position: relative;
 	display: grid;
 	gap: 1rem;
 	grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
@@ -382,8 +383,44 @@ a {
 	.full {
 		grid-column: 1 / -1;
 	}
-	.column-3 {
+
+	.grid-end {
+		grid-column-end: -1;
 	}
+}
+
+.whistle-from {
+	.grid {
+		position: relative;
+	}
+	.remove {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.parent {
+		.grid:only-child {
+			.remove {
+				display: none;
+			}
+		}
+	}
+}
+
+.company-officers {
+	.heading-5:only-child {
+		margin-top: 0 !important;
+		margin-bottom: -3rem;
+	}
+	.heading-5 {
+		margin-top: 0;
+		color: var(--base-red);
+	}
+}
+
+.seperator {
+	height: 1px;
+	background-color: var(--gray-2);
 }
 
 .grid.reverse {

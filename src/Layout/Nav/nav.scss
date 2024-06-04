@@ -108,6 +108,10 @@
 			display: block;
 			color: var(--nav-innerLinks-color);
 		}
+		a:hover {
+			color: var(--nav-innerLinks-color-selected);
+		}
+
 		a.active {
 			color: var(--nav-innerLinks-color-selected);
 			font-weight: bolder;

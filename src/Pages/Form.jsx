@@ -1,15 +1,32 @@
 import * as Form from '@radix-ui/react-form';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { PiXCircle } from 'react-icons/pi';
+import { Link } from 'react-router-dom';
 import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
 
 import 'src/styles/radix-form.scss';
+const captcha_key = import.meta.env.VITE_API_URL;
+
+const removeItem = (arr, index) => {
+	// const index = arr.indexOf(item);
+	if (index > -1) arr.splice(index, 1);
+};
+
 export default function Forms() {
-	const [persons, setPersons] = useState(1);
-	const [reports, setReports] = useState(1);
+	const recaptcha = useRef();
+
+	const personCount = useRef(0);
+	const [persons, setPersons] = useState([0]);
+
+	const reportCount = useRef(0);
+	const [reports, setReports] = useState([0]);
+
+	const [count, setCount] = useState(1);
+
 	return (
 		<Fade>
 			<PageBanner
@@ -19,7 +36,23 @@ export default function Forms() {
 			/>
 			<Section containerClass={'small'}>
 				<Column>
-					<p className='small-text '>
+					<p
+						className='small-text'
+						style={{
+							textAlign: 'right',
+							margin: '2rem 0',
+						}}>
+						<Link
+							style={{
+								marginLeft: 'auto',
+							}}
+							className='btn btn-bordered grid-end'
+							to='/storage/files/reports/2023_Whistle_Blowing_Report_Form.pdf'
+							target='_blank'>
+							Download a printable version of this form
+						</Link>
+					</p>
+					<p className='small-text full'>
 						<i>
 							<b>NOTE:</b> The Company shall treat the details of this Form with
 							utmost confidentiality, and the identities of the Whistleblower
@@ -40,12 +73,13 @@ export default function Forms() {
 							SMC Whistle-Blowing Policy, which may be accessed at [*].
 						</i>
 					</p>
-					<Form.Root className='Form grid'>
+					<Form.Root className='Form grid form whistle-from'>
 						<p className='small-text full'>
 							<b>
 								<span>*</span> Required fields
 							</b>
 						</p>
+
 						<Form.Field
 							className='FormField'
 							name='form_no'
@@ -199,14 +233,27 @@ export default function Forms() {
 								involved or being reported
 							</i>
 						</p>
-						<Persons />
+						<div className='grid full parent'>
+							{persons.map((p, index) => {
+								return (
+									<Persons
+										key={index}
+										id={index}
+										persons={persons}
+										setPersons={setPersons}
+									/>
+								);
+							})}
+						</div>
+
 						<button
-							className='btn'
+							className='btn grid-end'
 							onClick={(event) => {
 								event.preventDefault();
-								return Persons;
+								personCount.curent++;
+								setPersons([...persons, personCount.curent]);
 							}}>
-							Test
+							Add more
 						</button>
 
 						<p className='full small-text'>
@@ -218,85 +265,39 @@ export default function Forms() {
 								many pages as necessary.
 							</i>
 						</p>
+						<div className='grid full parent'>
+							{reports.map((r, index) => {
+								return (
+									<Reports
+										key={index}
+										id={index}
+										reports={reports}
+										setReports={setReports}
+									/>
+								);
+							})}
+						</div>
 
-						<p className='full'>
-							<b>REPORT NO.1</b>
-						</p>
-						<Form.Field className='FormField full' name='report_details_1[]'>
-							<Form.Label className='FormLabel'>
-								<span>*</span> What wrongdoing occurred?
-							</Form.Label>
-							<Form.Control asChild>
-								<textarea required></textarea>
-							</Form.Control>
-						</Form.Field>
-						<Form.Field className='FormField full' name='report_details_2[]'>
-							<Form.Label className='FormLabel'>
-								<span>*</span> When did this occur?
-							</Form.Label>
-							<Form.Control asChild>
-								<textarea required></textarea>
-							</Form.Control>
-						</Form.Field>
-						<Form.Field className='FormField full' name='report_details_3[]'>
-							<Form.Label className='FormLabel'>
-								<span>*</span> Who did the wrongdoing?
-							</Form.Label>
-							<Form.Control asChild>
-								<textarea required></textarea>
-							</Form.Control>
-						</Form.Field>
-						<Form.Field className='FormField full' name='report_details_4[]'>
-							<Form.Label className='FormLabel'>
-								<span>*</span> Where did this happen?
-							</Form.Label>
-							<Form.Control asChild>
-								<textarea required></textarea>
-							</Form.Control>
-						</Form.Field>
-						<Form.Field className='FormField full' name='report_details_5[]'>
-							<Form.Label className='FormLabel'>
-								<span>*</span> What enabled this to happen (How)?
-							</Form.Label>
-							<Form.Control asChild>
-								<textarea required></textarea>
-							</Form.Control>
-						</Form.Field>
-						<Form.Field className='FormField full' name='report_files[]'>
-							<Form.Label className='FormLabel'>
-								Please attach any document/s that will support your report.
-							</Form.Label>
-							<Form.Control
-								type='file'
-								accept='.xls, .xlsx, .docx, .doc, .pdf, image/.jpg'
-							/>
-							<p className='small-text'>
-								Only acceptable files are .xls, .xlsx, .docx, .doc, pdf, and
-								.jpg. Maximum upload file size will be 1.5mb only.
-							</p>
-						</Form.Field>
-
-						<Form.Field className='FormField full' name='report_files[]'>
-							<Form.Label className='FormLabel'>
-								Please attach any document/s that will support your report.
-							</Form.Label>
-							<Form.Control
-								type='file'
-								accept='.xls, .xlsx, .docx, .doc, .pdf, image/.jpg'
-							/>
-							<p className='small-text'>
-								Only acceptable files are .xls, .xlsx, .docx, .doc, pdf, and
-								.jpg. Maximum upload file size will be 1.5mb only.
-							</p>
-						</Form.Field>
+						<button
+							className='btn grid-end'
+							onClick={(event) => {
+								event.preventDefault();
+								reportCount.curent++;
+								setReports([...reports, reportCount.curent]);
+							}}>
+							Add more
+						</button>
 
 						<ReCAPTCHA
+							ref={recaptcha}
 							size='compact'
-							sitekey='6Lf2Ou0pAAAAAFsNESmthxWi8HCz592V9PBqu0vE'
+							sitekey={captcha_key}
 							// onChange={onChange}
 						/>
 
-						<Form.Submit className='btn btn-bordered'>Submit</Form.Submit>
+						<Form.Submit className='grid-end btn btn-bordered'>
+							Submit
+						</Form.Submit>
 					</Form.Root>
 				</Column>
 			</Section>
@@ -304,36 +305,128 @@ export default function Forms() {
 	);
 }
 
-function Persons() {
+function Persons({ persons, setPersons, id }) {
+	const ref = useRef();
+
 	return (
-		<div className='grid full'>
-			<Form.Field className='FormField' name='person_name[]'>
+		<div className='grid full' ref={ref}>
+			<div className='grid-end'>
+				<button
+					type='button'
+					className='remove'
+					onClick={() => {
+						console.log(id);
+						const newItems = [...persons];
+						removeItem(newItems, id);
+						setPersons(newItems);
+					}}>
+					<PiXCircle size={'2rem'} />
+				</button>
+			</div>
+			<Form.Field className='FormField' name={`person_name[${id}]`}>
 				<Form.Label className='FormLabel'>
 					<span>*</span> Name
 				</Form.Label>
 				<Form.Control className='FormControl' type='text' required />
 			</Form.Field>
-			<Form.Field className='FormField' name='person_address[]'>
+			<Form.Field className='FormField' name={`person_address[${id}]`}>
 				<Form.Label className='FormLabel'>
 					<span>*</span> Address
 				</Form.Label>
 				<Form.Control className='FormControl' type='text' required />
 			</Form.Field>
-			<Form.Field className='FormField' name='person_phone1[]'>
+			<Form.Field className='FormField' name={`person_phone1[${id}]`}>
 				<Form.Label className='FormLabel'>Phone</Form.Label>
 				<Form.Control className='FormControl' type='text' />
 			</Form.Field>
-			<Form.Field className='FormField' name='person_department[]'>
+			<Form.Field className='FormField' name={`person_department[${id}]`}>
 				<Form.Label className='FormLabel'>Department</Form.Label>
 				<Form.Control className='FormControl' type='text' />
 			</Form.Field>
-			<Form.Field className='FormField' name='person_position[]'>
+			<Form.Field className='FormField' name={`person_position[${id}]`}>
 				<Form.Label className='FormLabel'>Position</Form.Label>
 				<Form.Control className='FormControl' type='text' />
 			</Form.Field>
-			<Form.Field className='FormField' name='person_phone2[]'>
+			<Form.Field className='FormField' name={`person_phone2[${id}]`}>
 				<Form.Label className='FormLabel'>Phone</Form.Label>
 				<Form.Control className='FormControl' type='text' />
+			</Form.Field>
+			<div className='seperator full'></div>
+		</div>
+	);
+}
+
+function Reports({ reports, setReports, id }) {
+	return (
+		<div className='grid full'>
+			<div className='grid-end'>
+				<button
+					type='button'
+					className='remove'
+					onClick={() => {
+						console.log(id);
+						const newItems = [...reports];
+						removeItem(newItems, id);
+						setReports(newItems);
+					}}>
+					<PiXCircle size={'2rem'} />
+				</button>
+			</div>
+			<p className='full'>
+				<b>REPORT NO. {id + 1}</b>
+			</p>
+			<Form.Field className='FormField full' name={`report_details_1[${id}]`}>
+				<Form.Label className='FormLabel'>
+					<span>*</span> What wrongdoing occurred?
+				</Form.Label>
+				<Form.Control asChild>
+					<textarea required></textarea>
+				</Form.Control>
+			</Form.Field>
+			<Form.Field className='FormField full' name={`report_details_2[${id}]`}>
+				<Form.Label className='FormLabel'>
+					<span>*</span> When did this occur?
+				</Form.Label>
+				<Form.Control asChild>
+					<textarea required></textarea>
+				</Form.Control>
+			</Form.Field>
+			<Form.Field className='FormField full' name={`report_details_3[${id}]`}>
+				<Form.Label className='FormLabel'>
+					<span>*</span> Who did the wrongdoing?
+				</Form.Label>
+				<Form.Control asChild>
+					<textarea required></textarea>
+				</Form.Control>
+			</Form.Field>
+			<Form.Field className='FormField full' name={`report_details_4[${id}]`}>
+				<Form.Label className='FormLabel'>
+					<span>*</span> Where did this happen?
+				</Form.Label>
+				<Form.Control asChild>
+					<textarea required></textarea>
+				</Form.Control>
+			</Form.Field>
+			<Form.Field className='FormField full' name={`report_details_5[${id}]`}>
+				<Form.Label className='FormLabel'>
+					<span>*</span> What enabled this to happen (How)?
+				</Form.Label>
+				<Form.Control asChild>
+					<textarea required></textarea>
+				</Form.Control>
+			</Form.Field>
+			<Form.Field className='FormField full' name={`report_files_[${id}]`}>
+				<Form.Label className='FormLabel'>
+					Please attach any document/s that will support your report.
+				</Form.Label>
+				<Form.Control
+					type='file'
+					accept='.xls, .xlsx, .docx, .doc, .pdf, image/.jpg'
+				/>
+				<p className='small-text'>
+					Only acceptable files are .xls, .xlsx, .docx, .doc, pdf, and .jpg.
+					Maximum upload file size will be 1.5mb only.
+				</p>
 			</Form.Field>
 		</div>
 	);

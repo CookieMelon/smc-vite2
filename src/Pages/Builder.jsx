@@ -464,21 +464,24 @@ function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 				}
 
 				if (widget.widgets_name === 'PDF Widget') {
-					let files = children[0].elements_attributes
+					let link = children[0].elements_attributes
 						? children[0].elements_attributes.src
 						: '';
 					let title = children[1];
 					// let headingSize = title.elements_class
 					// 	? title.elements_class.join(' ')
 					// 	: null;
-					let link = children[2];
+
+					if (children[2].elements_attributes.to)
+						link = children[2].elements_attributes.to;
+					console.log(link);
 
 					return (
 						<Column key={key} className={widgetClasses}>
 							<PDFWidget
 								// headingSize={headingSize}
 								title={title.elements_slot}
-								link={files}
+								link={link}
 							/>
 						</Column>
 					);

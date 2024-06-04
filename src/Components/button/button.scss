@@ -65,6 +65,8 @@ button {
 	font-size: 1rem;
 	transition: background-color 0.1s ease-in;
 	transition-property: background-color, color;
+
+	justify-content: center;
 	&:hover {
 		color: var(--button-color-hover);
 		background-color: var(--button-bg-hover);

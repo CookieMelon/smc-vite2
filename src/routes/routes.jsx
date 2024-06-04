@@ -32,6 +32,10 @@ export const routes = [
 		element: <Builder />,
 	},
 	{
+		path: '/page/:id',
+		element: <Builder />,
+	},
+	{
 		path: '/corporate/news',
 		element: <News />,
 	},
