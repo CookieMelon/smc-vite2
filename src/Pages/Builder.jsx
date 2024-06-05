@@ -160,7 +160,9 @@ export default function Builder() {
 
 			{
 				/* Our Businesses */
-				content_type_id === 10 && <OurBusinessControls parent_id={parent_id} />
+				content_type_id === 10 && (
+					<OurBusinessControls page_slug={page_slug} parent_id={parent_id} />
+				)
 			}
 
 			{

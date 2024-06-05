@@ -28,7 +28,27 @@ export const routes = [
 		element: <Builder />,
 	},
 	{
+		path: '/our-story/:id/:id',
+		element: <Builder />,
+	},
+	{
+		path: '/our-story/:id/:id/:id',
+		element: <Builder />,
+	},
+	{
 		path: '/corporate',
+		element: <Builder />,
+	},
+	{
+		path: '/corporate/:id',
+		element: <Builder />,
+	},
+	{
+		path: '/corporate/:id/:id',
+		element: <Builder />,
+	},
+	{
+		path: '/corporate/:id/:id/:id',
 		element: <Builder />,
 	},
 	{
@@ -44,11 +64,11 @@ export const routes = [
 		element: <Builder />,
 	},
 	{
-		path: '/corporate/companys-policies/whistle-blower-form',
+		path: '/corporate/corporate-governance/companys-policies/whistle-blower-form',
 		element: <Forms />,
 	},
 	{
-		path: '/corporate/walang-iwanan-smcs-covid-19-efforts/:id',
+		path: '/corporate/:id/:id/:id/:id',
 		element: <Builder />,
 	},
 

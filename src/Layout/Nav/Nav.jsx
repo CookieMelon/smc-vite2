@@ -412,7 +412,7 @@ export function MainNav({ c, animation = true, toggle }) {
 						variants={navItem_variants}
 						key={`menuItem_lvl1_${item_lvl1.page_id}`}>
 						<div className='nav-item-link'>
-							<NavLink {...link} onClick={toggle}>
+							<NavLink end {...link} onClick={toggle}>
 								{item_lvl1.page_title}
 							</NavLink>
 							{item_lvl1.navigations.length !== 0 && animation && (
@@ -474,7 +474,7 @@ export function MainNav({ c, animation = true, toggle }) {
 												<motion.b
 													whileHover='hover'
 													className='inner-dropdown-link'>
-													<NavLink {...link} onClick={toggle}>
+													<NavLink end {...link} onClick={toggle}>
 														{item_lvl2.page_title}
 													</NavLink>
 													{item_lvl2.navigations.length !== 0 && animation && (
@@ -515,7 +515,7 @@ export function MainNav({ c, animation = true, toggle }) {
 																			className={`inner_lvl2-dropdown-link ${
 																				bold ? 'bold' : ''
 																			}`}>
-																			<NavLink {...link} onClick={toggle}>
+																			<NavLink end {...link} onClick={toggle}>
 																				{item_lvl3.page_title}
 																			</NavLink>
 
@@ -554,6 +554,7 @@ export function MainNav({ c, animation = true, toggle }) {
 																									<li
 																										key={`menuItem_lvl4_${item_lvl4.page_id}`}>
 																										<NavLink
+																											end
 																											{...link}
 																											onClick={toggle}>
 																											{item_lvl4.page_title}
