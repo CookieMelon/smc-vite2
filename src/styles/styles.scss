@@ -850,6 +850,9 @@ a {
 
 	.desc-container {
 		flex: 0 1 1;
+		h3:only-child {
+			margin: 0;
+		}
 	}
 }
 
@@ -1077,7 +1080,7 @@ a {
 }
 .bo-column {
 	position: sticky;
-	top: 0;
+	top: 2rem;
 	flex: 0 1 300px !important;
 	font-size: 0.85rem;
 	text-wrap: pretty;
@@ -1093,6 +1096,9 @@ a {
 	img {
 		width: 200px;
 		max-width: 100%;
+	}
+	h5:first-child {
+		margin-top: 0;
 	}
 }
 

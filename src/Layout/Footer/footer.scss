@@ -71,7 +71,10 @@
 	width: 5rem;
 	margin-right: 2rem;
 }
-
+.social-icon {
+	display: flex;
+	gap: 7.5px;
+}
 .social-icons {
 	border-radius: 100%;
 	background-color: var(--gray-2);
@@ -80,11 +83,17 @@
 	align-items: center;
 }
 
-.social-icons a {
-	color: currentColor;
-	padding: 0.75rem;
-	display: flex;
-	align-items: center;
+.social-icons {
+	color: var(--base-black);
+	a {
+		color: currentColor !important;
+
+		display: flex;
+		align-items: center;
+	}
+	svg {
+		padding: 0.75rem;
+	}
 }
 
 .privacy-flex {

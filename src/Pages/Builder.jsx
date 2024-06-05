@@ -5,7 +5,7 @@ import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
 
 import parse from 'html-react-parser';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import FullPageBanner from 'src/CMS/FullPageBanner/fullpagebanner';
 import MainBanner from 'src/CMS/MainBanner/MainBanner';
@@ -21,6 +21,13 @@ import VideoContent from 'src/CMS/VideoContent/Video';
 import ImageSlider from 'src/CMS/ImageSlider/ImageSlider';
 
 import { useContext } from 'react';
+import {
+	EmailShareButton,
+	FacebookShareButton,
+	LinkedinShareButton,
+	TwitterShareButton,
+	ViberShareButton,
+} from 'react-share';
 import { LenixContext } from 'src/App';
 import AnnualReports from 'src/CMS/AnnualReports/AnnualReports';
 import HomepageWidget from 'src/CMS/HomepageWidget/HomepageWidget';
@@ -28,6 +35,13 @@ import OurBusinesses from 'src/CMS/OurBusinesses/OurBusinesses';
 import OurCompanyTab from 'src/CMS/OurCompanyTab/OurCompanyTab';
 import SustainabilitySection from 'src/CMS/SustainabilitySection/SustainabilitySection';
 import OurBusinessControls from 'src/Components/OurBusinessControls/OurBusinessControls';
+import {
+	EmailIcon,
+	FacebookIcon,
+	InstagramIcon,
+	LinkedInIcon,
+	ViberIcon,
+} from 'src/Layout/Footer/social-icon';
 import ErrorPage from 'src/error-page';
 import { createCMSElement } from 'src/hooks/use-createElements';
 import Disclosures from './Disclosures';
@@ -35,7 +49,7 @@ import { NewsFeatured, NewsItem } from './News';
 
 export default function Builder() {
 	const lenis = useContext(LenixContext);
-
+	const page_url = window.location.href;
 	const {
 		error,
 		title,
@@ -44,6 +58,7 @@ export default function Builder() {
 		page_slug,
 		parent_id,
 		theme,
+		date,
 	} = useGetPage();
 
 	if (error) return <ErrorPage />;
@@ -51,11 +66,43 @@ export default function Builder() {
 	return (
 		<Fade>
 			{
-				/* News Inner Page*/
-				content_type_id === 9 && (
-					<PageBanner title={title} widgetClasses='no-bg smc-blue' />
+				/* News Inner Page = 9*/
+				/* Article Page = 5 */
+				(content_type_id === 9 || content_type_id === 5) && (
+					<>
+						<PageBanner
+							title={title}
+							subtitle={new Date(date).toDateString()}
+							widgetClasses='no-bg smc-blue'
+						/>
+						<Section
+							widgetClasses='smc-null'
+							containerClass={'medium'}
+							sectionStyle={{ paddingBottom: '0' }}>
+							<div className='social-icon'>
+								<FacebookShareButton url={page_url}>
+									<FacebookIcon />
+								</FacebookShareButton>
+								<TwitterShareButton url={page_url} title={title}>
+									<InstagramIcon />
+								</TwitterShareButton>
+
+								<EmailShareButton url={page_url}>
+									<EmailIcon />
+								</EmailShareButton>
+
+								<LinkedinShareButton url={page_url} title={title}>
+									<LinkedInIcon />
+								</LinkedinShareButton>
+								<ViberShareButton url={page_url} title={title}>
+									<ViberIcon />
+								</ViberShareButton>
+							</div>
+						</Section>
+					</>
 				)
 			}
+
 			{sections.length !== 0 &&
 				sections.map((section) => {
 					let widgets = section.api_widgets;
@@ -120,13 +167,11 @@ export default function Builder() {
 				/* Disclosures */
 				content_type_id === 11 && <Disclosures page_slug={page_slug} />
 			}
-
-			<Listing />
 		</Fade>
 	);
 }
 
-function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
+function Widgets({ widgets, keyWidget, theme, page_slug }) {
 	let our_story_tabs = [];
 
 	return (
@@ -693,6 +738,10 @@ function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 						return <ParentChildDataList key={key} slug={slug} title={title} />;
 				}
 
+				if (widget.widgets_name === 'Parent - Data List') {
+					return <Listing key={key} url={page_slug} title={''} />;
+				}
+
 				// if (index === widgets.length - 1) {
 				// 	return renderCombinedWidgets({ ourbusiness_widget, ourbusiness_key });
 				// }
@@ -701,11 +750,15 @@ function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 	);
 }
 
-function Listing() {
-	const { list } = useGetDataList('news', 'News');
+function Listing({ url, title }) {
+	const { list } = useGetDataList(url, title);
+
+	useEffect(() => {
+		console.log(list);
+	}, [list]);
 
 	return (
-		<Section sectionClass={'column-2'} containerClass={'medium'}>
+		<>
 			{list.length !== 0 &&
 				list.map((n, index) => {
 					let news_details = {};
@@ -724,7 +777,7 @@ function Listing() {
 
 					if (index === 0)
 						return (
-							<Column key={`NewsItem_` + index}>
+							<Column columnClasses='full' key={`NewsItem_` + index}>
 								<NewsFeatured
 									image={news_details.image}
 									date={news_details.date}
@@ -747,7 +800,7 @@ function Listing() {
 						</Column>
 					);
 				})}
-		</Section>
+		</>
 	);
 }
 

@@ -56,7 +56,7 @@ export default function News() {
 								}
 								if (index === 0)
 									return (
-										<Column key={`NewsItem_` + index}>
+										<Column columnClasses='full' key={`NewsItem_` + index}>
 											<NewsFeatured
 												image={news_details.image}
 												date={news_details.date}
@@ -124,7 +124,7 @@ export function NewsItem({
 		<motion.div initial='initial' whileHover='hover' className={newsItemClass}>
 			{img && (
 				<motion.div className='img-container'>
-					<Link href={link}>
+					<Link to={link}>
 						<img src={img} />
 					</Link>
 				</motion.div>
@@ -134,7 +134,7 @@ export function NewsItem({
 					<small className='small-text'>{date}</small>
 				</div>
 				<h3 className='news-title heading-5'>
-					<Link href={link}>{title}</Link>
+					<Link to={link}>{title}</Link>
 				</h3>
 				<motion.p
 					variants={{

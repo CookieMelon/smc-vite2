@@ -47,6 +47,10 @@ export const routes = [
 		path: '/corporate/companys-policies/whistle-blower-form',
 		element: <Forms />,
 	},
+	{
+		path: '/corporate/walang-iwanan-smcs-covid-19-efforts/:id',
+		element: <Builder />,
+	},
 
 	{
 		path: '/corporate/company-disclosures',

@@ -20,6 +20,10 @@ export default function NewsInner() {
 	return (
 		<Fade>
 			<PageBanner title={title} widgetClasses='no-bg' />
+			<div>
+				test
+				<SocialIcons />
+			</div>
 			{sections.map((section) => {
 				console.log(section.api_widgets);
 				return (

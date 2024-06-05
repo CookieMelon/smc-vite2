@@ -38,7 +38,13 @@ export default function Footer() {
 							alt={"World's Best Companies 2023, World's Best Employers 2023"}
 						/>
 					</figure>
-					<SocialIcons />
+					<SocialIcons
+						fb_link='https://www.facebook.com/officialsanmiguelcorp/'
+						ig_link='https://www.instagram.com/officialsanmiguelcorp/?hl=en'
+						yt_link='https://www.youtube.com/channel/UCeEbMc0xcGz-potb5RxhMLQ'
+						li_link='https://www.linkedin.com/company/san-miguel-corporation'
+						vb_link='https://invite.viber.com/?g2=AQBXThuOs%2FUC4EtMJHTcT1HGS%2BIm%2FqfGjmtyzIEmWP6lt9lijjc74sqm3o9mOJaq'
+					/>
 					<Dialog.Root modal={true}>
 						<Dialog.Trigger asChild>
 							<button className='subsidiary-btn btn btn-bordered'>
