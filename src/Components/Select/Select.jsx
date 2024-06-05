@@ -6,10 +6,12 @@ import './radix-select.scss';
 
 export const Select = React.forwardRef(
 	({ children, ...props }, forwardedRef) => {
-		// console.log(props);
+		console.log(props);
 		return (
 			<SelectPrimitive.Root {...props}>
-				<SelectPrimitive.Trigger className='SelectTrigger' ref={forwardedRef}>
+				<SelectPrimitive.Trigger
+					className={`SelectTrigger ${props.className}`}
+					ref={forwardedRef}>
 					<SelectPrimitive.Value placeholder={props.placeholder} />
 					<SelectPrimitive.Icon className='SelectIcon'>
 						<PiCaretDown />

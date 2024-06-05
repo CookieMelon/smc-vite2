@@ -392,10 +392,15 @@ export const useGetCompanyDiclosures = () => {
 };
 
 export const useGetDisclosureFiles = (category, keyword, page, year) => {
-	const [[files, last_page], setContent] = useState([[], '']);
+	const [[files, last_page, per_page, total], setContent] = useState([
+		[],
+		'',
+		1,
+		0,
+	]);
 	const [years, setYears] = useState([]);
 	useEffect(() => {
-		if (category === '')
+		if (category === ' ')
 			fetch(
 				`${api_url}disclosure_file?src=${keyword}&&page=${page}&&year=${year}`,
 				{
@@ -414,6 +419,8 @@ export const useGetDisclosureFiles = (category, keyword, page, year) => {
 						data.files.data,
 						// data.disclosure_files.oldest_date,
 						data.files.last_page,
+						data.files.per_page,
+						data.files.total,
 					]);
 					// let yearNow = new Date().getFullYear();
 
@@ -422,7 +429,7 @@ export const useGetDisclosureFiles = (category, keyword, page, year) => {
 							(prev = populateYear(new Date(data.oldest_date).getFullYear()))
 					);
 				});
-		if (category !== '')
+		if (category !== ' ')
 			fetch(
 				`${api_url}disclosure_category/${category}?page=${page}&&src=${keyword}&&year=${year}`,
 				{
@@ -451,7 +458,7 @@ export const useGetDisclosureFiles = (category, keyword, page, year) => {
 				});
 	}, [keyword, page, year, category]);
 
-	return { files, years, last_page };
+	return { files, years, last_page, per_page, total };
 };
 
 export const useGetDataList = (slug, title) => {

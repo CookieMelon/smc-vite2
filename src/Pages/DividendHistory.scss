@@ -259,12 +259,14 @@
 form[name='frmc'],
 form[name='frms'],
 form[name='frmp'] {
+	margin-bottom: 2rem;
 	.sbtn {
 		font-size: 1rem;
 
 		text-align: center;
 		justify-content: center;
-
+		border-width: 2px;
+		color: var(--base-blue);
 		&:hover {
 		}
 	}

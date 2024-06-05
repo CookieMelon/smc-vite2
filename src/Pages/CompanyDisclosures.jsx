@@ -7,29 +7,26 @@ import Section from 'src/CMS/Section/Section';
 import { Select, SelectItem } from 'src/Components/Select/Select';
 import Fade from 'src/Layout/Fade/Fade';
 import { useGetDisclosureAll, useGetDisclosureFiles } from 'src/data/data';
-import { Pagination } from './Disclosures';
 const api_url = import.meta.env.VITE_API_URL;
 
 import * as SelectPrimitive from '@radix-ui/react-select';
+import Pagination from '@unleashit/pagination';
 
-export default function CompanyDisclosures({ page_slug }) {
+export default function CompanyDisclosures() {
 	// const { title, theme } = useGetPage();
 	const [page, setPage] = useState(1);
 	const [keyword, setKeyword] = useState('');
 	const [year, setYear] = useState(' ');
-	const [category, setCategory] = useState('');
+	const [category, setCategory] = useState(' ');
 
 	const { content } = useGetDisclosureAll();
 
-	const { files, last_page, years } = useGetDisclosureFiles(
+	const { files, last_page, years, per_page, total } = useGetDisclosureFiles(
 		category,
 		keyword,
 		page,
 		year
 	);
-
-	const currentYear = new Date().getFullYear();
-	// const test = useGetCompanyDiclosures();
 
 	useEffect(() => {
 		console.log('files', files);
@@ -69,10 +66,18 @@ export default function CompanyDisclosures({ page_slug }) {
 		}
 	}, [content]);
 
+	useEffect(() => {
+		console.log('per_page', per_page);
+		console.log('total', total);
+		console.log('page', page);
+
+		console.log(per_page * page - 1);
+	}, [per_page, total, page]);
+
 	// company disclosure
 	// clean
 	// no filter selected
-	if (year === '' && keyword === '')
+	if (year === ' ' && keyword === '')
 		return (
 			<Fade>
 				<PageBanner title={'Company Disclosures'} widgetClasses={'smc-blue'} />
@@ -98,7 +103,8 @@ export default function CompanyDisclosures({ page_slug }) {
 								years={years}
 							/>
 						</div>
-
+					</Column>
+					<Column columnClasses={'full'}>
 						{parent.map((item) => {
 							if (item.children.length === 0)
 								return (
@@ -146,8 +152,9 @@ export default function CompanyDisclosures({ page_slug }) {
 				<Column columnClasses={'full'}>
 					<div className='disclosure-filter'>
 						<Select
+							className='category-filter'
 							placeholder='Select category'
-							defaultValue={year}
+							defaultValue={category}
 							onValueChange={(value) => {
 								console.log(value);
 								setCategory(value);
@@ -214,7 +221,15 @@ export default function CompanyDisclosures({ page_slug }) {
 								);
 							})}
 					</div>
-					<Pagination last_page={last_page} page={page} setPage={setPage} />
+					<Pagination
+						// cssVars='btn'
+						currentOffset={per_page * page - per_page}
+						handler={(index) => {
+							setPage(index / per_page + 1);
+						}}
+						perPage={per_page}
+						total={total}
+					/>
 				</Column>
 			</Section>
 		</Fade>

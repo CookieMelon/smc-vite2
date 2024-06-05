@@ -60,19 +60,19 @@ export default function OurBusinesses({ data, className, link, children }) {
 
 	const text_variants = {
 		initial: {
-			x: '50px',
+			x: '25px',
 			opacity: 0,
-			transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+			transition: { duration: 0.25, ease: [0.76, 0, 0.24, 1] },
 		},
 		enter: {
 			x: '0',
 			opacity: 1,
-			transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+			transition: { duration: 0.25, ease: [0.76, 0, 0.24, 1] },
 		},
 		exit: {
-			x: '-50px',
+			x: '-25px',
 			opacity: 0,
-			transition: { duration: 0.5, ease: [0.76, 0, 0.24, 1] },
+			transition: { duration: 0.25, ease: [0.76, 0, 0.24, 1] },
 		},
 	};
 
@@ -158,50 +158,44 @@ export default function OurBusinesses({ data, className, link, children }) {
 						</div>
 
 						<motion.div className='ring-description'>
-							<AnimatePresence initial={false} mode='popLayout'>
-								{data.map((data, index) => {
-									return (
-										index === selected && (
-											<motion.div
-												key={`ob_description_${index}`}
-												className='descriptions'
-												initial='initial'
-												exit='exit'
-												animate='enter'
-												// variants={{
-												// 	initial: {
-												// 		display: 'none',
-												// 	},
-												// 	exit: {
-												// 		display: 'none',
-												// 	},
-												// 	enter: {
-												// 		display: 'block',
-												// 	},
-												// }}
-												transition={{
-													staggerChildren: 0.015,
-												}}>
-												<motion.h3 variants={text_variants}>
-													{data.title}
-												</motion.h3>
+							<AnimatePresence mode='wait'>
+								<motion.div
+									key={`ob_description_${selected}`}
+									className='descriptions'
+									initial='initial'
+									exit='exit'
+									animate='enter'
+									// variants={{
+									// 	initial: {
+									// 		display: 'none',
+									// 	},
+									// 	exit: {
+									// 		display: 'none',
+									// 	},
+									// 	enter: {
+									// 		display: 'block',
+									// 	},
+									// }}
+									transition={{
+										staggerChildren: 0.015,
+									}}>
+									<motion.h3 variants={text_variants}>
+										{data[selected].title}
+									</motion.h3>
 
-												<motion.div variants={text_variants}>
-													{parse(data.description)}
-												</motion.div>
-												{data.link && (
-													<motion.p variants={text_variants}>
-														<Link
-															to={data.link}
-															className='btn btn-bordered white'>
-															Read More
-														</Link>
-													</motion.p>
-												)}
-											</motion.div>
-										)
-									);
-								})}
+									<motion.div variants={text_variants}>
+										{parse(data[selected].description)}
+									</motion.div>
+									{data[selected].link && (
+										<motion.p variants={text_variants}>
+											<Link
+												to={data[selected].link}
+												className='btn btn-bordered white'>
+												Read More
+											</Link>
+										</motion.p>
+									)}
+								</motion.div>
 							</AnimatePresence>
 						</motion.div>
 						<motion.div className='inner-ring'>

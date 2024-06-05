@@ -75,7 +75,7 @@ export default function DividendHistory() {
 				setSelp(fd.get('selyp'));
 			});
 		});
-	}, [content]);
+	}, [content, tabIndex]);
 
 	return (
 		<Fade>

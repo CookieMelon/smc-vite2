@@ -27,6 +27,11 @@ export default function Forms() {
 
 	const [count, setCount] = useState(1);
 
+	const submitForm = (event) => {
+		event.preventDefault();
+		const data = Object.fromEntries(new FormData(event.currentTarget));
+		console.log(data);
+	};
 	return (
 		<Fade>
 			<PageBanner
@@ -73,7 +78,12 @@ export default function Forms() {
 							SMC Whistle-Blowing Policy, which may be accessed at [*].
 						</i>
 					</p>
-					<Form.Root className='Form grid form whistle-from'>
+					<Form.Root
+						enctype='multipart/form-data'
+						className='Form grid form whistle-from'
+						onSubmit={(event) => {
+							submitForm(event);
+						}}>
 						<p className='small-text full'>
 							<b>
 								<span>*</span> Required fields
@@ -94,7 +104,9 @@ export default function Forms() {
 							</Form.Message>
 						</Form.Field>
 
-						<p className='full FormHeader'>Your Contact Information</p>
+						<p className='full FormHeader'>
+							<b>Your Contact Information</b>
+						</p>
 						<Form.Field className='FormField' name='first_name'>
 							<Form.Label className='FormLabel'>
 								<span>*</span> First Name
@@ -182,11 +194,11 @@ export default function Forms() {
 								Please enter your Email Address
 							</Form.Message>
 						</Form.Field>
-						<Form.Field className='FormField' name='last_name'>
+						<Form.Field className='FormField' name='cellphone'>
 							<Form.Label className='FormLabel'>
 								<span>*</span> Cellphone No.
 							</Form.Label>
-							<Form.Control className='FormControl' type='email' required />
+							<Form.Control className='FormControl' type='text' required />
 							<Form.Message className='FormMessage' match='valueMissing'>
 								Please enter your Cellphone No.
 							</Form.Message>
@@ -196,7 +208,7 @@ export default function Forms() {
 							Best Date / Time / Place to reach you
 						</div>
 
-						<Form.Field className='FormField' name='last_name'>
+						<Form.Field className='FormField' name='date'>
 							<Form.Label className='FormLabel'>
 								<span>*</span> Date
 							</Form.Label>
@@ -206,7 +218,7 @@ export default function Forms() {
 							</Form.Message>
 						</Form.Field>
 
-						<Form.Field className='FormField' name='last_name'>
+						<Form.Field className='FormField' name='time'>
 							<Form.Label className='FormLabel'>
 								<span>*</span> Time
 							</Form.Label>
@@ -215,7 +227,7 @@ export default function Forms() {
 								Please select time
 							</Form.Message>
 						</Form.Field>
-						<Form.Field className='FormField' name='last_name'>
+						<Form.Field className='FormField' name='location'>
 							<Form.Label className='FormLabel'>
 								<span>*</span> Location
 							</Form.Label>
@@ -225,7 +237,9 @@ export default function Forms() {
 							</Form.Message>
 						</Form.Field>
 
-						<p className='full FormHeader'>PERSON(S) OF INTEREST</p>
+						<p className='full FormHeader'>
+							<b>PERSON(S) OF INTEREST</b>
+						</p>
 
 						<p className='small-text full'>
 							<i>
@@ -295,7 +309,7 @@ export default function Forms() {
 							// onChange={onChange}
 						/>
 
-						<Form.Submit className='grid-end btn btn-bordered'>
+						<Form.Submit className='submit grid-end btn btn-bordered'>
 							Submit
 						</Form.Submit>
 					</Form.Root>

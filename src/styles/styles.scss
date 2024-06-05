@@ -405,6 +405,11 @@ a {
 			}
 		}
 	}
+
+	.submit {
+		height: auto;
+		align-self: center;
+	}
 }
 
 .company-officers {
@@ -650,7 +655,7 @@ a {
 	padding: 2rem 0;
 
 	.img-container {
-		flex: 1 1 200px;
+		flex: 1 1 175px;
 		max-width: 100%;
 		img {
 			width: 100%;
@@ -1203,7 +1208,7 @@ table {
 	gap: 1rem;
 	padding-bottom: 0 !important;
 	margin: 2rem 0;
-
+	cursor: pointer;
 	&:first-child {
 		margin-top: 0;
 	}
@@ -1289,9 +1294,12 @@ table {
 
 .disclosure-filter {
 	display: flex;
-	gap: 2rem;
+	gap: 1rem;
 	align-items: center;
 	input:first-child {
+		margin-left: auto;
+	}
+	.category-filter {
 		margin-left: auto;
 	}
 }
@@ -1317,6 +1325,58 @@ table {
 	a {
 		display: block;
 		line-height: 1.25;
+	}
+}
+
+.unl-pagination__container {
+	margin-top: 4rem;
+	.unl-pagination__inner {
+		display: flex;
+		gap: 0.25rem;
+	}
+	button,
+	.unl-pagination__ellipsis {
+		all: unset;
+		height: 2.5rem;
+		width: 2.5rem;
+		display: inline-flex;
+		justify-content: center;
+		border: 2px solid var(--base-blue);
+		align-items: center;
+		color: var(--base-blue);
+		border-radius: 100%;
+		cursor: pointer;
+		svg {
+			fill: var(--base-blue);
+		}
+		&:hover {
+			color: white;
+			background-color: var(--shade1-blue);
+		}
+	}
+	.unl-pagination__number--active {
+		background-color: var(--base-blue);
+		color: white;
+	}
+	.unl-pagination__prev {
+		margin-right: auto;
+	}
+	.unl-pagination__next {
+		margin-left: auto;
+	}
+	.unl-pagination__prev,
+	.unl-pagination__next {
+		width: auto;
+		border: 0;
+		gap: 0.35rem;
+		&:hover {
+			background-color: transparent;
+			color: var(--base-blue);
+		}
+		svg {
+			height: 13px;
+			width: auto;
+		}
 	}
 }
 

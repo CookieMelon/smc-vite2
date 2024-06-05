@@ -3,7 +3,7 @@ import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
 import { useGetPage } from 'src/data/data';
 
-export default function NewsItem() {
+export default function NewsInner() {
 	// const { id: page_slug } = useParams();
 
 	const {

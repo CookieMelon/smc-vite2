@@ -31,6 +31,7 @@ import OurBusinessControls from 'src/Components/OurBusinessControls/OurBusinessC
 import ErrorPage from 'src/error-page';
 import { createCMSElement } from 'src/hooks/use-createElements';
 import Disclosures from './Disclosures';
+import { NewsFeatured, NewsItem } from './News';
 
 export default function Builder() {
 	const lenis = useContext(LenixContext);
@@ -119,6 +120,8 @@ export default function Builder() {
 				/* Disclosures */
 				content_type_id === 11 && <Disclosures page_slug={page_slug} />
 			}
+
+			<Listing />
 		</Fade>
 	);
 }
@@ -695,6 +698,56 @@ function Widgets({ widgets, hasColumn, keyWidget, theme, page_slug }) {
 				// }
 			})}
 		</React.Fragment>
+	);
+}
+
+function Listing() {
+	const { list } = useGetDataList('news', 'News');
+
+	return (
+		<Section sectionClass={'column-2'} containerClass={'medium'}>
+			{list.length !== 0 &&
+				list.map((n, index) => {
+					let news_details = {};
+					news_details.key = n.id;
+					news_details.page_title = n.page_title;
+					news_details.date = n.publish_date;
+					news_details.link = n.page_slug;
+
+					if (n.teaser) {
+						let teaser = n.teaser;
+
+						if (teaser.teaser_images)
+							news_details.image = teaser.teaser_images.webp.main.src;
+						if (teaser.content) news_details.content = teaser.content;
+					}
+
+					if (index === 0)
+						return (
+							<Column key={`NewsItem_` + index}>
+								<NewsFeatured
+									image={news_details.image}
+									date={news_details.date}
+									title={news_details.page_title}
+									link={news_details.link}
+								/>
+							</Column>
+						);
+
+					return (
+						<Column key={`NewsItem_` + index}>
+							<NewsItem
+								link={news_details.link}
+								index={index}
+								title={news_details.page_title}
+								date={news_details.date}
+								img={news_details.image}
+								// setModal={setModal}
+							/>
+						</Column>
+					);
+				})}
+		</Section>
 	);
 }
 
