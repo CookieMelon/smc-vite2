@@ -5,7 +5,7 @@ import parse from 'html-react-parser';
 
 import { PiCaretCircleLeft, PiCaretCircleRight } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
-import { Select, SelectItem } from 'src/Components/Select/Select';
+import { Select, SelectItem } from 'src/Components/Forms/Select/Select';
 import { getColors } from 'src/hooks/use-color';
 
 export default function AnnualReports({ slides }) {

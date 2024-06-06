@@ -38,14 +38,16 @@ import OurBusinessControls from 'src/Components/OurBusinessControls/OurBusinessC
 import {
 	EmailIcon,
 	FacebookIcon,
-	InstagramIcon,
 	LinkedInIcon,
+	TwitterIcon,
 	ViberIcon,
 } from 'src/Layout/Footer/social-icon';
 import ErrorPage from 'src/error-page';
-import { createCMSElement } from 'src/hooks/use-createElements';
-import Disclosures from './Disclosures';
-import { NewsFeatured, NewsItem } from './News';
+
+import { createCMSElement } from 'src/helper/cms-helper';
+import Disclosures from './Corporate/Disclosures';
+import { NewsFeatured, NewsItem } from './News/News';
+import SMAIForm from './OurStory/SMAIForm';
 
 export default function Builder() {
 	const lenis = useContext(LenixContext);
@@ -84,7 +86,7 @@ export default function Builder() {
 									<FacebookIcon />
 								</FacebookShareButton>
 								<TwitterShareButton url={page_url} title={title}>
-									<InstagramIcon />
+									<TwitterIcon />
 								</TwitterShareButton>
 
 								<EmailShareButton url={page_url}>
@@ -396,9 +398,15 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 					let type = children[0].elements_attributes.type;
 					if (type === 'youtube') {
 						return (
-							<React.Fragment key={key}>
+							<div
+								className='yt-container'
+								style={{
+									position: 'relative',
+									aspectRatio: '4 / 2.3',
+								}}
+								key={key}>
 								{parse(children[0].elements_attributes.embedded_code)}
-							</React.Fragment>
+							</div>
 						);
 					}
 
@@ -518,9 +526,6 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 						? children[0].elements_attributes.src
 						: '';
 					let title = children[1];
-					// let headingSize = title.elements_class
-					// 	? title.elements_class.join(' ')
-					// 	: null;
 
 					if (children[2].elements_attributes.to)
 						link = children[2].elements_attributes.to;
@@ -528,11 +533,7 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 					return (
 						<Column key={key} className={widgetClasses}>
-							<PDFWidget
-								// headingSize={headingSize}
-								title={title.elements_slot}
-								link={link}
-							/>
+							<PDFWidget title={title.elements_slot} link={link} />
 						</Column>
 					);
 				}
@@ -563,12 +564,6 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 				if (widget.widgets_name === 'Annual Reports') {
 					let slides = [];
-					// title = checkTitle(child);
-					// img = checkImage(child);
-					// desc = checkParagraph(child);
-					// link = checkCorporateFiles(child);
-					// link = checkReactLink(child);
-					// subtitle = checkSubTitle(child);
 
 					children.map((div) => {
 						let title, desc, img, link, subtitle;
@@ -744,6 +739,10 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 					return <Listing key={key} url={page_slug} title={''} />;
 				}
 
+				if (widget.widgets_name === 'Contact Us - SMAI') {
+					return <SMAIForm />;
+				}
+
 				// if (index === widgets.length - 1) {
 				// 	return renderCombinedWidgets({ ourbusiness_widget, ourbusiness_key });
 				// }
@@ -810,20 +809,18 @@ function ParentChildDataList({ slug, title }) {
 	const { header, list } = useGetDataList(slug, title);
 
 	return (
-		<div className='link-listing'>
-			<h2>{header}</h2>
-			<div className='link-listing_links'>
+		<>
+			<h2 style={{ flex: '1 1 250px', margin: '0' }}>{header}</h2>
+			<div className='link-listing_links' style={{ flex: '1 1 360px' }}>
 				{list.length !== 0 &&
 					list.map((item, index) => {
 						return (
-							<Link
-								key={`id_${item.page_id}`}
-								to={`/corporate/${item.page_slug}`}>
+							<Link key={`id_${item.page_id}`} to={`/${item.page_slug_full}`}>
 								{item.page_title}
 							</Link>
 						);
 					})}
 			</div>
-		</div>
+		</>
 	);
 }

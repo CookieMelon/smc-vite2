@@ -307,10 +307,8 @@ export const useGetDisclosureCategoryFiles = (
 	keyword,
 	year
 ) => {
-	const [[title, files, oldest_date, last_page], setData] = useState([
-		null,
-		'',
-	]);
+	const [[title, files, oldest_date, last_page, per_page, total], setData] =
+		useState([null, '']);
 	const [years, setYears] = useState([]);
 	const controller = new AbortController();
 	const signal = controller.signal;
@@ -336,6 +334,8 @@ export const useGetDisclosureCategoryFiles = (
 					data.disclosure_files.files,
 					data.disclosure_files.oldest_date,
 					data.disclosure_files.files.last_page,
+					data.disclosure_files.files.per_page,
+					data.disclosure_files.files.total,
 				]);
 
 				setYears(
@@ -347,7 +347,7 @@ export const useGetDisclosureCategoryFiles = (
 			});
 	}, [page_slug, page, keyword, year]);
 
-	return { title, files, oldest_date, last_page, years };
+	return { title, files, oldest_date, last_page, years, per_page, total };
 };
 
 export const useGetDisclosureAll = () => {

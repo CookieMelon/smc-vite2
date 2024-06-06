@@ -451,7 +451,7 @@
 		}
 	}
 	.nav-toggle-trigger {
-		top: 0rem;
+		top: 0.35rem;
 		transform: scale(0.8) !important;
 		right: 1rem;
 	}
@@ -477,12 +477,12 @@
 		a.nav-item,
 		.nav-item > a,
 		.nav-item > div:first-child a {
-			font-size: 1.5rem;
+			font-size: 1.25rem;
 			font-weight: 800;
 			margin: 1rem 0;
 		}
 		.nav-dropdown {
-			font-size: 1.15rem;
+			font-size: 1rem;
 			padding: 0;
 			padding-left: 2rem;
 			> div .inner-dropdown {

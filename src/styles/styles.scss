@@ -405,11 +405,6 @@ a {
 			}
 		}
 	}
-
-	.submit {
-		height: auto;
-		align-self: center;
-	}
 }
 
 .company-officers {
@@ -622,6 +617,17 @@ a {
 		width: 100%;
 	}
 }
+
+.news-featured {
+	.news-title {
+		a {
+			font-weight: 800;
+			&:hover {
+				font-weight: 800;
+			}
+		}
+	}
+}
 .news-featured.column {
 	aspect-ratio: auto;
 	display: grid;
@@ -646,16 +652,17 @@ a {
 		flex: 0 1 175px;
 	}
 }
+
 .news-item {
 	container-type: inline-size;
 	display: flex;
 	border-top: 1px solid var(--gray-3);
-
+	align-items: center;
 	gap: 2rem;
 	padding: 2rem 0;
 
 	.img-container {
-		flex: 1 1 175px;
+		flex: 1 1 125px;
 		max-width: 100%;
 		img {
 			width: 100%;
@@ -959,6 +966,12 @@ a {
 	}
 }
 
+.form {
+	.submit {
+		height: auto;
+		align-self: center;
+	}
+}
 .form-group {
 	display: flex;
 	gap: 10px;
@@ -1258,16 +1271,19 @@ table {
 	transform: translate(0, 0%);
 	grid-area: 1 / 1;
 	position: relative;
+	.img-container {
+		.ourstory-tab-icon {
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: translate(-50%, -50%);
+			width: 8rem;
+			height: auto;
+		}
+	}
 	img {
 		max-width: 100%;
 	}
-}
-.ourstory-tab-icon {
-	position: absolute;
-	top: 0;
-	left: 0;
-	transform: translate(-50%, -50%);
-	width: 8rem;
 }
 
 .ourstory-grid {
@@ -1341,8 +1357,11 @@ table {
 
 .unl-pagination__container {
 	margin-top: 4rem;
+	width: 100%;
+
 	.unl-pagination__inner {
 		display: flex;
+		justify-content: center;
 		gap: 0.25rem;
 	}
 	button,
@@ -1369,10 +1388,12 @@ table {
 		background-color: var(--base-blue);
 		color: white;
 	}
-	.unl-pagination__prev {
+	.unl-pagination__prev,
+	button:last-child:not(.unl-pagination__next) {
 		margin-right: auto;
 	}
-	.unl-pagination__next {
+	.unl-pagination__next,
+	button:first-child:not(.unl-pagination__prev) {
 		margin-left: auto;
 	}
 	.unl-pagination__prev,
@@ -1641,6 +1662,12 @@ table {
 }
 
 @media only screen and (max-width: 450px) {
+	.image-content.stacked {
+		margin-bottom: 2rem;
+	}
+	.link-listing_links {
+		grid-template-columns: 1fr;
+	}
 	.disclosure-filter {
 		flex-wrap: wrap;
 		gap: 1rem;
@@ -1740,6 +1767,22 @@ table {
 		position: relative;
 		opacity: 1 !important;
 		transform: none !important	;
+
+		.img-container {
+			position: relative;
+			.ourstory-tab-icon {
+				left: auto;
+				right: 0;
+				transform: translate(25%, -80%);
+				width: 5rem;
+			}
+		}
+		div {
+			opacity: 1 !important;
+		}
+		.mobile-only {
+			padding-right: 6rem;
+		}
 		img {
 			opacity: 1 !important;
 			margin: 2rem 0;
@@ -1747,13 +1790,6 @@ table {
 		p {
 			opacity: 1 !important;
 		}
-	}
-
-	.ourstory-tab-icon {
-		left: auto;
-		right: 0;
-		transform: translate(0%, -75%);
-		width: 5rem;
 	}
 
 	.ourcompany-column {
@@ -1789,7 +1825,7 @@ table {
 		align-items: center;
 		justify-content: center;
 		.img-container {
-			flex: 0 1 250px;
+			flex: 0 1 200px;
 			img {
 				width: 100%;
 				margin: auto;

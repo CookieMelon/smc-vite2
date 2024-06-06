@@ -1,13 +1,13 @@
 import Builder from 'src/Pages/Builder';
-import CompanyDisclosures from 'src/Pages/CompanyDisclosures';
-import Disclosures from 'src/Pages/Disclosures';
-import DividendHistory from 'src/Pages/DividendHistory';
-import FinancialHighlights from 'src/Pages/FinancialHighlights';
-import FinancialStatements from 'src/Pages/FinancialStatement';
-import Forms from 'src/Pages/Form';
-import News from 'src/Pages/News';
+import CompanyDisclosures from 'src/Pages/Corporate/CompanyDisclosures';
+import Disclosures from 'src/Pages/Corporate/Disclosures';
+import DividendHistory from 'src/Pages/Corporate/DividendHistory';
+import FinancialHighlights from 'src/Pages/Corporate/FinancialHighlights';
+import FinancialStatements from 'src/Pages/Corporate/FinancialStatement';
+import SharePrices from 'src/Pages/Corporate/SharePrices';
+import WhistleBlowingForm from 'src/Pages/Corporate/WhistleBlowingForm';
+import News from 'src/Pages/News/News';
 import Search from 'src/Pages/Search';
-import SharePrices from 'src/Pages/SharePrices';
 import ErrorPage from 'src/error-page';
 
 export const routes = [
@@ -56,24 +56,23 @@ export const routes = [
 		element: <Builder />,
 	},
 	{
-		path: '/corporate/news',
+		path: '/corporate/public-offering-of-securities/news',
 		element: <News />,
 	},
 	{
-		path: '/corporate/news/:id',
+		path: '/corporate/public-offering-of-securities/news/:id',
 		element: <Builder />,
 	},
 	{
 		path: '/corporate/corporate-governance/companys-policies/whistle-blower-form',
-		element: <Forms />,
+		element: <WhistleBlowingForm />,
 	},
 	{
 		path: '/corporate/:id/:id/:id/:id',
 		element: <Builder />,
 	},
-
 	{
-		path: '/corporate/company-disclosures',
+		path: '/disclosures/all',
 		element: <CompanyDisclosures />,
 	},
 	{
@@ -81,19 +80,19 @@ export const routes = [
 		element: <Disclosures />,
 	},
 	{
-		path: '/corporate/financial-highlights',
+		path: '/corporate/investor-relations/financial-performance/financial-highlights',
 		element: <FinancialHighlights />,
 	},
 	{
-		path: '/corporate/dividend-history',
+		path: '/corporate/investor-relations/shareholder-information/dividend-history',
 		element: <DividendHistory />,
 	},
 	{
-		path: '/corporate/share-prices',
+		path: '/corporate/investor-relations/shareholder-information/share-prices',
 		element: <SharePrices />,
 	},
 	{
-		path: '/corporate/financial-statements',
+		path: '/corporate/investor-relations/financial-performance/financial-statements',
 		element: <FinancialStatements />,
 	},
 	{

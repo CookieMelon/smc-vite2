@@ -9,7 +9,7 @@ import { useGetPage } from 'src/data/data';
 const api_url = import.meta.env.VITE_API_URL;
 
 import { AnimatePresence } from 'framer-motion';
-import { Select, SelectItem } from 'src/Components/Select/Select';
+import { Select, SelectItem } from 'src/Components/Forms/Select/Select';
 
 export default function FinancialHighlights() {
 	const { title, theme } = useGetPage();

@@ -4,7 +4,7 @@ import PDFItem from 'src/CMS/PDFItem/PDFItem';
 import PDFWidget from 'src/CMS/PDFWidget/PDFWidget';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
-import { Select, SelectItem } from 'src/Components/Select/Select';
+import { Select, SelectItem } from 'src/Components/Forms/Select/Select';
 import Fade from 'src/Layout/Fade/Fade';
 import { useGetDisclosureAll, useGetDisclosureFiles } from 'src/data/data';
 const api_url = import.meta.env.VITE_API_URL;

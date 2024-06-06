@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Column from 'src/CMS/Column/column';
 import Section from 'src/CMS/Section/Section';
 
-import { PiCaretCircleLeft, PiCaretCircleRight } from 'react-icons/pi';
+import Pagination from '@unleashit/pagination';
 import { useParams } from 'react-router-dom';
 import PDFItem from 'src/CMS/PDFItem/PDFItem';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
-import { Select, SelectItem } from 'src/Components/Select/Select';
+import { Select, SelectItem } from 'src/Components/Forms/Select/Select';
 import Fade from 'src/Layout/Fade/Fade';
 import { useGetDisclosureCategoryFiles } from 'src/data/data';
 
@@ -28,15 +28,11 @@ export default function Disclosures() {
 
 	const [page, setPage] = useState(1);
 	const [keyword, setKeyword] = useState('');
-	const [year, setYear] = useState('');
+	const [year, setYear] = useState(' ');
 
 	const currentYear = new Date().getFullYear();
-	const { title, files, last_page, years } = useGetDisclosureCategoryFiles(
-		page_slug,
-		page,
-		keyword,
-		year
-	);
+	const { title, files, last_page, years, per_page, total } =
+		useGetDisclosureCategoryFiles(page_slug, page, keyword, year);
 
 	// useEffect(() => {
 	// 	console.log('files', files);
@@ -62,11 +58,20 @@ export default function Disclosures() {
 								setKeyword(event.target.value);
 							}}
 						/>
-						<Select placeholder='Select a year' onValueChange={setYear}>
+						<Select
+							placeholder='Select a year'
+							onValueChange={(value) => {
+								setPage(1);
+								setYear(value);
+							}}>
 							<SelectItem value={' '}>All</SelectItem>
 							{years &&
 								years.map((year) => {
-									return <SelectItem value={year.name}>{year.name}</SelectItem>;
+									return (
+										<SelectItem key={`year_${year.name}`} value={year.name}>
+											{year.name}
+										</SelectItem>
+									);
 								})}
 						</Select>
 					</div>
@@ -95,6 +100,15 @@ export default function Disclosures() {
 							})}
 					</div>
 				</Column>
+				<Pagination
+					// cssVars='btn'
+					currentOffset={per_page * page - per_page}
+					handler={(index) => {
+						setPage(index / per_page + 1);
+					}}
+					perPage={per_page}
+					total={total}
+				/>
 				{/* {files && files.total > files.per_page && (
 					<Column>
 						<div className='pagination'>
@@ -111,48 +125,3 @@ export default function Disclosures() {
 		</Fade>
 	);
 }
-
-export const Pagination = ({ last_page, page, setPage }) => {
-	const [pagination, setPagination] = useState([]);
-
-	useEffect(() => {
-		console.log(last_page);
-		let pagination = [];
-		for (let i = 1; i <= last_page; i++) {
-			pagination.push({
-				label: i,
-			});
-		}
-		setPagination((prev) => (prev = pagination));
-	}, [last_page]);
-
-	useEffect(() => {
-		console.log(pagination);
-	}, [pagination]);
-	return (
-		<div className='pagination'>
-			<button className='btn btn-icon' disabled={page === 1 ? true : false}>
-				<PiCaretCircleLeft size={'2rem'} />
-			</button>
-			{pagination.length !== 0 &&
-				pagination.map((p, index) => {
-					return (
-						<button
-							key={`pagination_${index}`}
-							className={`btn btn-text ${page === index + 1 ? 'active' : ''} `}
-							onClick={() => {
-								setPage(parseInt(p.label));
-							}}>
-							{p.label}
-						</button>
-					);
-				})}
-
-			<button
-				className='btn btn-icon'
-				disabled={page === page.length ? true : false}>
-				<PiCaretCircleRight size={'2rem'} />
-			</button>
-		</div>
-	);
-};

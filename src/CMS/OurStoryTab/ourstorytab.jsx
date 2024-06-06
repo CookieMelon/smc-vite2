@@ -142,16 +142,18 @@ export default function OurStoryTab({ data }) {
 										{content.trigger.subtitle &&
 											parse(content.trigger.subtitle)}
 									</div>
-									<motion.img
-										variants={other_variants}
-										className='ourstory-tab-icon'
-										src={content.target.img_1.src}
-										alt={content.target.img_1.alt}
-									/>
-									<img
-										src={content.target.img_2.src}
-										alt={content.target.img_2.alt}
-									/>
+									<div className='img-container'>
+										<motion.img
+											variants={other_variants}
+											className='ourstory-tab-icon'
+											src={content.target.img_1.src}
+											alt={content.target.img_1.alt}
+										/>
+										<img
+											src={content.target.img_2.src}
+											alt={content.target.img_2.alt}
+										/>
+									</div>
 									<motion.div variants={other_variants}>
 										{content.target.content && parse(content.target.content)}
 									</motion.div>

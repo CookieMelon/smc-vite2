@@ -7,8 +7,8 @@ import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
 import { useGetPage, useGetSharePrices } from 'src/data/data';
+import { monthValues } from 'src/helper/form-helper';
 import { useScript } from 'src/hooks/use-script';
-import { monthValues } from './select-settings';
 
 const api_url = import.meta.env.VITE_API_URL;
 

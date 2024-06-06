@@ -63,197 +63,223 @@ export default function Footer() {
 								<h3 className='DialogContent-title'>Subsidiary Websites</h3>
 								<p>
 									<a
-										href='https://www.bankcom.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Bank of Commerce'
+										href='https://www.bankcom.com.ph/'>
 										Bank of Commerce
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.eaglecement.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Eagle Cement'
+										href='https://www.eaglecement.com.ph/'>
 										Eagle Cement
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.petron.com/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Petron Corp.'
+										href='https://www.petron.com/'>
 										Petron Corp.
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.ginebrasanmiguel.com/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Ginebra San Miguel'
+										href='https://www.ginebrasanmiguel.com/'>
 										Ginebra San Miguel
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.sanmiguelproperties.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='San Miguel Properties, Inc'
+										href='https://www.sanmiguelproperties.com.ph/'>
 										San Miguel Properties, Inc
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.sanmiguelfoods.com/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='San Miguel Foods'
+										href='https://www.sanmiguelfoods.com/'>
 										San Miguel Foods
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://greatfoodsolutions.com/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Great Food Solutions'
+										href='https://greatfoodsolutions.com/'>
 										Great Food Solutions
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://homefoodie.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Home Foodie'
+										href='https://homefoodie.com.ph/'>
 										Home Foodie
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://magnoliachicken.com/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Magnolia Chicken'
+										href='https://magnoliachicken.com/'>
 										Magnolia Chicken
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.monterey.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
-										Monterey Foods Corp.
-									</a>
-									<br />
-									<a
-										href='https://www.ncc.com.ph/'
-										target='_blank'
-										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Northern Cement'
+										href='https://www.ncc.com.ph/'>
 										Northern Cement
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://petrogen.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Petrogen Insurance Corporation'
+										href='https://petrogen.com.ph/'>
 										Petrogen Insurance Corporation
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.sanmiguelbrewery.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
-										San Miguel Brewery Inc.
-									</a>
-									<br />
-									<a
-										href='https://www.smfb.com.ph/'
-										target='_blank'
-										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='San Miguel Food and Beverage'
+										href='https://www.smfb.com.ph/'>
 										San Miguel Food and Beverage
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.facebook.com/redhorsebeer/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='Red Horse Beer'
+										href='https://www.facebook.com/redhorsebeer'>
 										Red Horse Beer
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.facebook.com/sanmiguel.hk'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='San Miguel Brewery Hong Kong'
+										href='https://www.facebook.com/sanmiguel.hk'>
 										San Miguel Brewery Hong Kong
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://sanmiguelbrewery.com'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='San Miguel Brewing International Ltd.'
+										href='https://sanmiguelbrewery.com'>
 										San Miguel Brewing International Ltd.
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.sanmiguelmart.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='San Miguel Mart'
+										href='https://www.sanmiguelmart.ph/'>
 										San Miguel Mart
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.facebook.com/SanMiguelPalePilsen/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='San Miguel Pale Pilsen'
+										href='https://www.facebook.com/SanMiguelPalePilsen/'>
 										San Miguel Pale Pilsen
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.facebook.com/sanmiglightph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='San Mig Light'
+										href='https://www.facebook.com/sanmiglightph/'>
 										San Mig Light
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.facebook.com/sanmiguelsuperdrybeer/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='San Miguel Super Dry'
+										href='https://www.facebook.com/sanmiguelsuperdrybeer/'>
 										San Miguel Super Dry
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://smcstocktransfer.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='SMC Stock Transfer Service Corporation'
+										href='https://smcstocktransfer.com.ph/'>
 										SMC Stock Transfer Service Corporation
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.smcglobalpower.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='SMC Global Power Holdings Corp'
+										href='https://www.smcglobalpower.com.ph/'>
 										SMC Global Power Holdings Corp
 									</a>
-									<br />
+								</p>
+								<p>
 									<a
-										href='https://www.sltc.com.ph/'
 										target='_blank'
 										without='true'
-										rel='noopener noreferrer'>
+										rel='noopener noreferrer'
+										title='South Luzon Tollway Corporation'
+										href='https://smcslex.com.ph/'>
 										South Luzon Tollway Corporation
 									</a>
-									<br />
 								</p>
 								<Dialog.Close className='IconButton' aria-label='Close' asChild>
 									<PiXCircle size={'2rem'} />

@@ -1,5 +1,3 @@
-// export const options
-
 export const Search_defaultSettings = {
 	isSearchable: false,
 };
@@ -58,3 +56,8 @@ export const monthValues = [
 		label: 'December',
 	},
 ];
+
+export const removeItem = (arr, index) => {
+	// const index = arr.indexOf(item);
+	if (index > -1) arr.splice(index, 1);
+};

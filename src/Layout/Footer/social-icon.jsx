@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { FaViber } from 'react-icons/fa';
-import { ImFacebook, ImLinkedin2, ImYoutube } from 'react-icons/im';
+import { ImFacebook, ImLinkedin2, ImTwitter, ImYoutube } from 'react-icons/im';
 import { LuInstagram } from 'react-icons/lu';
 import { PiEnvelopeSimpleBold } from 'react-icons/pi';
 import { getColors } from 'src/hooks/use-color';
@@ -167,6 +167,30 @@ export function EmailIcon({ link }) {
 				</a>
 			) : (
 				<PiEnvelopeSimpleBold size={footerIcon.size} />
+			)}
+		</motion.div>
+	);
+}
+
+export function TwitterIcon({ link }) {
+	return (
+		<motion.div
+			className='social-icons'
+			initial={{
+				backgroundColor: gray2,
+			}}
+			whileHover={{
+				scale: 1.2,
+				color: '#ffffff',
+				backgroundColor: '#1d9bf0',
+			}}
+			whileTap={{ scale: 0.9 }}>
+			{link ? (
+				<a href={link} target='_blank' without='true' rel='noreferrer'>
+					<ImTwitter size={footerIcon.size} />
+				</a>
+			) : (
+				<ImTwitter size={footerIcon.size} />
 			)}
 		</motion.div>
 	);

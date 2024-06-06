@@ -7,16 +7,12 @@ import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
+import { removeItem } from 'src/helper/form-helper';
 
 import 'src/styles/radix-form.scss';
 const captcha_key = import.meta.env.VITE_API_URL;
 
-const removeItem = (arr, index) => {
-	// const index = arr.indexOf(item);
-	if (index > -1) arr.splice(index, 1);
-};
-
-export default function Forms() {
+export default function WhistleBlowingForm() {
 	const recaptcha = useRef();
 
 	const personCount = useRef(0);

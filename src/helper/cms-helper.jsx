@@ -2,7 +2,7 @@ import parse from 'html-react-parser';
 import React from 'react';
 import { PiCaretCircleRight } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
-const LinkElementNames = ['Button Stacked', 'React Link'];
+const LinkElementNames = ['Button Stacked', 'React Link', 'React Button'];
 
 export const createCMSElement = ({
 	elements_name,
@@ -44,6 +44,8 @@ export const createCMSElement = ({
 	// 	className: e.elements_class,
 	// };
 
+	console.log('elements_tag', elements_tag);
+	console.log('elements_class', elements_class);
 	return React.createElement(
 		elements_tag,
 		{
@@ -80,4 +82,38 @@ export const createCMSElementChild = ({
 
 export const getIcon = (elements_slot) => {
 	if (elements_slot === 'PiCaretCircleRight') return PiCaretCircleRight;
+};
+
+export const checkTitle = (element) => {
+	if (element.elements_name === 'Title' || element.elements_name === 'H1')
+		return element.elements_slot;
+};
+
+export const checkSubTitle = (element) => {
+	if (element.elements_name === 'Subtitle') return element.elements_slot;
+};
+
+export const checkImage = (element) => {
+	if (element.elements_name === 'Image') return element.elements_attributes;
+};
+
+export const checkParagraph = (element) => {
+	if (element.elements_name === 'Paragraph') return element.elements_slot;
+};
+
+export const checkCorporateFiles = (element) => {
+	if (
+		element.elements_name === 'Corporate Files' &&
+		element.elements_attributes
+	)
+		return element.elements_attributes.src;
+};
+
+export const checkReactLink = (element) => {
+	if (
+		(element.elements_name === 'React Button' ||
+			element.elements_name === 'React Link') &&
+		element.elements_attributes.to !== ''
+	)
+		return element.elements_attributes.to;
 };

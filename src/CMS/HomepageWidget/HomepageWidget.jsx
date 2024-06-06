@@ -114,19 +114,18 @@ export default function HomepageWidget({ src, title, desc, link }) {
 								},
 							}}>
 							{' '}
-							{parse(desc)}
+							{desc && parse(desc)}
+							<motion.p
+								variants={{
+									activate: {
+										y: 25,
+									},
+								}}>
+								<Link to={link.to} className='btn btn-bordered white'>
+									{link.elements_slot}
+								</Link>
+							</motion.p>
 						</motion.div>
-
-						<motion.p
-							variants={{
-								activate: {
-									y: 25,
-								},
-							}}>
-							<Link to={link.to} className='btn btn-bordered white'>
-								{link.elements_slot}
-							</Link>
-						</motion.p>
 					</motion.div>
 				</motion.div>
 				<motion.div

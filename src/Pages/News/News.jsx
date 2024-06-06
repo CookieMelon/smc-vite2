@@ -15,6 +15,7 @@ export default function News() {
 	const [[currentNews, otherNews], setNews] = useState([[], []]);
 
 	useEffect(() => {
+		console.log(list);
 		if (list.length === 0) return;
 
 		let current = [];
@@ -27,8 +28,10 @@ export default function News() {
 			else other.push(item);
 		});
 
-		console.log(current);
-		console.log(other);
+		console.log('current', current);
+		console.log('other', other);
+
+		setNews([current, other]);
 	}, [list]);
 
 	return (
@@ -39,8 +42,8 @@ export default function News() {
 					sectionClass={'column-2'}
 					containerClass={'medium align-start'}>
 					<div className='column news-column'>
-						{list.length !== 0 &&
-							list.map((n, index) => {
+						{otherNews.length !== 0 &&
+							otherNews.map((n, index) => {
 								let news_details = {};
 								news_details.key = n.id;
 								news_details.page_title = n.page_title;
@@ -83,25 +86,26 @@ export default function News() {
 					<div className='column news-column sticky'>
 						<div className='other-news'>
 							<h3 className='heading-3'>Other News</h3>
-							{list.map((news, index) => {
-								let news_details = {};
-								news_details.key = news.id;
-								news_details.page_title = news.page_title;
-								news_details.date = news.publish_date;
-								news_details.link = news.page_slug;
+							{otherNews !== 0 &&
+								otherNews.map((news, index) => {
+									let news_details = {};
+									news_details.key = news.id;
+									news_details.page_title = news.page_title;
+									news_details.date = news.publish_date;
+									news_details.link = news.page_slug;
 
-								if (index < 3)
-									return (
-										<NewsItem
-											link={news_details.link}
-											index={index}
-											title={news_details.page_title}
-											date={news_details.date}
-											// setModal={setModal}
-											key={`NewsItem_` + index}
-										/>
-									);
-							})}
+									if (index < 3)
+										return (
+											<NewsItem
+												link={news_details.link}
+												index={index}
+												title={news_details.page_title}
+												date={news_details.date}
+												// setModal={setModal}
+												key={`NewsItem_` + index}
+											/>
+										);
+								})}
 						</div>
 					</div>
 				</Section>
@@ -133,7 +137,7 @@ export function NewsItem({
 				<div className='news-date'>
 					<small className='small-text'>{date}</small>
 				</div>
-				<h3 className='news-title heading-5'>
+				<h3 className='news-title heading-3'>
 					<Link to={link}>{title}</Link>
 				</h3>
 				<motion.p
@@ -159,7 +163,7 @@ export function NewsFeatured({ image, date, title, link }) {
 		<div className='news-featured' style={{ backgroundImage: `url(${image})` }}>
 			<div className='desc-container'>
 				<div className='news-date small-text'>{date}</div>
-				<h2 className='heading-3 news-title'>
+				<h2 className='heading-2 news-title'>
 					<Link to={link}>{title}</Link>
 				</h2>
 				{/* <p>{newsItems[0].desc}</p> */}

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 import { useState } from 'react';
 import ImageSlider from 'src/CMS/ImageSlider/ImageSlider';
-import { createCMSElement } from 'src/hooks/use-createElements';
+import { createCMSElement } from 'src/helper/cms-helper';
 
 export default function OurCompanyTab({ data }) {
 	const [selected, setSelected] = useState(0);
