@@ -331,11 +331,11 @@ export const useGetDisclosureCategoryFiles = (
 			.then((data) => {
 				setData([
 					data.title,
-					data.disclosure_files.files,
-					data.disclosure_files.oldest_date,
-					data.disclosure_files.files.last_page,
-					data.disclosure_files.files.per_page,
-					data.disclosure_files.files.total,
+					data.disclosure_files.length && data.disclosure_files.files,
+					data.disclosure_files.length && data.disclosure_files.oldest_date,
+					data.disclosure_files.length && data.disclosure_files.files.last_page,
+					data.disclosure_files.length && data.disclosure_files.files.per_page,
+					data.disclosure_files.length && data.disclosure_files.files.total,
 				]);
 
 				setYears(

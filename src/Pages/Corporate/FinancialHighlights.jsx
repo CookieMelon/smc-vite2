@@ -34,8 +34,6 @@ export default function FinancialHighlights() {
 			});
 	}, []);
 
-	console.log(content);
-
 	return (
 		<Fade>
 			<PageBanner title={title} widgetClasses={theme} />

@@ -28,9 +28,6 @@ export default function CompanyDisclosures() {
 		year
 	);
 
-	useEffect(() => {
-		console.log('files', files);
-	}, [files]);
 	const [parent, setParent] = useState([]);
 
 	useEffect(() => {
@@ -65,14 +62,6 @@ export default function CompanyDisclosures() {
 			setParent((prev) => (prev = parents));
 		}
 	}, [content]);
-
-	useEffect(() => {
-		console.log('per_page', per_page);
-		console.log('total', total);
-		console.log('page', page);
-
-		console.log(per_page * page - 1);
-	}, [per_page, total, page]);
 
 	// company disclosure
 	// clean
@@ -156,7 +145,6 @@ export default function CompanyDisclosures() {
 							placeholder='Select category'
 							defaultValue={category}
 							onValueChange={(value) => {
-								console.log(value);
 								setCategory(value);
 								setPage(1);
 							}}>
@@ -242,7 +230,6 @@ function YearSelect({ year, setYear, setPage, years }) {
 			placeholder='Select year'
 			defaultValue={year}
 			onValueChange={(value) => {
-				console.log(value);
 				setYear(value);
 				setPage(1);
 			}}>

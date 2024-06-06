@@ -9,22 +9,23 @@ import PDFItem from 'src/CMS/PDFItem/PDFItem';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import { Select, SelectItem } from 'src/Components/Forms/Select/Select';
 import Fade from 'src/Layout/Fade/Fade';
-import { useGetDisclosureCategoryFiles } from 'src/data/data';
+import { useGetDisclosureCategoryFiles, useGetPage } from 'src/data/data';
+import { SectionBuilder } from '../Builder';
 
 const api_url = import.meta.env.VITE_API_URL;
 
 export default function Disclosures() {
 	const { id: page_slug } = useParams();
 
-	// const {
-	// 	error,
-	// 	title,
-	// 	sections,
-	// 	content_type_id,
-	// 	page_slug: slug,
-	// 	parent_id,
-	// 	theme,
-	// } = useGetPage();
+	const {
+		title: page_title,
+		error,
+		sections,
+		content_type_id,
+		page_slug: slug,
+		parent_id,
+		theme,
+	} = useGetPage();
 
 	const [page, setPage] = useState(1);
 	const [keyword, setKeyword] = useState('');
@@ -34,18 +35,10 @@ export default function Disclosures() {
 	const { title, files, last_page, years, per_page, total } =
 		useGetDisclosureCategoryFiles(page_slug, page, keyword, year);
 
-	// useEffect(() => {
-	// 	console.log('files', files);
-	// 	console.log('oldest_date', oldest_date);
-	// }, [files, oldest_date]);
-
-	// useEffect(() => {
-	// 	console.log('title', title);
-	// }, [title]);
-
 	return (
 		<Fade>
 			<PageBanner title={title} widgetClasses={'smc-blue'} />
+			<DisclosuresContent error={error} sections={sections} />
 			<Section containerClass='medium'>
 				<Column>
 					<div className='disclosure-filter'>
@@ -100,15 +93,18 @@ export default function Disclosures() {
 							})}
 					</div>
 				</Column>
-				<Pagination
-					// cssVars='btn'
-					currentOffset={per_page * page - per_page}
-					handler={(index) => {
-						setPage(index / per_page + 1);
-					}}
-					perPage={per_page}
-					total={total}
-				/>
+				{per_page && (
+					<Pagination
+						// cssVars='btn'
+						currentOffset={per_page * page - per_page}
+						handler={(index) => {
+							setPage(index / per_page + 1);
+						}}
+						perPage={per_page}
+						total={total}
+					/>
+				)}
+
 				{/* {files && files.total > files.per_page && (
 					<Column>
 						<div className='pagination'>
@@ -124,4 +120,8 @@ export default function Disclosures() {
 			</Section>
 		</Fade>
 	);
+}
+
+function DisclosuresContent({ error, sections }) {
+	if (!error) return <SectionBuilder sections={sections} />;
 }

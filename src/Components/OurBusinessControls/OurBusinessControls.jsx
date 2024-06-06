@@ -47,7 +47,7 @@ export default function OurBusinessControls({ page_slug, parent_id }) {
 	useEffect(() => {
 		if (!menuItem) return;
 		if (ourBusinesses.length !== 0) return;
-		console.log(`${api_url}page/${menuItem.page_slug}/data-list`);
+
 		fetch(`${api_url}page/${menuItem.page_slug}/data-list`, {
 			method: 'GET',
 			headers: {
@@ -61,8 +61,6 @@ export default function OurBusinessControls({ page_slug, parent_id }) {
 			.then((data) => {
 				setOurBusinesses(data.filter((data) => data.set_as_sub_menu === 1));
 			});
-
-		console.log(menuItem);
 	}, [menuItem]);
 
 	useEffect(() => {
@@ -74,11 +72,6 @@ export default function OurBusinessControls({ page_slug, parent_id }) {
 			}
 		});
 	}, [ourBusinesses]);
-
-	useEffect(() => {
-		console.log('prev', prev);
-		console.log('prev', prev >= 0);
-	}, [[prev]]);
 
 	if (ourBusinesses.length !== 0)
 		return (

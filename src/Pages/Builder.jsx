@@ -5,7 +5,7 @@ import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
 
 import parse from 'html-react-parser';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import FullPageBanner from 'src/CMS/FullPageBanner/fullpagebanner';
 import MainBanner from 'src/CMS/MainBanner/MainBanner';
@@ -20,7 +20,6 @@ import VideoContent from 'src/CMS/VideoContent/Video';
 
 import ImageSlider from 'src/CMS/ImageSlider/ImageSlider';
 
-import { useContext } from 'react';
 import {
 	EmailShareButton,
 	FacebookShareButton,
@@ -28,7 +27,6 @@ import {
 	TwitterShareButton,
 	ViberShareButton,
 } from 'react-share';
-import { LenixContext } from 'src/App';
 import AnnualReports from 'src/CMS/AnnualReports/AnnualReports';
 import HomepageWidget from 'src/CMS/HomepageWidget/HomepageWidget';
 import OurBusinesses from 'src/CMS/OurBusinesses/OurBusinesses';
@@ -44,13 +42,12 @@ import {
 } from 'src/Layout/Footer/social-icon';
 import ErrorPage from 'src/error-page';
 
+import FileWidget from 'src/CMS/FileWidget/FileWidget';
 import { createCMSElement } from 'src/helper/cms-helper';
-import Disclosures from './Corporate/Disclosures';
 import { NewsFeatured, NewsItem } from './News/News';
 import SMAIForm from './OurStory/SMAIForm';
 
 export default function Builder() {
-	const lenis = useContext(LenixContext);
 	const page_url = window.location.href;
 	const {
 		error,
@@ -105,60 +102,13 @@ export default function Builder() {
 				)
 			}
 
-			{sections.length !== 0 &&
-				sections.map((section) => {
-					let widgets = section.api_widgets;
-
-					let sectionClasses = section.section_class
-						? section.section_class.join(' ')
-						: '';
-
-					let containerClasses =
-						section.container_class !== null
-							? section.container_class.join(' ')
-							: '';
-
-					if (
-						!containerClasses.includes('full') &&
-						!containerClasses.includes('small')
-					)
-						containerClasses += ' medium';
-
-					let hasColumn = sectionClasses.includes('column');
-
-					if (!hasColumn) sectionClasses += ' column-1';
-
-					if (!sectionClasses.includes('skip-section')) {
-						return (
-							<Section
-								key={section.section_code}
-								sectionClass={sectionClasses}
-								containerClass={containerClasses}>
-								{widgets.length !== 0 && (
-									<Widgets
-										keyWidget={`widgets_${section.section_code}`}
-										widgets={widgets}
-										hasColumn={hasColumn}
-										theme={theme}
-										page_slug={page_slug}
-									/>
-								)}
-							</Section>
-						);
-					} else
-						return (
-							<React.Fragment key={section.section_code}>
-								{widgets.length !== 0 && (
-									<Widgets
-										keyWidget={`widgets_${section.section_code}`}
-										widgets={widgets}
-										hasColumn={hasColumn}
-										theme={theme}
-									/>
-								)}
-							</React.Fragment>
-						);
-				})}
+			{content_type_id !== 11 && sections.length !== 0 && (
+				<SectionBuilder
+					sections={sections}
+					theme={theme}
+					page_slug={page_slug}
+				/>
+			)}
 
 			{
 				/* Our Businesses */
@@ -166,12 +116,67 @@ export default function Builder() {
 					<OurBusinessControls page_slug={page_slug} parent_id={parent_id} />
 				)
 			}
-
-			{
-				/* Disclosures */
-				content_type_id === 11 && <Disclosures page_slug={page_slug} />
-			}
 		</Fade>
+	);
+}
+
+export function SectionBuilder({ sections, theme, page_slug }) {
+	return (
+		<>
+			{sections.map((section) => {
+				let widgets = section.api_widgets;
+
+				let sectionClasses = section.section_class
+					? section.section_class.join(' ')
+					: '';
+
+				let containerClasses =
+					section.container_class !== null
+						? section.container_class.join(' ')
+						: '';
+
+				if (
+					!containerClasses.includes('full') &&
+					!containerClasses.includes('small')
+				)
+					containerClasses += ' medium';
+
+				let hasColumn = sectionClasses.includes('column');
+
+				if (!hasColumn) sectionClasses += ' column-1';
+
+				if (!sectionClasses.includes('skip-section')) {
+					return (
+						<Section
+							key={section.section_code}
+							sectionClass={sectionClasses}
+							containerClass={containerClasses}>
+							{widgets.length !== 0 && (
+								<Widgets
+									keyWidget={`widgets_${section.section_code}`}
+									widgets={widgets}
+									hasColumn={hasColumn}
+									theme={theme}
+									page_slug={page_slug}
+								/>
+							)}
+						</Section>
+					);
+				} else
+					return (
+						<React.Fragment key={section.section_code}>
+							{widgets.length !== 0 && (
+								<Widgets
+									keyWidget={`widgets_${section.section_code}`}
+									widgets={widgets}
+									hasColumn={hasColumn}
+									theme={theme}
+								/>
+							)}
+						</React.Fragment>
+					);
+			})}
+		</>
 	);
 }
 
@@ -529,7 +534,6 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 					if (children[2].elements_attributes.to)
 						link = children[2].elements_attributes.to;
-					console.log(link);
 
 					return (
 						<Column key={key} className={widgetClasses}>
@@ -740,7 +744,25 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 				}
 
 				if (widget.widgets_name === 'Contact Us - SMAI') {
-					return <SMAIForm />;
+					return <SMAIForm key={key} />;
+				}
+
+				if (widget.widgets_name === 'File Widget') {
+					let title, link;
+					children.map((child) => {
+						if (child.elements_name === 'Title' || child.elements_name === 'H1')
+							title = child.elements_slot;
+						if (
+							(child.elements_name === 'React Button' ||
+								child.elements_name === 'React Link') &&
+							child.elements_attributes.to !== ''
+						)
+							link = child.elements_attributes.to;
+						if (child.elements_name === 'Hyperlink')
+							link = child.elements_attributes.href;
+					});
+
+					return <FileWidget key={key} title={title} link={link} />;
 				}
 
 				// if (index === widgets.length - 1) {
@@ -753,10 +775,6 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 function Listing({ url, title }) {
 	const { list } = useGetDataList(url, title);
-
-	useEffect(() => {
-		console.log(list);
-	}, [list]);
 
 	return (
 		<>

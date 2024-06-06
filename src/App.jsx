@@ -11,7 +11,7 @@ import Footer from 'src/Layout/Footer/footer';
 export const MenuContext = createContext([]);
 export const ThemeContext = createContext();
 export const PreloadContext = createContext({});
-export const LenixContext = createContext({});
+export const LenisContext = createContext({});
 export const APIContext = createContext({});
 
 import { ReactLenis, useLenis } from 'lenis/react';
@@ -47,7 +47,7 @@ function App() {
 	return (
 		<ReactLenis root>
 			<div className='App'>
-				<LenixContext.Provider value={lenis}>
+				<LenisContext.Provider value={lenis}>
 					<APIContext.Provider
 						value={{
 							ourBusinesses,
@@ -76,7 +76,7 @@ function App() {
 							</MenuContext.Provider>
 						</PreloadContext.Provider>
 					</APIContext.Provider>
-				</LenixContext.Provider>
+				</LenisContext.Provider>
 			</div>
 		</ReactLenis>
 	);

@@ -1412,6 +1412,31 @@ table {
 	}
 }
 
+.file-widget {
+	overflow: hidden;
+	border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem;
+	position: fixed;
+	bottom: 0;
+	right: var(--container-padding);
+	z-index: 100;
+	width: 30rem;
+	padding-bottom: 10px;
+	background-image: linear-gradient(90deg, var(--base-red), var(--base-yellow));
+	.file-widget_title {
+		padding: 2rem;
+		margin: 0;
+		background-color: #fef5d8;
+		color: var(--base-black);
+		padding-right: 5rem;
+	}
+	svg {
+		position: absolute;
+		top: calc(50% - 0.75rem);
+		right: 2rem;
+	}
+}
+
 @media only screen and (min-width: 1560px) {
 	h1,
 	.heading-1 {

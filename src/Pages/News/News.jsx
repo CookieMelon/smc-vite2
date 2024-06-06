@@ -15,7 +15,6 @@ export default function News() {
 	const [[currentNews, otherNews], setNews] = useState([[], []]);
 
 	useEffect(() => {
-		console.log(list);
 		if (list.length === 0) return;
 
 		let current = [];
@@ -27,9 +26,6 @@ export default function News() {
 				current.push(item);
 			else other.push(item);
 		});
-
-		console.log('current', current);
-		console.log('other', other);
 
 		setNews([current, other]);
 	}, [list]);

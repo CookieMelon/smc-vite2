@@ -31,7 +31,6 @@ export default function Search({ preload_variants }) {
 
 	const searchSubmit = (event) => {
 		event.preventDefault();
-		console.log('regex', /s*/gm.test(event.target[0].value));
 
 		// toggleSearch(false);
 		navigate({

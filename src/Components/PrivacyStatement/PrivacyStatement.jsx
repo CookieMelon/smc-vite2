@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 export default function PrivacyStatement() {
 	const [[checked, expiry], setStorage] = useState([
 		localStorage.getItem('privacy_checked'),
-		localStorage.getItem('expiry'),
+		localStorage.getItem('privacy_expiry'),
 	]);
 
 	const [visible, setVisible] = useState(false);
@@ -17,16 +17,14 @@ export default function PrivacyStatement() {
 		expiry.setDate(expiry.getDate() + 1);
 
 		localStorage.setItem('privacy_checked', true);
-		localStorage.setItem('expiry', expiry.toString());
+		localStorage.setItem('privacy_expiry', expiry.toString());
 		setStorage([true, expiry.toString()]);
 	};
 
 	useEffect(() => {
-		if (expiry !== null) {
-			if (!checked || new Date().getTime() > new Date(expiry).getTime()) {
-				setVisible(true);
-				return;
-			}
+		if (!checked || new Date().getTime() > new Date(expiry).getTime()) {
+			setVisible(true);
+			return;
 		}
 	}, [checked, expiry]);
 	return (

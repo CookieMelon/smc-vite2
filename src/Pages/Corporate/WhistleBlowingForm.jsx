@@ -26,7 +26,6 @@ export default function WhistleBlowingForm() {
 	const submitForm = (event) => {
 		event.preventDefault();
 		const data = Object.fromEntries(new FormData(event.currentTarget));
-		console.log(data);
 	};
 	return (
 		<Fade>
@@ -325,7 +324,6 @@ function Persons({ persons, setPersons, id }) {
 					type='button'
 					className='remove'
 					onClick={() => {
-						console.log(id);
 						const newItems = [...persons];
 						removeItem(newItems, id);
 						setPersons(newItems);
@@ -374,7 +372,6 @@ function Reports({ reports, setReports, id }) {
 					type='button'
 					className='remove'
 					onClick={() => {
-						console.log(id);
 						const newItems = [...reports];
 						removeItem(newItems, id);
 						setReports(newItems);

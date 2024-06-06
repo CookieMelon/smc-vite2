@@ -25,12 +25,11 @@ export default function NewsInner() {
 				<SocialIcons />
 			</div>
 			{sections.map((section) => {
-				console.log(section.api_widgets);
 				return (
 					<Section containerClass='medium'>
 						{section.api_widgets.map((children) => {
 							return children.api_childrens((child) => {
-								console.log(child);
+								// console.log(child);
 							});
 						})}
 					</Section>

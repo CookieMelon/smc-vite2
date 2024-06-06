@@ -78,7 +78,6 @@ export default function AnnualReports({ slides }) {
 						<SelectItem value=' '>Select a year</SelectItem>
 						{slides &&
 							slides.map((c) => {
-								console.log(c);
 								return (
 									<SelectItem
 										key={`annual_report_${c.subtitle}`}

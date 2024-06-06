@@ -49,9 +49,7 @@ export default function PageBanner({
 	];
 
 	useEffect(() => {
-		console.log(widgetClasses);
 		if (widgetClasses.includes('smc-blue')) {
-			console.log('test');
 			setRotate(45);
 		}
 	}, []);

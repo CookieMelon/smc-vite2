@@ -79,8 +79,6 @@ export default function SharePrices() {
 					td.dataset.label = tableHeader_text[index];
 				});
 			});
-
-			console.log(tableHeader_text);
 		}
 	}, [content]);
 
