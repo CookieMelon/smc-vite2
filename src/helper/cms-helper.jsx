@@ -37,15 +37,6 @@ export const createCMSElement = ({
 		if (elements_slot) elements_slot = parse(elements_slot);
 	}
 
-	// let element = {};
-	// element.tag = e.elements_tag;
-	// element.attributes = {
-	// 	...e.elements_attributes,
-	// 	className: e.elements_class,
-	// };
-
-	console.log('elements_tag', elements_tag);
-	console.log('elements_class', elements_class);
 	return React.createElement(
 		elements_tag,
 		{

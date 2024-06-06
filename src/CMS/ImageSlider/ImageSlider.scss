@@ -213,6 +213,12 @@
 }
 
 @media only screen and (max-width: 980px) {
+	.projects-section {
+		overflow: hidden;
+	}
+	.image-slider-container {
+		overflow: visible;
+	}
 	.annual-container {
 		display: grid !important;
 	}
@@ -231,9 +237,6 @@
 }
 
 @media only screen and (max-width: 450px) {
-	.image-slider-container {
-		overflow: visible;
-	}
 	.filter {
 		.full {
 			flex-wrap: wrap;
