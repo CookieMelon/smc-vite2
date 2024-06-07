@@ -23,25 +23,25 @@ export default function MainBanner({ images, video }) {
 		useTransform(scrollYProgress, [0, 1], ['0px', '0px']),
 		useTransform(scrollYProgress, [0, 1], ['0px', '10px']),
 		useTransform(scrollYProgress, [0, 1], ['0px', '20px']),
-		useTransform(scrollYProgress, [0, 1], ['0px', '30px']),
+		useTransform(scrollYProgress, [0, 1], ['0px', '20px']),
 		useTransform(scrollYProgress, [0, 1], ['0px', '40px']),
 	];
 
 	let xValues = [
 		useTransform(scrollYProgress, [0, 1], ['0px', '0']),
 		useTransform(scrollYProgress, [0, 1], ['0px', '0px']),
+		useTransform(scrollYProgress, [0, 1], ['0px', '5px']),
 		useTransform(scrollYProgress, [0, 1], ['0px', '10px']),
-		useTransform(scrollYProgress, [0, 1], ['0px', '20px']),
-		useTransform(scrollYProgress, [0, 1], ['0px', '30px']),
+		useTransform(scrollYProgress, [0, 1], ['0px', '15px']),
 		useTransform(scrollYProgress, [0, 1], ['0px', '40px']),
 	];
 
 	let zValues = [
 		useTransform(scrollYProgress, [0, 1], ['0px', '-5px']),
 		useTransform(scrollYProgress, [0, 1], ['0px', '0px']),
-		useTransform(scrollYProgress, [0, 1], ['0px', '5px']),
-		useTransform(scrollYProgress, [0, 1], ['0px', '12px']),
-		useTransform(scrollYProgress, [0, 1], ['0px', '18px']),
+		useTransform(scrollYProgress, [0, 1], ['0px', '3px']),
+		useTransform(scrollYProgress, [0, 0.65, 1], ['0px', '2px', '6px']),
+		useTransform(scrollYProgress, [0, 1], ['0px', '15px']),
 		useTransform(scrollYProgress, [0, 1], ['0px', '25px']),
 	];
 

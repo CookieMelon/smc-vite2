@@ -22,3 +22,10 @@
 		right: 2rem;
 	}
 }
+
+@media only screen and (max-width: 450px) {
+	.file-widget {
+		left: var(--container-padding);
+		width: auto;
+	}
+}

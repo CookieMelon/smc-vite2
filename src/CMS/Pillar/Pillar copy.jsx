@@ -9,7 +9,7 @@ import parse from 'html-react-parser';
 export default function Pillar({ content, widgetClasses, children }) {
 	const ref = useRef(null);
 	const isInView = useInView(ref, {
-		amount: 0.5,
+		amount: 0.25,
 	});
 
 	const { width } = useWindowSize();
@@ -57,44 +57,6 @@ export default function Pillar({ content, widgetClasses, children }) {
 		[0, 1]
 	);
 
-	const sticky_variants = {
-		initial: {
-			clipPath: 'polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%',
-		},
-		enter: {
-			clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%',
-		},
-	};
-
-	const text_variants = {
-		initial: {
-			opacity: 0,
-			y: 20,
-		},
-		enter: {
-			opacity: 1,
-			y: 0,
-		},
-	};
-
-	const bg_variants = {
-		initial: {
-			z: 1,
-		},
-		enter: {
-			z: 0,
-		},
-	};
-
-	const blur_variants = {
-		initial: {
-			opacity: 0,
-		},
-		enter: {
-			opacity: 1,
-		},
-	};
-
 	const sticky = [
 		useTransform(
 			scrollYProgress,
@@ -108,7 +70,6 @@ export default function Pillar({ content, widgetClasses, children }) {
 			}
 		),
 	];
-
 	const y = [
 		useTransform(
 			scrollYProgress,
@@ -331,17 +292,20 @@ export default function Pillar({ content, widgetClasses, children }) {
 		<div
 			className={`${widgetClasses} pillar-section section-content`}
 			ref={ref}>
-			<motion.div
-				className='pillar-sticky'
-				initial='initial'
-				animate={isInView ? 'enter' : 'initial'}>
-				<motion.div className='pillar-clip' variants={sticky_variants}>
+			<motion.div className='pillar-sticky' style={{}}>
+				<motion.div
+					className='pillar-clip'
+					style={{
+						clipPath: !widgetClasses.includes('left')
+							? sticky[0]
+							: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+					}}>
 					<motion.div
-						variants={bg_variants}
 						className='pillar-bg pillar-img'
 						style={{
 							x: x[0],
 							y: y[0],
+							z: z[0],
 							backgroundImage: `url(${bg})`,
 						}}>
 						<motion.div
@@ -401,51 +365,51 @@ export default function Pillar({ content, widgetClasses, children }) {
 					</motion.div>
 					<motion.div
 						className='pillar-bg pillar-blur pillar-img'
-						variants={blur_variants}
 						style={{
+							opacity: blurOpacity,
 							x: x[0],
 							y: y[0],
+							z: z[0],
 							backgroundImage: `url(${bg})`,
 						}}></motion.div>
-					<motion.div
-						className='pillar-desc'
-						initial='initial'
-						animate={isInView ? 'enter' : 'initial'}
-						transition={{
-							staggerChildren: 0.05,
-						}}>
-						<motion.p
-							variants={text_variants}
-							className='uppercase'
-							data-text={content.text1}
-							dangerouslySetInnerHTML={{ __html: content.text1 }}></motion.p>
-						<motion.h2
-							variants={text_variants}
-							className='heading-2'
-							data-text={content.text2}>
-							{content.text2}
-						</motion.h2>
-						{content.text3 && (
-							<motion.div className='pillar-text' variants={text_variants}>
-								{parse(content.text3)}
-							</motion.div>
-						)}
+				</motion.div>
 
-						{/* <div className='line-con' style={{}}>
-							<motion.div
-								className='line'
-								style={{
-									height: line[0],
-									y: line[1],
-								}}></motion.div>
-						</div> */}
-					</motion.div>
-					<motion.div
-						className='pillar-focus pillar-img'
-						style={{
-							y: y[1],
-							backgroundImage: `url(${focus})`,
-						}}></motion.div>
+				<motion.div
+					className='pillar-focus pillar-img'
+					style={{
+						x: x[1],
+						y: y[1],
+						z: z[1],
+						backgroundImage: `url(${focus})`,
+					}}></motion.div>
+				<motion.div className='pillar-desc'>
+					<motion.p
+						style={{ opacity: text1[0], y: text1[1] }}
+						className='uppercase'
+						data-text={content.text1}
+						dangerouslySetInnerHTML={{ __html: content.text1 }}></motion.p>
+					<motion.h2
+						style={{ opacity: text2[0], y: text2[1] }}
+						className='heading-2'
+						data-text={content.text2}>
+						{content.text2}
+					</motion.h2>
+					{content.text3 && (
+						<motion.div
+							className='pillar-text'
+							style={{ opacity: text3[0], y: text3[1] }}>
+							{parse(content.text3)}
+						</motion.div>
+					)}
+
+					<div className='line-con' style={{}}>
+						<motion.div
+							className='line'
+							style={{
+								height: line[0],
+								y: line[1],
+							}}></motion.div>
+					</div>
 				</motion.div>
 			</motion.div>
 		</div>

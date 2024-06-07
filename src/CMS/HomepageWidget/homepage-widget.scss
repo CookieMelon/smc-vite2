@@ -1,6 +1,7 @@
 .homepage-widget-1 {
 	/* height: 150vh; */
 	padding-top: 25vh;
+	background-color: black;
 	.video-container {
 		position: absolute;
 		height: 100%;
@@ -8,6 +9,7 @@
 		z-index: 0;
 		left: 50%;
 		top: 50%;
+		opacity: 0.35;
 	}
 
 	.video-container video {

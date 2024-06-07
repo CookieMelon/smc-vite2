@@ -194,6 +194,7 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 				if (widgetClasses) widgetClasses = widgetClasses.join(' ');
 				else widgetClasses = '';
 
+				console.log(widget.widgets_name);
 				// CMS Pillars
 				if (widget.widgets_name === 'Pillars') {
 					let content = {

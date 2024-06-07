@@ -35,6 +35,7 @@ export default function Disclosures() {
 	const { title, files, last_page, years, per_page, total } =
 		useGetDisclosureCategoryFiles(page_slug, page, keyword, year);
 
+	console.log(per_page);
 	return (
 		<Fade>
 			<PageBanner title={title} widgetClasses={'smc-blue'} />

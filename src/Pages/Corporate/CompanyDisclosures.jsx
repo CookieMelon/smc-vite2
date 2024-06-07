@@ -95,12 +95,13 @@ export default function CompanyDisclosures() {
 					</Column>
 					<Column columnClasses={'full'}>
 						{parent.map((item) => {
+							console.log(item);
 							if (item.children.length === 0)
 								return (
 									<PDFItem
 										key={`disclosure_${item.id}`}
 										title={item.title}
-										link={'/pdf/test-pdf.pdf'}
+										link={`/disclosures/${item.slug}`}
 									/>
 								);
 						})}

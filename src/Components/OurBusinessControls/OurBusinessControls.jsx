@@ -22,20 +22,23 @@ const control_img = {
 	},
 };
 const control_variants_prev = {
-	initial: {
+	initial: (custom) => ({
 		x: '0rem',
-	},
-	hover: {
+		color: 'var(--base-black)',
+	}),
+	hover: (custom) => ({
 		x: '-1rem',
-	},
+		color: custom ? 'var(--base-red)' : 'var(--base-black)',
+	}),
 };
 const control_variants_next = {
 	initial: {
 		x: '0rem',
 	},
-	hover: {
+	hover: (custom) => ({
 		x: '1rem',
-	},
+		color: custom ? 'var(--base-red)' : 'var(--base-black)',
+	}),
 };
 
 export default function OurBusinessControls({ page_slug, parent_id }) {
@@ -127,7 +130,10 @@ export function Control({ direction, title, link }) {
 				</motion.div>
 				<motion.div>
 					<motion.p variants={variants}>{label}</motion.p>
-					<motion.p variants={variants} className='label heading-4'>
+					<motion.p
+						custom={true}
+						variants={variants}
+						className='label heading-4'>
 						{title}
 					</motion.p>
 				</motion.div>
@@ -159,6 +165,7 @@ export function PrevBusinesses() {
 				<motion.div>
 					<motion.p variants={control_variants_prev}>Previous</motion.p>
 					<motion.p
+						custom={true}
 						variants={{
 							initial: {
 								x: '0rem',
