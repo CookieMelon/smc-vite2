@@ -56,11 +56,11 @@ export const routes = [
 		element: <Builder />,
 	},
 	{
-		path: '/corporate/public-offering-of-securities/news',
+		path: '/corporate/news',
 		element: <News />,
 	},
 	{
-		path: '/corporate/public-offering-of-securities/news/:id',
+		path: '/corporate/news/:id',
 		element: <Builder />,
 	},
 	{

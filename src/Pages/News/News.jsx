@@ -4,6 +4,7 @@ import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
 
 import { motion } from 'framer-motion';
+import moment from 'moment';
 import { PiCaretCircleRight } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 import Column from 'src/CMS/Column/column';
@@ -120,6 +121,7 @@ export function NewsItem({
 	direction,
 }) {
 	const newsItemClass = `news-item ${direction ? direction : ''}`;
+	const formatedDate = moment(date).format('MMMM D, YYYY');
 	return (
 		<motion.div initial='initial' whileHover='hover' className={newsItemClass}>
 			{img && (
@@ -131,7 +133,7 @@ export function NewsItem({
 			)}
 			<div className='desc-container'>
 				<div className='news-date'>
-					<small className='small-text'>{date}</small>
+					<small className='small-text'>{formatedDate}</small>
 				</div>
 				<h3 className='news-title heading-3'>
 					<Link to={link}>{title}</Link>
@@ -155,10 +157,11 @@ export function NewsItem({
 }
 
 export function NewsFeatured({ image, date, title, link }) {
+	const formatedDate = moment(date).format('MMMM D, YYYY');
 	return (
 		<div className='news-featured' style={{ backgroundImage: `url(${image})` }}>
 			<div className='desc-container'>
-				<div className='news-date small-text'>{date}</div>
+				<div className='news-date small-text'>{formatedDate}</div>
 				<h2 className='heading-2 news-title'>
 					<Link to={link}>{title}</Link>
 				</h2>

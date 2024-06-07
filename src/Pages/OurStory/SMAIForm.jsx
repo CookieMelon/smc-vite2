@@ -1,21 +1,15 @@
 import * as Form from '@radix-ui/react-form';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import Column from 'src/CMS/Column/column';
 
 import 'src/styles/radix-form.scss';
-const captcha_key = import.meta.env.VITE_API_URL;
+const captcha_key = import.meta.env.VITE_API_CaptchaKey;
 
 export default function SMAIForm() {
 	const recaptcha = useRef();
 
-	const personCount = useRef(0);
-	const [persons, setPersons] = useState([0]);
-
-	const reportCount = useRef(0);
-	const [reports, setReports] = useState([0]);
-
-	const [count, setCount] = useState(1);
+	console.log(captcha_key);
 
 	const submitForm = (event) => {
 		event.preventDefault();

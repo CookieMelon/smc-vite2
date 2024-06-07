@@ -62,7 +62,7 @@ const HoveredContext = createContext(null);
 export default function Nav({}) {
 	const router = useLocation();
 	const { color } = useGetBannerData();
-	const { fakePreload, doneIntro } = useContext(PreloadContext);
+	const { preload, doneIntro } = useContext(PreloadContext);
 	const { smcThemeDelayed, smcTheme } = useContext(ThemeContext);
 	const [[navIndex, navHovered], setHovered] = useState([null, false]);
 	const className = router.pathname === '/' ? 'home' : 'inner';
@@ -197,13 +197,13 @@ export default function Nav({}) {
 	};
 
 	useEffect(() => {
-		if (!(fakePreload && doneIntro)) setAnim('preload');
+		if (!(preload && doneIntro)) setAnim('preload');
 		else {
 			if (navOpen) {
 				setAnim(smcTheme);
 			} else setAnim('closed');
 		}
-	}, [fakePreload, doneIntro, navOpen, smcTheme]);
+	}, [preload, doneIntro, navOpen, smcTheme]);
 
 	return (
 		<HoveredContext.Provider value={{ navIndex, navHovered, setHovered }}>

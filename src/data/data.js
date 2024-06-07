@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { MenuContext, ThemeContext } from '../App';
@@ -263,7 +264,7 @@ export const useGetPage = () => {
 				let parentLinks = menu.map((item) => item.page_slug);
 				let index = parentLinks.indexOf(data.page_slug_full.split('/')[0]);
 				if (location.pathname === '/') index = -2;
-
+				let date = moment(data.publish_date);
 				setData([
 					data.page_title,
 					data.api_sections,
@@ -273,7 +274,7 @@ export const useGetPage = () => {
 					getTheme(index),
 				]);
 
-				setNewsData([data.publish_date]);
+				setNewsData([date.format('MMMM D, YYYY, hh:mm a')]);
 			});
 	}, [menu]);
 
@@ -338,7 +339,6 @@ export const useGetDisclosureCategoryFiles = (
 					data.disclosure_files.files && data.disclosure_files.files.total,
 				]);
 
-				console.log(data);
 				console.log([
 					data.title,
 					data.disclosure_files.files && data.disclosure_files.files,
@@ -475,6 +475,7 @@ export const useGetDataList = (slug, title) => {
 	const [[header, list], setList] = useState([title, []]);
 
 	useEffect(() => {
+		console.log(slug);
 		fetch(`${api_url}page/${slug}/data-list`, {
 			method: 'GET',
 			headers: {
@@ -486,6 +487,7 @@ export const useGetDataList = (slug, title) => {
 				return res.json();
 			})
 			.then((data) => {
+				console.log(data);
 				setList([title, data]);
 			});
 	}, [slug]);

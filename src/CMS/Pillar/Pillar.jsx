@@ -100,7 +100,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 			scrollYProgress,
 			[0, mainInStart],
 			[
-				'polygon(10% 10%, 90% 10%, 90% 90%, 10% 90%',
+				'polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%)',
 				'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%',
 			],
 			{
@@ -334,49 +334,67 @@ export default function Pillar({ content, widgetClasses, children }) {
 			<motion.div
 				className='pillar-sticky'
 				initial='initial'
-				animate={isInView ? 'enter' : 'initial'}>
-				<motion.div className='pillar-clip' variants={sticky_variants}>
+				animate={isMobile && isInView ? 'enter' : 'initial'}>
+				<motion.div
+					className='pillar-clip'
+					variants={isMobile && sticky_variants}
+					style={
+						!isMobile && {
+							clipPath: !widgetClasses.includes('left')
+								? sticky[0]
+								: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+						}
+					}>
 					<motion.div
 						variants={bg_variants}
 						className='pillar-bg pillar-img'
-						style={{
-							x: x[0],
-							y: y[0],
-							backgroundImage: `url(${bg})`,
-						}}>
+						style={
+							!isMobile && {
+								x: x[0],
+								y: y[0],
+								z: !isMobile && z[0],
+								backgroundImage: `url(${bg})`,
+							}
+						}>
 						<motion.div
-							style={{
-								x: widgetClasses.includes('left')
-									? paths_x_left[0]
-									: paths_x[0],
-								y: widgetClasses.includes('left')
-									? paths_y_left[0]
-									: paths_y[0],
-							}}
+							style={
+								!isMobile && {
+									x: widgetClasses.includes('left')
+										? paths_x_left[0]
+										: paths_x[0],
+									y: widgetClasses.includes('left')
+										? paths_y_left[0]
+										: paths_y[0],
+								}
+							}
 							className='path-con'>
 							<div className='path path-1'></div>
 						</motion.div>
 						<motion.div
-							style={{
-								x: widgetClasses.includes('left')
-									? paths_x_left[0]
-									: paths_x[1],
-								y: widgetClasses.includes('left')
-									? paths_y_left[0]
-									: paths_y[1],
-							}}
+							style={
+								!isMobile && {
+									x: widgetClasses.includes('left')
+										? paths_x_left[0]
+										: paths_x[1],
+									y: widgetClasses.includes('left')
+										? paths_y_left[0]
+										: paths_y[1],
+								}
+							}
 							className='path-con'>
 							<div className='path path-2'></div>
 						</motion.div>
 						<motion.div
-							style={{
-								x: widgetClasses.includes('left')
-									? paths_x_left[0]
-									: paths_x[2],
-								y: widgetClasses.includes('left')
-									? paths_y_left[0]
-									: paths_y[2],
-							}}
+							style={
+								!isMobile && {
+									x: widgetClasses.includes('left')
+										? paths_x_left[0]
+										: paths_x[2],
+									y: widgetClasses.includes('left')
+										? paths_y_left[0]
+										: paths_y[2],
+								}
+							}
 							className='path-con'>
 							<div className='path path-3'></div>
 						</motion.div>
@@ -402,43 +420,50 @@ export default function Pillar({ content, widgetClasses, children }) {
 					<motion.div
 						className='pillar-bg pillar-blur pillar-img'
 						variants={blur_variants}
-						style={{
-							x: x[0],
-							y: y[0],
-							backgroundImage: `url(${bg})`,
-						}}></motion.div>
+						style={
+							!isMobile && {
+								x: x[0],
+								y: y[0],
+								backgroundImage: `url(${bg})`,
+							}
+						}></motion.div>
 					<motion.div
 						className='pillar-desc'
 						initial='initial'
-						animate={isInView ? 'enter' : 'initial'}
+						animate={isMobile && isInView ? 'enter' : 'initial'}
 						transition={{
 							staggerChildren: 0.05,
 						}}>
 						<motion.p
-							variants={text_variants}
+							variants={isMobile && text_variants}
+							style={!isMobile && { opacity: text1[0], y: text1[1] }}
 							className='uppercase'
 							data-text={content.text1}
 							dangerouslySetInnerHTML={{ __html: content.text1 }}></motion.p>
 						<motion.h2
-							variants={text_variants}
+							variants={isMobile && text_variants}
+							style={!isMobile && { opacity: text2[0], y: text2[1] }}
 							className='heading-2'
 							data-text={content.text2}>
 							{content.text2}
 						</motion.h2>
 						{content.text3 && (
-							<motion.div className='pillar-text' variants={text_variants}>
+							<motion.div
+								className='pillar-text'
+								variants={isMobile && text_variants}
+								style={!isMobile && { opacity: text3[0], y: text3[1] }}>
 								{parse(content.text3)}
 							</motion.div>
 						)}
 
-						{/* <div className='line-con' style={{}}>
+						<div className='line-con'>
 							<motion.div
 								className='line'
 								style={{
 									height: line[0],
 									y: line[1],
 								}}></motion.div>
-						</div> */}
+						</div>
 					</motion.div>
 					<motion.div
 						className='pillar-focus pillar-img'

@@ -4,7 +4,7 @@ import { PreloadContext } from 'src/App';
 import { useGetBannerData } from 'src/data/data';
 
 export default function Preload() {
-	const { fakePreload } = useContext(PreloadContext);
+	const { preload } = useContext(PreloadContext);
 	const { doneIntro, setDoneIntro } = useContext(PreloadContext);
 	const { bg } = useGetBannerData();
 
@@ -41,11 +41,10 @@ export default function Preload() {
 	};
 	return (
 		<AnimatePresence>
-			{!(doneIntro && fakePreload) && (
+			{!(doneIntro && preload) && (
 				<motion.div
 					className='preload-cover'
 					style={{
-						display: 'none',
 						backgroundImage: `radial-gradient(at bottom, ${bg[0]} 0%, ${bg[1]} 100%)`,
 					}}
 					exit={{

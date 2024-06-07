@@ -24,11 +24,14 @@ function App() {
 	const [ourBusinesses, setOurBusinesses] = useState([]);
 	// const [token, setToken] = useGetToken();
 
-	const [preload, setPreload] = useState(true);
-	const [fakePreload, setFakePreload] = useState(false);
+	const [preload, setPreload] = useState(false);
 	const [doneIntro, setDoneIntro] = useState(false);
 	// menu context
-	const { menu } = useGetMenuNew(setFakePreload);
+	const { menu } = useGetMenuNew(setPreload);
+
+	useEffect(() => {
+		if (menu.length !== 0 && ourBusinesses.length !== 0) setPreload(true);
+	}, [menu, ourBusinesses]);
 
 	// theme context
 	const { smcTheme } = useGetTheme(menu);
@@ -56,8 +59,7 @@ function App() {
 						<PreloadContext.Provider
 							value={{
 								preload,
-								fakePreload,
-								setFakePreload,
+								setPreload,
 								doneIntro,
 								setDoneIntro,
 							}}>

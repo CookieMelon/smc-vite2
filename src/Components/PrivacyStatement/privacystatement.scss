@@ -1,5 +1,6 @@
 .privacy-statement {
-	padding: 2rem;
+	padding: 2rem 1.5rem 1.5rem;
+
 	position: fixed;
 	bottom: 0;
 	z-index: 5000;
@@ -12,7 +13,7 @@
 		padding: 0;
 		background-color: white;
 		box-shadow: 0px 6px 12px #00000024;
-		padding: 1.5rem 2rem;
+		padding: 1rem 1rem 1rem 1.5rem;
 		border-radius: 4rem;
 		display: flex;
 		justify-content: space-between;
@@ -21,6 +22,7 @@
 	}
 	p {
 		margin: 0;
+		line-height: 1.5;
 	}
 	.btn {
 		background-color: var(--gray-2);
@@ -29,5 +31,14 @@
 		padding: 1rem 1.15rem;
 		line-height: 1;
 		flex: 0 0 auto;
+		&:hover {
+			background-color: var(--base-black);
+		}
+	}
+}
+
+@media only screen and (max-width: 450px) {
+	.privacy-statement {
+		font-size: 0.75rem;
 	}
 }
