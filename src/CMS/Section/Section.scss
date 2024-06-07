@@ -280,6 +280,11 @@
 	padding-left: 4rem;
 	color: var(--heading-color);
 	text-align: right;
+	p {
+		font-size: 1rem;
+		color: var(--base-black);
+		margin-top: 1rem;
+	}
 }
 
 @media only screen and (max-width: 980px) {

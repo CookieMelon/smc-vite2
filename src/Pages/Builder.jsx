@@ -544,15 +544,15 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 				if (widget.widgets_name === 'Slider') {
 					let slides = [];
-
+					widgetClasses += ' has-arrows';
 					children.map((div) => {
 						let image = div.api_childrens[0];
 						let desc = div.api_childrens[1];
 
-						let data = {
-							image: image.elements_attributes,
-							desc: desc.elements_slot,
-						};
+						let data = {};
+
+						if (image) data.image = image.elements_attributes;
+						if (desc) data.desc = desc.elements_slot;
 
 						slides.push(data);
 					});
