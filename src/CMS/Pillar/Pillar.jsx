@@ -345,12 +345,16 @@ export default function Pillar({ content, widgetClasses, children }) {
 						variants={bg_variants}
 						className='pillar-bg pillar-img'
 						style={
-							!isMobile && {
-								x: x[0],
-								y: y[0],
-								z: !isMobile && z[0],
-								backgroundImage: `url(${bg})`,
-							}
+							!isMobile
+								? {
+										x: x[0],
+										y: y[0],
+										z: !isMobile && z[0],
+										backgroundImage: `url(${bg})`,
+								  }
+								: {
+										backgroundImage: `url(${bg})`,
+								  }
 						}>
 						<motion.div
 							style={
@@ -417,11 +421,15 @@ export default function Pillar({ content, widgetClasses, children }) {
 						className='pillar-bg pillar-blur pillar-img'
 						variants={blur_variants}
 						style={
-							!isMobile && {
-								x: x[0],
-								y: y[0],
-								backgroundImage: `url(${bg})`,
-							}
+							!isMobile
+								? {
+										x: x[0],
+										y: y[0],
+										backgroundImage: `url(${bg})`,
+								  }
+								: {
+										backgroundImage: `url(${bg})`,
+								  }
 						}></motion.div>
 					<motion.div
 						className='pillar-desc'

@@ -170,6 +170,13 @@
 	margin: auto;
 }
 
+.container-fluid-width.column-gap-2 {
+	gap: 2rem;
+	h4 {
+		margin: 0;
+	}
+}
+
 .container-fluid-width.full {
 	padding-left: 0;
 	padding-right: 0;
@@ -317,6 +324,7 @@
 		padding-right: 2rem;
 		padding-left: 2rem;
 		text-align: center;
+		line-height: 1.35;
 	}
 	.section-content {
 		&.column-2 {

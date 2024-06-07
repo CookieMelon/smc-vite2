@@ -10,16 +10,17 @@
 	padding-bottom: 10px;
 	background-image: linear-gradient(90deg, var(--base-red), var(--base-yellow));
 	.file-widget_title {
-		padding: 2rem;
+		padding: 1.25rem;
 		margin: 0;
 		background-color: #fef5d8;
 		color: var(--base-black);
-		padding-right: 5rem;
+		padding-right: 3.75rem;
+		line-height: 1.25;
 	}
 	svg {
 		position: absolute;
 		top: calc(50% - 0.75rem);
-		right: 2rem;
+		right: 1.75rem;
 	}
 }
 

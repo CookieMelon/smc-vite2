@@ -12,10 +12,12 @@ export default function SMAIForm() {
 		event.preventDefault();
 		const data = Object.fromEntries(new FormData(event.currentTarget));
 	};
+
+	console.log(captcha_key);
 	return (
 		<Column>
 			<Form.Root
-				enctype='multipart/form-data'
+				encType='multipart/form-data'
 				className='Form grid form smai-from'
 				onSubmit={(event) => {
 					submitForm(event);
