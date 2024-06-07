@@ -64,7 +64,7 @@ button {
 }
 .SelectItem[data-highlighted] {
 	outline: none;
-	background-color: gray;
+	background-color: var(--gray-2);
 	// background-color: var(--violet-9);
 	// color: var(--violet-1);
 }

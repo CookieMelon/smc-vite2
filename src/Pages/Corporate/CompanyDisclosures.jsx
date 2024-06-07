@@ -11,6 +11,7 @@ const api_url = import.meta.env.VITE_API_URL;
 
 import * as SelectPrimitive from '@radix-ui/react-select';
 import Pagination from '@unleashit/pagination';
+import { NoResult } from './Disclosures';
 
 export default function CompanyDisclosures() {
 	// const { title, theme } = useGetPage();
@@ -197,17 +198,20 @@ export default function CompanyDisclosures() {
 				</Column>
 				<Column columnClasses='full'>
 					<div className='pdf-listing'>
-						{files.length &&
+						{files.length ? (
 							files.map((file) => {
 								return (
 									<PDFItem
-										key={`${file.title}_${file.date} `}
+										key={`disclosure_${file.id}`}
 										date={file.date}
 										title={file.title}
 										link={file.file_url}
 									/>
 								);
-							})}
+							})
+						) : (
+							<NoResult />
+						)}
 					</div>
 					<Pagination
 						// cssVars='btn'

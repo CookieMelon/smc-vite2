@@ -6,18 +6,18 @@ import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
-import { useGetPage } from 'src/data/data';
+import { useGetDividentHistory, useGetPage } from 'src/data/data';
 const api_url = import.meta.env.VITE_API_URL;
 
 export default function DividendHistory() {
 	const { title, theme } = useGetPage();
-	const [content, setContent] = useState(null);
+
 	const location = useLocation();
 	const search = useLocation().search;
-	const year = new Date().getFullYear();
 
 	const [tabIndex, setTabIndex] = useState(0);
 
+	const year = new Date().getFullYear();
 	const [selc, setSelc] = useState(
 		new URLSearchParams(search).get('selyc')
 			? new URLSearchParams(search).get('selyc')
@@ -36,24 +36,7 @@ export default function DividendHistory() {
 			: '2014'
 	);
 
-	useEffect(() => {
-		fetch(
-			`${api_url}dividend_history?cd_year=${selc}&&sd_year=${sels}&&pd_year=${selp}`,
-			{
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					// Authorization: `Bearer ${token}`,
-				},
-			}
-		)
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				setContent((prev) => (prev = data));
-			});
-	}, [selc, sels, selp]);
+	const { content } = useGetDividentHistory(selc, sels, selp);
 
 	useEffect(() => {
 		if (content === null) return;

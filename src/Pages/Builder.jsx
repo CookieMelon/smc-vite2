@@ -571,7 +571,7 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 					let slides = [];
 
 					children.map((div) => {
-						let title, desc, img, link, subtitle;
+						let title, desc, img, link, subtitle, sort;
 						div.api_childrens.map((child) => {
 							if (
 								child.elements_name === 'Title' ||
@@ -601,6 +601,9 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 							if (child.elements_name === 'Subtitle')
 								subtitle = child.elements_slot;
+
+							if (child.elements_name === 'Icon')
+								sort = parseInt(child.elements_slot);
 						});
 
 						let d = {};
@@ -610,9 +613,13 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 						if (img) d.img = img;
 						if (link) d.link = link;
 						if (subtitle) d.subtitle = subtitle;
+						if (subtitle) d.sort = sort;
 
 						slides.push(d);
 					});
+
+					let slidesSorted = slides.sort((a, b) => a.sort - b.sort);
+
 					return <AnnualReports key={key} slides={slides} />;
 				}
 

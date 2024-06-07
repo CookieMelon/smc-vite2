@@ -7,6 +7,13 @@ import { getColors } from '../hooks/use-color';
 
 const api_url = import.meta.env.VITE_API_URL;
 
+const debounce = (f) => {
+	return setTimeout(f, 300);
+};
+
+const clearDebounce = (f) => {
+	return () => clearTimeout(f);
+};
 export const useGetButtonColor = () => {
 	const { red, blue, yellow, baseBlack } = getColors;
 	const [buttonColor, setButtonColor] = useState(baseBlack);
@@ -44,22 +51,26 @@ export const useGetMenuNew = (setFakePreload) => {
 	useEffect(() => {
 		setFakePreload(false);
 		if (!menu.length) {
-			fetch(`${api_url}navigation`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					// Authorization: `Bearer ${token}`,
-				},
-			})
-				.then((res) => {
-					return res.json();
+			const getData = debounce(() => {
+				fetch(`${api_url}navigation`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						// Authorization: `Bearer ${token}`,
+					},
 				})
-				.then((data) => {
-					let filteredMenu = removeUnpublished(data);
+					.then((res) => {
+						return res.json();
+					})
+					.then((data) => {
+						let filteredMenu = removeUnpublished(data);
 
-					setMenu((prev) => (prev = filteredMenu));
-					setFakePreload(true);
-				});
+						setMenu((prev) => (prev = filteredMenu));
+						setFakePreload(true);
+					});
+			});
+
+			return clearDebounce(getData);
 		}
 	}, [setFakePreload]);
 
@@ -244,38 +255,40 @@ export const useGetPage = () => {
 
 		let path =
 			location.pathname === '/' ? 'home' : location.pathname.split('/').pop();
-
-		fetch(`${api_url}page/${path}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
+		const getData = setTimeout(() => {
+			fetch(`${api_url}page/${path}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
 			})
-			.then((data) => {
-				if (data.error) {
-					setError(true);
-					return;
-				}
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					if (data.error) {
+						setError(true);
+						return;
+					}
 
-				let parentLinks = menu.map((item) => item.page_slug);
-				let index = parentLinks.indexOf(data.page_slug_full.split('/')[0]);
-				if (location.pathname === '/') index = -2;
-				let date = moment(data.publish_date);
-				setData([
-					data.page_title,
-					data.api_sections,
-					data.content_type_id,
-					data.page_slug,
-					data.parent_page_id,
-					getTheme(index),
-				]);
+					let parentLinks = menu.map((item) => item.page_slug);
+					let index = parentLinks.indexOf(data.page_slug_full.split('/')[0]);
+					if (location.pathname === '/') index = -2;
+					let date = moment(data.publish_date);
+					setData([
+						data.page_title,
+						data.api_sections,
+						data.content_type_id,
+						data.page_slug,
+						data.parent_page_id,
+						getTheme(index),
+					]);
 
-				setNewsData([date.format('MMMM D, YYYY, hh:mm a')]);
-			});
+					setNewsData([date.format('MMMM D, YYYY, hh:mm a')]);
+				});
+		});
+		return clearDebounce(getData);
 	}, [menu]);
 
 	return {
@@ -302,6 +315,8 @@ const populateYear = (oldestYear) => {
 		};
 	}).reverse();
 };
+
+// ok
 export const useGetDisclosureCategoryFiles = (
 	page_slug,
 	page,
@@ -309,64 +324,90 @@ export const useGetDisclosureCategoryFiles = (
 	year
 ) => {
 	const [[title, files, oldest_date, last_page, per_page, total], setData] =
-		useState([null, '']);
+		useState(['', null]);
 	const [years, setYears] = useState([]);
 	const controller = new AbortController();
 	const signal = controller.signal;
 
+	const [error, setError] = useState(false);
 	useEffect(() => {
-		fetch(
-			`${api_url}disclosure_category/${page_slug}?page=${page}&&src=${keyword}&&year=${year}`,
-			{
-				method: 'GET',
-				signal: signal,
-				headers: {
-					'Content-Type': 'application/json',
-					// Authorization: `Bearer ${token}`,
-				},
-			}
-		)
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				setData([
-					data.title,
-					data.disclosure_files.files && data.disclosure_files.files,
-					data.disclosure_files.files && data.disclosure_files.oldest_date,
-					data.disclosure_files.files && data.disclosure_files.files.last_page,
-					data.disclosure_files.files && data.disclosure_files.files.per_page,
-					data.disclosure_files.files && data.disclosure_files.files.total,
-				]);
+		const getData = debounce(() => {
+			fetch(
+				`${api_url}disclosure_category/${page_slug}?page=${page}&&src=${keyword}&&year=${year}`,
+				{
+					method: 'GET',
+					signal: signal,
+					headers: {
+						'Content-Type': 'application/json',
+						// Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+				.then((res) => {
+					try {
+						return res.json();
+					} catch (e) {
+						setError(true);
+						// console.log(e);
+					}
+				})
+				.then((data) => {
+					console.log(data);
+					if (data.error) {
+						return setError(true);
+					}
+					setData([
+						data.title,
+						data.disclosure_files.files && data.disclosure_files.files,
+						data.disclosure_files.files && data.disclosure_files.oldest_date,
+						data.disclosure_files.files &&
+							data.disclosure_files.files.last_page,
+						data.disclosure_files.files && data.disclosure_files.files.per_page,
+						data.disclosure_files.files && data.disclosure_files.files.total,
+					]);
 
-				setYears(
-					(prev) =>
-						(prev = populateYear(
-							new Date(data.disclosure_files.oldest_date).getFullYear()
-						))
-				);
-			});
+					setYears(
+						(prev) =>
+							(prev = populateYear(
+								new Date(data.disclosure_files.oldest_date).getFullYear()
+							))
+					);
+				});
+		});
+		return () => clearTimeout(getData);
 	}, [page_slug, page, keyword, year]);
 
-	return { title, files, oldest_date, last_page, years, per_page, total };
+	return {
+		title,
+		files,
+		oldest_date,
+		last_page,
+		years,
+		per_page,
+		total,
+		error,
+	};
 };
 
 export const useGetDisclosureAll = () => {
 	const [content, setContent] = useState(null);
 	useEffect(() => {
-		fetch(`${api_url}disclosure_all`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
+		const getData = debounce(() => {
+			fetch(`${api_url}disclosure_all`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
 			})
-			.then((data) => {
-				setContent((prev) => (prev = data));
-			});
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					setContent((prev) => (prev = data));
+				});
+		});
+		return () => clearTimeout(getData);
 	}, []);
 
 	return { content };
@@ -376,19 +417,23 @@ export const useGetCompanyDiclosures = () => {
 	const [list, setList] = useState([]);
 
 	useEffect(() => {
-		fetch(`${api_url}company_disclosure`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
+		const getData = debounce(() => {
+			fetch(`${api_url}company_disclosure`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
 			})
-			.then((data) => {
-				// console.log(data);
-			});
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					// console.log(data);
+				});
+		});
+
+		return clearDebounce(getData);
 	}, []);
 };
 
@@ -401,62 +446,73 @@ export const useGetDisclosureFiles = (category, keyword, page, year) => {
 	]);
 	const [years, setYears] = useState([]);
 	useEffect(() => {
-		if (category === ' ')
-			fetch(
-				`${api_url}disclosure_file?src=${keyword}&&page=${page}&&year=${year}`,
-				{
-					method: 'GET',
-					headers: {
-						'Content-Type': 'application/json',
-						// Authorization: `Bearer ${token}`,
-					},
-				}
-			)
-				.then((res) => {
-					return res.json();
-				})
-				.then((data) => {
-					setContent([
-						data.files.data,
-						// data.disclosure_files.oldest_date,
-						data.files.last_page,
-						data.files.per_page,
-						data.files.total,
-					]);
-					// let yearNow = new Date().getFullYear();
+		if (category === ' ') {
+			const getData = debounce(() => {
+				fetch(
+					`${api_url}disclosure_file?src=${keyword}&&page=${page}&&year=${year}`,
+					{
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+							// Authorization: `Bearer ${token}`,
+						},
+					}
+				)
+					.then((res) => {
+						return res.json();
+					})
+					.then((data) => {
+						setContent([
+							data.files.data,
+							// data.disclosure_files.oldest_date,
+							data.files.last_page,
+							data.files.per_page,
+							data.files.total,
+						]);
+						// let yearNow = new Date().getFullYear();
 
-					setYears(
-						(prev) =>
-							(prev = populateYear(new Date(data.oldest_date).getFullYear()))
-					);
-				});
-		if (category !== ' ')
-			fetch(
-				`${api_url}disclosure_category/${category}?page=${page}&&src=${keyword}&&year=${year}`,
-				{
-					method: 'GET',
-					headers: {
-						'Content-Type': 'application/json',
-						// Authorization: `Bearer ${token}`,
-					},
-				}
-			)
-				.then((res) => {
-					return res.json();
-				})
-				.then((data) => {
-					setContent([
-						data.disclosure_files.files.data,
-						data.disclosure_files.files.last_page,
-					]);
+						setYears(
+							(prev) =>
+								(prev = populateYear(new Date(data.oldest_date).getFullYear()))
+						);
+					});
+			});
 
-					setYears(
-						(prev) =>
-							(prev = populateYear(
-								new Date(data.disclosure_files.oldest_date).getFullYear()
-							))
-					);
-				});
+			return clearDebounce(getData);
+		}
+
+		if (category !== ' ') {
+			const getData = debounce(() => {
+				fetch(
+					`${api_url}disclosure_category/${category}?page=${page}&&src=${keyword}&&year=${year}`,
+					{
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json',
+							// Authorization: `Bearer ${token}`,
+						},
+					}
+				)
+					.then((res) => {
+						return res.json();
+					})
+					.then((data) => {
+						setContent([
+							data.disclosure_files.files.data,
+							data.disclosure_files.files.last_page,
+						]);
+
+						setYears(
+							(prev) =>
+								(prev = populateYear(
+									new Date(data.disclosure_files.oldest_date).getFullYear()
+								))
+						);
+					});
+			});
+
+			return clearDebounce(getData);
+		}
 	}, [keyword, page, year, category]);
 
 	return { files, years, last_page, per_page, total };
@@ -466,19 +522,23 @@ export const useGetDataList = (slug, title) => {
 	const [[header, list], setList] = useState([title, []]);
 
 	useEffect(() => {
-		fetch(`${api_url}page/${slug}/data-list`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
+		const getData = debounce(() => {
+			fetch(`${api_url}page/${slug}/data-list`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
 			})
-			.then((data) => {
-				setList([title, data]);
-			});
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					setList([title, data]);
+				});
+		});
+
+		return clearDebounce(getData);
 	}, [slug]);
 
 	return { header, list };
@@ -509,19 +569,25 @@ export const useSearchMenu = (id) => {
 export const useGetFinancialStatements = () => {
 	const [content, setContent] = useState([]);
 
-	fetch(`${api_url}financial_statements`, {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			// Authorization: `Bearer ${token}`,
-		},
-	})
-		.then((res) => {
-			return res.json();
-		})
-		.then((data) => {
-			setContent((prev) => (prev = data));
+	useEffect(() => {
+		const getData = debounce(() => {
+			fetch(`${api_url}financial_statements`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
+			})
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					setContent((prev) => (prev = data));
+				});
 		});
+
+		return clearDebounce(getData);
+	}, []);
 
 	return { content };
 };
@@ -531,19 +597,24 @@ export const useGetSearch = (searchParams) => {
 
 	useEffect(() => {
 		if (!searchParams.get('search')) return;
-		fetch(`${api_url}search?search=${searchParams.get('search')}`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
+
+		const getData = debounce(() => {
+			fetch(`${api_url}search?search=${searchParams.get('search')}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
 			})
-			.then((data) => {
-				setResult(data);
-			});
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					setResult(data);
+				});
+		});
+
+		return clearDebounce(getData);
 	}, [searchParams]);
 
 	return { result };
@@ -552,7 +623,62 @@ export const useGetSearch = (searchParams) => {
 export const useGetSharePrices = (sely, selm) => {
 	const [content, setContent] = useState(null);
 	useEffect(() => {
-		fetch(`${api_url}share_prices?year=${sely}&&month=${selm}`, {
+		const getData = debounce(() => {
+			fetch(`${api_url}share_prices?year=${sely}&&month=${selm}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
+			})
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					setContent((prev) => (prev = data));
+				});
+		});
+
+		return clearDebounce(getData);
+	}, [sely, selm]);
+
+	return { content };
+};
+
+export const useGetDividentHistory = (selc, sels, selp) => {
+	const [content, setContent] = useState(null);
+
+	useEffect(() => {
+		const getData = debounce(() => {
+			fetch(
+				`${api_url}dividend_history?cd_year=${selc}&&sd_year=${sels}&&pd_year=${selp}`,
+				{
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						// Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					setContent((prev) => (prev = data));
+				});
+		});
+
+		return clearDebounce(getData);
+	}, [selc, sels, selp]);
+
+	return { content };
+};
+
+export const useGetFinancialHighlights = () => {
+	const [content, setContent] = useState([]);
+
+	useEffect(() => {
+		fetch(`${api_url}financial_highlights`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -563,9 +689,11 @@ export const useGetSharePrices = (sely, selm) => {
 				return res.json();
 			})
 			.then((data) => {
+				console.log(data);
 				setContent((prev) => (prev = data));
+				// setSelected(data[0].id);
 			});
-	}, [sely, selm]);
+	}, []);
 
 	return { content };
 };

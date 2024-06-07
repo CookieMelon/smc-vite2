@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import PageBanner from 'src/CMS/PageBanner/PageBanner';
-import Section from 'src/CMS/Section/Section';
-import Fade from 'src/Layout/Fade/Fade';
-
 import { motion } from 'framer-motion';
+import parse from 'html-react-parser';
 import moment from 'moment';
+import { useEffect, useState } from 'react';
 import { PiCaretCircleRight } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 import Column from 'src/CMS/Column/column';
+import PageBanner from 'src/CMS/PageBanner/PageBanner';
+import Section from 'src/CMS/Section/Section';
+import Fade from 'src/Layout/Fade/Fade';
 import { useGetDataList } from 'src/data/data';
 
 export default function News() {
@@ -39,8 +39,8 @@ export default function News() {
 					sectionClass={'column-2'}
 					containerClass={'medium align-start'}>
 					<div className='column news-column'>
-						{otherNews.length !== 0 &&
-							otherNews.map((n, index) => {
+						{list.length !== 0 &&
+							list.map((n, index) => {
 								let news_details = {};
 								news_details.key = n.id;
 								news_details.page_title = n.page_title;
@@ -94,6 +94,7 @@ export default function News() {
 									if (index < 3)
 										return (
 											<NewsItem
+												fontSize='heading-5'
 												link={news_details.link}
 												index={index}
 												title={news_details.page_title}
@@ -119,6 +120,7 @@ export function NewsItem({
 	link,
 	setModal,
 	direction,
+	fontSize = 'heading-4',
 }) {
 	const newsItemClass = `news-item ${direction ? direction : ''}`;
 	const formatedDate = moment(date).format('MMMM D, YYYY');
@@ -135,8 +137,8 @@ export function NewsItem({
 				<div className='news-date'>
 					<small className='small-text'>{formatedDate}</small>
 				</div>
-				<h3 className='news-title heading-3'>
-					<Link to={link}>{title}</Link>
+				<h3 className={`news-title ${fontSize}`}>
+					<Link to={link}>{parse(title)}</Link>
 				</h3>
 				<motion.p
 					variants={{
@@ -163,7 +165,7 @@ export function NewsFeatured({ image, date, title, link }) {
 			<div className='desc-container'>
 				<div className='news-date small-text'>{formatedDate}</div>
 				<h2 className='heading-2 news-title'>
-					<Link to={link}>{title}</Link>
+					<Link to={link}>{parse(title)}</Link>
 				</h2>
 				{/* <p>{newsItems[0].desc}</p> */}
 				<p>

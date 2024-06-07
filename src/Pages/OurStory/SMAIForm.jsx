@@ -13,7 +13,6 @@ export default function SMAIForm() {
 		const data = Object.fromEntries(new FormData(event.currentTarget));
 	};
 
-	console.log(captcha_key);
 	return (
 		<Column>
 			<Form.Root

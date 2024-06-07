@@ -1,34 +1,44 @@
+import parse from 'html-react-parser';
 import { Link, useSearchParams } from 'react-router-dom';
 import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
-import { getLink } from 'src/Layout/Nav/nav-helper';
 import { useGetSearch } from 'src/data/data';
-
+import { NoResult } from './Corporate/Disclosures';
 export default function Search({}) {
 	const [searchParams] = useSearchParams();
 	const { result } = useGetSearch(searchParams);
-	if (result.length === 0) return;
+
 	return (
 		<Fade>
 			<PageBanner
 				title={'Search Result'}
 				widgetClasses={'smc-red'}></PageBanner>
 			<Section containerClass={'medium'}>
-				<p className='small-text'>
-					About <b>{result.length + 1} </b>found{' '}
-				</p>
-				{result.map((r) => {
-					let link = getLink(r);
+				{result.length !== 0 ? (
+					result.map((r) => {
+						let link = getLink(r);
 
-					let content = r.teaser ? r.teaser.teaser_content : null;
-					return (
-						<Column key={`page_id-${r.page_id}`}>
-							<SearchItem link={link} title={r.page_title} content={content} />
-						</Column>
-					);
-				})}
+						let content = r.teaser ? r.teaser.teaser_content : null;
+						return (
+							<>
+								<p className='small-text'>
+									About <b>{result.length} </b>found{' '}
+								</p>
+								<Column key={`page_id-${r.page_id}`}>
+									<SearchItem
+										link={link}
+										title={r.page_title}
+										content={content}
+									/>
+								</Column>
+							</>
+						);
+					})
+				) : (
+					<NoResult />
+				)}
 			</Section>
 		</Fade>
 	);
@@ -42,7 +52,7 @@ function SearchItem({ title, content, link }) {
 				Search Tag
 			</Tag> */}
 			<h5 className='search-title heading-5'>
-				<Link to={link.to}>{title}</Link>
+				<Link to={link.to}>{parse(title)}</Link>
 			</h5>
 			{content && (
 				<p>

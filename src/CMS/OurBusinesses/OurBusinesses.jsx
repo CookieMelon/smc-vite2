@@ -220,10 +220,7 @@ export default function OurBusinesses({ data, className, link, children }) {
 											let test = document.querySelectorAll('.test2');
 											height;
 											window.scrollTo({
-												top:
-													business.current.offsetTop +
-													test[index].offsetTop -
-													height / 2,
+												top: business.current.offsetTop + test[index].offsetTop,
 												behavior: 'smooth',
 											});
 											// innerItem_click(event, info);
@@ -261,11 +258,11 @@ export default function OurBusinesses({ data, className, link, children }) {
 					position: 'absolute',
 					top: 0,
 					left: 0,
-					paddingTop: '100vh',
-					paddingBottom: '50vh',
+					paddingTop: '25vh',
+					paddingBottom: '25vh',
 					height: '100%',
 
-					zIndex: 0,
+					// zIndex: 10,
 				}}>
 				{data.map((val, index) => {
 					return (

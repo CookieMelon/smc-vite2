@@ -4,7 +4,7 @@ import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
-import { useGetPage } from 'src/data/data';
+import { useGetFinancialHighlights, useGetPage } from 'src/data/data';
 
 const api_url = import.meta.env.VITE_API_URL;
 
@@ -13,26 +13,15 @@ import { Select, SelectItem } from 'src/Components/Forms/Select/Select';
 
 export default function FinancialHighlights() {
 	const { title, theme } = useGetPage();
-	const [content, setContent] = useState([]);
+
+	const { content } = useGetFinancialHighlights();
 
 	const [selected, setSelected] = useState();
 
 	useEffect(() => {
-		fetch(`${api_url}financial_highlights`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
-			})
-			.then((data) => {
-				setContent((prev) => (prev = data));
-				setSelected(data[0].id);
-			});
-	}, []);
+		if (content.length === 0) return;
+		setSelected(content[0].id);
+	}, [content]);
 
 	return (
 		<Fade>

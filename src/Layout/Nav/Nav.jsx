@@ -89,10 +89,6 @@ export default function Nav({}) {
 		else setHideNav(false);
 	}, [router.pathname]);
 
-	useEffect(() => {
-		console.log(hideNav);
-	}, [hideNav]);
-
 	const getNavColor = () => {
 		switch (smcThemeDelayed) {
 			case 'smc-red':

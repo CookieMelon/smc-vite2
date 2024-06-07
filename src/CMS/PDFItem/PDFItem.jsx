@@ -2,9 +2,12 @@ import { motion } from 'framer-motion';
 
 import { getColors } from 'src/hooks/use-color';
 
+import moment from 'moment';
 import { PiCaretRightBold } from 'react-icons/pi';
 
 export default function PDFItem({ title, date, download, link }) {
+	const formatedDate = moment(date).format('MMMM D, YYYY');
+
 	const { blue } = getColors;
 	const nameVariants = {
 		rest: {
@@ -64,7 +67,7 @@ export default function PDFItem({ title, date, download, link }) {
 				{title}
 			</motion.div>
 			<motion.div className='pdf-details' variants={detailsVariants}>
-				{date && <span className='small-text'>{date}</span>}
+				{formatedDate && <span className='small-text'>{formatedDate}</span>}
 				{download ? (
 					<motion.div className='pdf-button' variants={buttonVariants}>
 						<PiCaretRightBold size={'1.25rem'} color='currentColor' />

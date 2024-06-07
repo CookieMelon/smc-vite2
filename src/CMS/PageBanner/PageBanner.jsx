@@ -3,6 +3,8 @@ import { getColors } from 'src/hooks/use-color';
 
 import { useEffect, useRef, useState } from 'react';
 
+import parse from 'html-react-parser';
+
 export default function PageBanner({
 	title,
 	subtitle,
@@ -271,7 +273,7 @@ export default function PageBanner({
 							opacity: 1,
 						},
 					}}>
-					<motion.h1 className={bannerHeadingClasses}>{title}</motion.h1>
+					<motion.h1 className={bannerHeadingClasses}>{parse(title)}</motion.h1>
 					{subtitle && (
 						<motion.p className={bannerSubtitleClasses}>{subtitle}</motion.p>
 					)}

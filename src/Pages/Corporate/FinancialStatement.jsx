@@ -1,3 +1,4 @@
+import React from 'react';
 import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
@@ -24,7 +25,7 @@ export default function FinancialStatements() {
 				newYear = false;
 			}
 			return (
-				<>
+				<React.Fragment key={`disclosure_${item.id}`}>
 					{newYear ? (
 						<tr className='no-bg'>
 							<td colSpan='2'>
@@ -46,7 +47,7 @@ export default function FinancialStatements() {
 							</a>
 						</td>
 					</tr>
-				</>
+				</React.Fragment>
 			);
 		});
 	}
@@ -58,8 +59,9 @@ export default function FinancialStatements() {
 				<Column>
 					{content &&
 						content.map((item, index) => {
+							console.log(item);
 							return (
-								<table className='table'>
+								<table className='table' key={`fs_${index}`}>
 									<tr>
 										<th colSpan='2'>{item.title}</th>
 									</tr>

@@ -73,11 +73,16 @@ export default function OurStoryTab({ data }) {
 				style={{
 					flex: '1 1 47%',
 				}}>
-				<h3>
+				<h3 style={{ color: 'var(--base-red)' }}>
+					Value creation, at the core of everything we do Everything we have
+					done up to this point, aligns with our overarching strategy of
+					continuous, long-term value creation.&nbsp;
+				</h3>
+				<h5>
 					We are driven by our aspirations for our company, and our ambition for
 					our country—on whose stability, growth, and prosperity our success
 					ultimately lies.
-				</h3>
+				</h5>
 
 				<div className='tab-source tabsource-ourstory'>
 					{data.map((content, index) => {

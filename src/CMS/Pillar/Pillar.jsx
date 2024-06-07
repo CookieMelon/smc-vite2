@@ -114,7 +114,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 				ease: easing,
 			}
 		),
-		useTransform(scrollYProgress, [0, mainInEnd, 1], ['0px', '0px', '100px'], {
+		useTransform(scrollYProgress, [0, mainInEnd, 1], ['0px', '0px', '2rem'], {
 			ease: easing,
 		}),
 		useTransform(scrollYProgress, [0, mainInEnd, 1], ['0px', '150px', '0px'], {
@@ -357,6 +357,22 @@ export default function Pillar({ content, widgetClasses, children }) {
 								  }
 						}>
 						<motion.div
+							className='pillar-bg pillar-blur pillar-img'
+							variants={blur_variants}
+							style={
+								!isMobile
+									? {
+											x: x[0],
+											y: y[0],
+											z: !isMobile && z[0],
+											opacity: blurOpacity,
+											backgroundImage: `url(${bg})`,
+									  }
+									: {
+											backgroundImage: `url(${bg})`,
+									  }
+							}></motion.div>
+						<motion.div
 							style={
 								!isMobile && {
 									x: widgetClasses.includes('left')
@@ -410,27 +426,8 @@ export default function Pillar({ content, widgetClasses, children }) {
 							style={{ opacity: path_con[2] }}>
 							<div className='path path-2'></div>
 						</motion.div>
-						{/* 
-						<motion.div
-							className='path-con over'
-							style={{ opacity: path_con[2] }}>
-							<div className='path path-3'></div>
-						</motion.div> */}
 					</motion.div>
-					<motion.div
-						className='pillar-bg pillar-blur pillar-img'
-						variants={blur_variants}
-						style={
-							!isMobile
-								? {
-										x: x[0],
-										y: y[0],
-										backgroundImage: `url(${bg})`,
-								  }
-								: {
-										backgroundImage: `url(${bg})`,
-								  }
-						}></motion.div>
+
 					<motion.div
 						className='pillar-desc'
 						initial='initial'
@@ -471,10 +468,16 @@ export default function Pillar({ content, widgetClasses, children }) {
 					</motion.div>
 					<motion.div
 						className='pillar-focus pillar-img'
-						style={{
-							y: y[1],
-							backgroundImage: `url(${focus})`,
-						}}></motion.div>
+						style={
+							!isMobile
+								? {
+										y: y[1],
+										backgroundImage: `url(${focus})`,
+								  }
+								: {
+										backgroundImage: `url(${focus})`,
+								  }
+						}></motion.div>
 				</motion.div>
 			</motion.div>
 		</div>

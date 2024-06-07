@@ -1,24 +1,26 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import Column from 'src/CMS/Column/column';
 import Section from 'src/CMS/Section/Section';
 
 import Pagination from '@unleashit/pagination';
+import { PiMagnifyingGlass } from 'react-icons/pi';
 import { useParams } from 'react-router-dom';
+import { LenisContext } from 'src/App';
 import PDFItem from 'src/CMS/PDFItem/PDFItem';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import { Select, SelectItem } from 'src/Components/Forms/Select/Select';
 import Fade from 'src/Layout/Fade/Fade';
 import { useGetDisclosureCategoryFiles, useGetPage } from 'src/data/data';
+import ErrorPage from 'src/error-page';
 import { SectionBuilder } from '../Builder';
 
 const api_url = import.meta.env.VITE_API_URL;
 
 export default function Disclosures() {
 	const { id: page_slug } = useParams();
-
+	const lenis = useContext(LenisContext);
 	const {
-		title: page_title,
 		error,
 		sections,
 		content_type_id,
@@ -32,9 +34,23 @@ export default function Disclosures() {
 	const [year, setYear] = useState(' ');
 
 	const currentYear = new Date().getFullYear();
-	const { title, files, last_page, years, per_page, total } =
-		useGetDisclosureCategoryFiles(page_slug, page, keyword, year);
+	const {
+		title,
+		files,
+		last_page,
+		years,
+		per_page,
+		total,
+		error: category_error,
+	} = useGetDisclosureCategoryFiles(page_slug, page, keyword, year);
 
+	useEffect(() => {
+		console.log(error);
+		if (!lenis) return;
+		lenis.scrollTo(0);
+	}, [page, lenis, category_error]);
+
+	if (category_error) return <ErrorPage />;
 	return (
 		<Fade>
 			<PageBanner title={title} widgetClasses={'smc-blue'} />
@@ -80,17 +96,20 @@ export default function Disclosures() {
 				</Column>
 				<Column>
 					<div className='pdf-listing'>
-						{files &&
+						{files && files.data.length !== 0 ? (
 							files.data.map((file) => {
 								return (
 									<PDFItem
-										key={`${file.title}_${file.date} `}
+										key={`disclosure_file-${file.id}`}
 										date={file.date}
 										title={file.title}
 										link={file.file_url}
 									/>
 								);
-							})}
+							})
+						) : (
+							<NoResult />
+						)}
 					</div>
 				</Column>
 				{per_page && (
@@ -124,4 +143,24 @@ export default function Disclosures() {
 
 function DisclosuresContent({ error, sections }) {
 	if (!error) return <SectionBuilder sections={sections} />;
+}
+
+export function NoResult() {
+	return (
+		<div
+			style={{
+				padding: '4rem',
+				textAlign: 'center',
+				width: '100%',
+			}}>
+			<PiMagnifyingGlass size={'6rem'} />
+			<h2 style={{ marginBottom: '0.25rem', marginTop: '2rem' }}>
+				Sorry! No result found :&#40;
+			</h2>
+			<p>
+				Nothing is turning up with that word or phrase. Please try entering
+				another.
+			</p>
+		</div>
+	);
 }
