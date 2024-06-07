@@ -28,9 +28,7 @@ export default function NewsInner() {
 				return (
 					<Section containerClass='medium'>
 						{section.api_widgets.map((children) => {
-							return children.api_childrens((child) => {
-								// console.log(child);
-							});
+							return children.api_childrens((child) => {});
 						})}
 					</Section>
 				);

@@ -47,6 +47,11 @@
 			color: var(--heading-color);
 			transition: color 0.5s 0.5s cubic-bezier(0.76, 0, 0.24, 1);
 		}
+
+		+ h2 {
+			margin-top: 4rem !important;
+			margin-bottom: 2rem !important;
+		}
 	}
 	.column:only-child {
 		width: 100%;

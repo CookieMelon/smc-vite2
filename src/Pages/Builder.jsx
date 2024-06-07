@@ -42,6 +42,7 @@ import {
 } from 'src/Layout/Footer/social-icon';
 import ErrorPage from 'src/error-page';
 
+import { PiCaretCircleRight } from 'react-icons/pi';
 import FileWidget from 'src/CMS/FileWidget/FileWidget';
 import { createCMSElement } from 'src/helper/cms-helper';
 import { NewsFeatured, NewsItem } from './News/News';
@@ -743,6 +744,14 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 					return <Listing key={key} url={page_slug} title={''} />;
 				}
 
+				if (widget.widgets_name === 'Page Child Links') {
+					return (
+						<Column key={key}>
+							<PageChildLinks url={page_slug} title={''} />
+						</Column>
+					);
+				}
+
 				if (widget.widgets_name === 'Contact Us - SMAI') {
 					return <SMAIForm key={key} />;
 				}
@@ -770,6 +779,27 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 				// }
 			})}
 		</React.Fragment>
+	);
+}
+
+function PageChildLinks({ url, title }) {
+	const { list } = useGetDataList(url, title);
+
+	return (
+		<>
+			{list.length !== 0 &&
+				list.map((list) => {
+					return (
+						<Link
+							to={`/${list.page_slug_full}`}
+							key={list.page_id}
+							className='btn pri-btn btn-stacked'>
+							{list.page_title}
+							<PiCaretCircleRight size={'1.75rem'} />
+						</Link>
+					);
+				})}
+		</>
 	);
 }
 

@@ -8,9 +8,6 @@ const captcha_key = import.meta.env.VITE_API_CaptchaKey;
 
 export default function SMAIForm() {
 	const recaptcha = useRef();
-
-	console.log(captcha_key);
-
 	const submitForm = (event) => {
 		event.preventDefault();
 		const data = Object.fromEntries(new FormData(event.currentTarget));

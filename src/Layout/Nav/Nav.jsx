@@ -70,10 +70,11 @@ export default function Nav({}) {
 	const { scrollY } = useScroll();
 	const [navOpen, navShow] = useState(true);
 	const [isToggleOpen, toggle] = useCycle(false, true);
-	const { red, redShade1, blue, blueShade1, yellow, yellowShade1, baseBlack } =
-		getColors;
+	const { red, blue, yellow, baseBlack } = getColors;
 
 	const [anim, setAnim] = useState('preload');
+
+	const [hideNav, setHideNav] = useState(false);
 
 	useMotionValueEvent(scrollY, 'change', (latest) => {
 		if (latest < 100) {
@@ -82,6 +83,14 @@ export default function Nav({}) {
 			navShow(false);
 		}
 	});
+
+	useEffect(() => {
+		if (router.pathname.split('/')[1] === 'page') setHideNav(true);
+	}, [router.pathname]);
+
+	useEffect(() => {
+		console.log(hideNav);
+	}, [hideNav]);
 
 	const getNavColor = () => {
 		switch (smcThemeDelayed) {
@@ -269,15 +278,17 @@ export default function Nav({}) {
 						</NavLink>
 					</motion.div>
 
-					<MainNav animation={false} />
-
-					<Search preload_variants={preload_variants} />
+					{!hideNav && <MainNav animation={false} />}
+					{!hideNav && <Search preload_variants={preload_variants} />}
 				</motion.div>
-				<FloatingNav
-					navOpen={navOpen}
-					isToggleOpen={isToggleOpen}
-					toggle={toggle}
-				/>
+
+				{!hideNav && (
+					<FloatingNav
+						navOpen={navOpen}
+						isToggleOpen={isToggleOpen}
+						toggle={toggle}
+					/>
+				)}
 			</motion.div>
 			<motion.div
 				className='hover-cover'

@@ -33,10 +33,6 @@ export default function Pillar({ content, widgetClasses, children }) {
 		}
 	}, [isMobile]);
 
-	useEffect(() => {
-		console.log(isInView);
-	}, [isInView]);
-
 	const easing = easeInOut;
 
 	const { scrollYProgress } = useScroll({

@@ -95,7 +95,6 @@ export default function CompanyDisclosures() {
 					</Column>
 					<Column columnClasses={'full'}>
 						{parent.map((item) => {
-							console.log(item);
 							if (item.children.length === 0)
 								return (
 									<PDFItem

@@ -339,15 +339,6 @@ export const useGetDisclosureCategoryFiles = (
 					data.disclosure_files.files && data.disclosure_files.files.total,
 				]);
 
-				console.log([
-					data.title,
-					data.disclosure_files.files && data.disclosure_files.files,
-					data.disclosure_files.files && data.disclosure_files.oldest_date,
-					data.disclosure_files.files && data.disclosure_files.files.last_page,
-					data.disclosure_files.files && data.disclosure_files.files.per_page,
-					data.disclosure_files.files && data.disclosure_files.files.total,
-				]);
-
 				setYears(
 					(prev) =>
 						(prev = populateYear(
@@ -475,7 +466,6 @@ export const useGetDataList = (slug, title) => {
 	const [[header, list], setList] = useState([title, []]);
 
 	useEffect(() => {
-		console.log(slug);
 		fetch(`${api_url}page/${slug}/data-list`, {
 			method: 'GET',
 			headers: {
@@ -487,7 +477,6 @@ export const useGetDataList = (slug, title) => {
 				return res.json();
 			})
 			.then((data) => {
-				console.log(data);
 				setList([title, data]);
 			});
 	}, [slug]);
