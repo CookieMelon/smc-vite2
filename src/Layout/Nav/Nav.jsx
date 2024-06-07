@@ -86,6 +86,7 @@ export default function Nav({}) {
 
 	useEffect(() => {
 		if (router.pathname.split('/')[1] === 'page') setHideNav(true);
+		else setHideNav(false);
 	}, [router.pathname]);
 
 	useEffect(() => {
