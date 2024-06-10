@@ -352,7 +352,6 @@ export const useGetDisclosureCategoryFiles = (
 					}
 				})
 				.then((data) => {
-					console.log(data);
 					if (data.error) {
 						return setError(true);
 					}

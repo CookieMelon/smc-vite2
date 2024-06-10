@@ -45,7 +45,6 @@ export default function Disclosures() {
 	} = useGetDisclosureCategoryFiles(page_slug, page, keyword, year);
 
 	useEffect(() => {
-		console.log(error);
 		if (!lenis) return;
 		lenis.scrollTo(0);
 	}, [page, lenis, category_error]);

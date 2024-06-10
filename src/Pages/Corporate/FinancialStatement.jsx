@@ -59,7 +59,6 @@ export default function FinancialStatements() {
 				<Column>
 					{content &&
 						content.map((item, index) => {
-							console.log(item);
 							return (
 								<table className='table' key={`fs_${index}`}>
 									<tr>

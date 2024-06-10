@@ -1,13 +1,17 @@
 .video-content {
 	position: relative;
-	background-color: black;
+	background-color: var(--base-black);
 	video {
 		opacity: 0.5;
 		width: 100%;
+		height: 100%;
 		background-color: var(--base-black);
 	}
 	video.playing {
 		opacity: 1;
+		+ .video-play {
+			display: none;
+		}
 	}
 	.video-play {
 		position: absolute;
@@ -19,6 +23,24 @@
 .yt-container {
 	iframe {
 		width: 100%;
+		height: 100%;
+	}
+}
+
+.section-content.fixed-video {
+	transform: none;
+	position: fixed;
+	z-index: 1000;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	padding: 0;
+	.container-fluid-width {
+		height: 100%;
+		padding: 0;
+	}
+	.video-content {
 		height: 100%;
 	}
 }

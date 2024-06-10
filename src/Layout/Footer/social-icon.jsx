@@ -16,7 +16,6 @@ export default function SocialIcons({
 	li_link,
 	vb_link,
 }) {
-	console.log(fb_link, ig_link, yt_link, li_link, vb_link);
 	return (
 		<div className='social-icon'>
 			<FacebookIcon link={fb_link} />
