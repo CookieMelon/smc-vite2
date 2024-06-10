@@ -2,10 +2,19 @@ import { motion } from 'framer-motion';
 
 import { getColors } from 'src/hooks/use-color';
 
+import { useWindowSize } from '@uidotdev/usehooks';
 import moment from 'moment';
+import { useEffect, useState } from 'react';
 import { PiCaretRightBold } from 'react-icons/pi';
 
 export default function PDFItem({ title, date, download, link }) {
+	const { width } = useWindowSize();
+	const [isMobile, setIsMobile] = useState(width < 768);
+	useEffect(() => {
+		if (width < 768) setIsMobile(true);
+		else setIsMobile(false);
+	}, [width]);
+
 	const formatedDate = moment(date).format('MMMM D, YYYY');
 
 	const { blue } = getColors;
@@ -57,7 +66,10 @@ export default function PDFItem({ title, date, download, link }) {
 		},
 	};
 	return (
-		<motion.div className='pdf-item' inital='rest' whileHover='hover'>
+		<motion.div
+			className='pdf-item'
+			inital='rest'
+			whileHover={!isMobile ? 'hover' : ''}>
 			<a
 				target='_blank'
 				href={link}

@@ -14,10 +14,12 @@ export default function VideoContent({ src, poster }) {
 					video.classList.add('playing');
 					if (video.requestFullscreen) {
 						video.requestFullscreen();
-					} else if (video.webkitRequestFullscreen) {
+					}
+					if (video.webkitRequestFullscreen) {
 						/* Safari */
 						video.webkitRequestFullscreen();
-					} else if (video.msRequestFullscreen) {
+					}
+					if (video.msRequestFullscreen) {
 						/* IE11 */
 						video.msRequestFullscreen();
 					}

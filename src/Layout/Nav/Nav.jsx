@@ -640,7 +640,13 @@ function FindUsPopup({ toggle, item_lvl3, bold }) {
 						<b>San Miguel Social Media</b>
 					</p>
 
-					<SocialIcons />
+					<SocialIcons
+						fb_link='https://www.facebook.com/officialsanmiguelcorp/'
+						ig_link='https://www.instagram.com/officialsanmiguelcorp/?hl=en'
+						yt_link='https://www.youtube.com/channel/UCeEbMc0xcGz-potb5RxhMLQ'
+						li_link='https://www.linkedin.com/company/san-miguel-corporation'
+						vb_link='https://invite.viber.com/?g2=AQBXThuOs%2FUC4EtMJHTcT1HGS%2BIm%2FqfGjmtyzIEmWP6lt9lijjc74sqm3o9mOJaq'
+					/>
 
 					<p>
 						<b>Follow RSA on social media!</b>

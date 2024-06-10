@@ -197,7 +197,7 @@ export default function Footer() {
 										without='true'
 										rel='noopener noreferrer'
 										title='San Miguel Brewery Hong Kong'
-										href='https://www.facebook.com/sanmiguel.hk'>
+										href='https://www.facebook.com/share/iM72sSaVKwECVNPL/?mibextid=LQQJ4d'>
 										San Miguel Brewery Hong Kong
 									</a>
 								</p>

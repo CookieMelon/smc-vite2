@@ -4,6 +4,7 @@ import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
+import { getLink } from 'src/Layout/Nav/nav-helper';
 import { useGetSearch } from 'src/data/data';
 import { NoResult } from './Corporate/Disclosures';
 export default function Search({}) {

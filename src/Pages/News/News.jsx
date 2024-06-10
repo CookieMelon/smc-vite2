@@ -147,7 +147,7 @@ export function NewsItem({
 						},
 					}}>
 					<Link href={link} className='news-link'>
-						Learn More
+						Learn more
 						<motion.span>
 							<PiCaretCircleRight size={'1.5rem'} />
 						</motion.span>
@@ -170,7 +170,7 @@ export function NewsFeatured({ image, date, title, link }) {
 				{/* <p>{newsItems[0].desc}</p> */}
 				<p>
 					<Link to={link} className='news-link'>
-						Learn More
+						Learn more
 						<PiCaretCircleRight size={'1.5rem'} />
 					</Link>
 				</p>

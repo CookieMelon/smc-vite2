@@ -141,9 +141,10 @@ button {
 	border-top-color: #cecece;
 	border-radius: 0;
 	width: 100%;
-	padding: 2rem;
+	padding: calc(var(--container-padding) / 2);
 	display: flex;
 	justify-content: space-between;
+	line-height: 1.25;
 	&:hover {
 		color: var(--button-color-hover);
 	}

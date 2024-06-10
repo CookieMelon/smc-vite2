@@ -77,5 +77,17 @@
 	.pdf-item {
 		padding-left: 0;
 		padding-right: 0;
+		display: block;
+		padding-right: 4rem;
+		.pdf-details {
+			transform: none !important;
+			position: static;
+		}
+		.pdf-button {
+			position: absolute;
+			top: 50%;
+			right: 0;
+			transform: translate(0, -1rem);
+		}
 	}
 }
