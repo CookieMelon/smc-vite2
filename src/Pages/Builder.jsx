@@ -549,11 +549,13 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 					children.map((div) => {
 						let image = div.api_childrens[0];
 						let desc = div.api_childrens[1];
+						let link = div.api_childrens[2];
 
 						let data = {};
 
 						if (image) data.image = image.elements_attributes;
 						if (desc) data.desc = desc.elements_slot;
+						if (link) data.link = desc.elements_attributes;
 
 						slides.push(data);
 					});

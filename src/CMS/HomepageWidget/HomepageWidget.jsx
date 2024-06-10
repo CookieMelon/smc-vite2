@@ -11,6 +11,10 @@ import { useWindowSize } from '@uidotdev/usehooks';
 import { Link } from 'react-router-dom';
 
 export default function HomepageWidget({ src, title, desc, link }) {
+	const widgetLink = link.elements_attributes.to
+		? link.elements_attributes.to
+		: link.elements_attributes.href;
+
 	const ref = useRef(null);
 	const video = useRef(null);
 	const pin = useRef(null);
@@ -121,7 +125,10 @@ export default function HomepageWidget({ src, title, desc, link }) {
 										y: 25,
 									},
 								}}>
-								<Link to={link.to} className='btn btn-bordered white'>
+								<Link
+									to={widgetLink}
+									target='_blank'
+									className='btn btn-bordered white'>
 									{link.elements_slot}
 								</Link>
 							</motion.p>

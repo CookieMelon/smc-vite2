@@ -40,13 +40,13 @@ export default function Pillar({ content, widgetClasses, children }) {
 		offset: ['start start', 'end start'],
 	});
 
-	const introOutStart = 0.1;
-	const introOutEnd = introOutStart + 0.1;
+	const introOutStart = 0.05;
+	const introOutEnd = introOutStart + 0.05;
 
-	const mainInStart = introOutStart + 0.2;
-	const mainInEnd = introOutStart + 0.3;
+	const mainInStart = introOutStart + 0.15;
+	const mainInEnd = introOutStart + 0.35;
 
-	const delay = 0.025;
+	const delay = 0.015;
 	const blurOpacity = useTransform(
 		scrollYProgress,
 		[mainInStart, mainInEnd],
@@ -168,7 +168,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 		// opacity 0
 		useTransform(
 			scrollYProgress,
-			[0, mainInStart + delay * 2, mainInEnd + delay * 2.5, 1],
+			[0, mainInStart + delay * 2, mainInEnd + delay * 1.5, 1],
 			[0, 0, 1, 1],
 			{ ease: easing }
 		),
@@ -176,7 +176,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 		// y
 		useTransform(
 			scrollYProgress,
-			[0, mainInStart + delay * 2, mainInEnd + delay * 2.5, 1],
+			[0, mainInStart + delay * 2, mainInEnd + delay * 1.5, 1],
 			['20px', '20px', '0px', '0px'],
 			{ ease: easing }
 		),
@@ -186,7 +186,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 		// opacity 0
 		useTransform(
 			scrollYProgress,
-			[0, mainInStart + delay * 3, mainInEnd + delay * 3.5, 1],
+			[0, mainInStart + delay * 3, mainInEnd + delay * 2, 1],
 			[0, 0, 1, 1],
 			{ ease: easing }
 		),
@@ -194,7 +194,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 		// y
 		useTransform(
 			scrollYProgress,
-			[0, mainInStart + delay * 3, mainInEnd + delay * 3.5, 1],
+			[0, mainInStart + delay * 3, mainInEnd + delay * 2, 1],
 			['20px', '20px', '0px', '0px'],
 			{ ease: easing }
 		),

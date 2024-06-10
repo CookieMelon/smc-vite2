@@ -2,6 +2,7 @@ import { AnimatePresence, motion, useScroll } from 'framer-motion';
 import parse from 'html-react-parser';
 import { useEffect, useRef, useState } from 'react';
 import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
+import { Link } from 'react-router-dom';
 import { getColors } from 'src/hooks/use-color';
 
 export default function ImageSlider({
@@ -160,7 +161,13 @@ export default function ImageSlider({
 													: 0
 												: o[getDistance(index, selected)],
 									}}>
-									<img src={slide.image.src} alt={slide.image.alt} />
+									{slide.link ? (
+										<Link to={slide.link.href} target='_blank'>
+											<img src={slide.image.src} alt={slide.image.alt} />
+										</Link>
+									) : (
+										<img src={slide.image.src} alt={slide.image.alt} />
+									)}
 								</motion.div>
 							</motion.div>
 						);

@@ -19,13 +19,12 @@ export default function Section({
 
 	const section_anim = {
 		initial: {
-			y: 20,
+			// y: 20,
 		},
 		enter: {
-			y: 0,
+			// y: 0,
 			transition: {
 				duration: 1,
-				delay: 0.5,
 				ease: [0.76, 0, 0.24, 1],
 			},
 		},

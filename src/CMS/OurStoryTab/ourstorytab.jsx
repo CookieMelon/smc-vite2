@@ -44,16 +44,16 @@ export default function OurStoryTab({ data }) {
 
 	const button_variants = {
 		initial: {
-			color: red,
+			color: baseBlack,
 			opacity: 1,
 		},
 		enter: {
-			color: baseBlack,
+			color: red,
 			opacity: 1,
 		},
 		done: (index) => {
 			return {
-				color: red,
+				color: baseBlack,
 				opacity: 1 - (selected - index) * 0.15,
 			};
 			// opacity: (index) => {
