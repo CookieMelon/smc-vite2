@@ -1,12 +1,21 @@
+import { useWindowSize } from '@uidotdev/usehooks';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-import { useContext, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import { PreloadContext } from 'src/App';
 
-export default function MainBanner({ images, video }) {
+export default function MainBanner({ mobile_images, video }) {
 	const { fakePreload, doneIntro } = useContext(PreloadContext);
 	// const { images, video } = useGetBannerData();
+
+	const { height, width } = useWindowSize();
+	const [isMobile, setIsMobile] = useState(width < 768);
+
+	useEffect(() => {
+		if (width < 768) setIsMobile(true);
+		else setIsMobile(false);
+	}, [width]);
 
 	const ref = useRef(null);
 
@@ -79,7 +88,7 @@ export default function MainBanner({ images, video }) {
 						}}>
 						<video src={video} autoPlay playsInline muted loop></video>
 					</motion.div>
-				) : (
+				) : !isMobile ? (
 					images.map((val, index) => {
 						return (
 							<motion.div
@@ -93,6 +102,11 @@ export default function MainBanner({ images, video }) {
 								}}></motion.div>
 						);
 					})
+				) : (
+					<motion.div
+						style={{
+							backgroundImage: `url(${mobile_images.src})`,
+						}}></motion.div>
 				)}
 
 				<motion.h1

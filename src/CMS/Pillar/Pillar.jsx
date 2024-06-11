@@ -10,6 +10,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 	const ref = useRef(null);
 	const isInView = useInView(ref, {
 		amount: 0.5,
+		once: true,
 	});
 
 	const { width } = useWindowSize();
@@ -55,9 +56,6 @@ export default function Pillar({ content, widgetClasses, children }) {
 
 	const sticky_variants = {
 		initial: {
-			clipPath: 'polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%',
-		},
-		enter: {
 			clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%',
 		},
 	};

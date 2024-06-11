@@ -135,6 +135,7 @@ export default function ImageSlider({
 							? `${20 * ((selected - index) * 2)}%`
 							: `${5 * ((selected - index) * 2)}%`;
 						let rotate = `${-(selected - index) * 10}deg`;
+
 						return (
 							<motion.div
 								className='image-slide'

@@ -219,12 +219,14 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 				if (widget.widgets_name === 'Homepage Banner') {
 					let video;
 					let images = [];
+					let mobile_images;
 
 					children.forEach((child) => {
 						if (child.elements_tag === 'video')
 							video = child.elements_attributes.src;
 						else if (child.elements_tag === 'div') {
-							child.api_childrens.forEach((element) => {
+							child.api_childrens.forEach((element, index) => {
+								if (index === 4) mobile_images = element.elements_attributes;
 								images.push(element.elements_attributes);
 							});
 						}
@@ -269,7 +271,16 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 						}
 					}
 
-					return show && <MainBanner key={key} images={images} video={video} />;
+					return (
+						show && (
+							<MainBanner
+								mobile_images={mobile_images}
+								key={key}
+								images={images}
+								video={video}
+							/>
+						)
+					);
 				}
 
 				if (widget.widgets_name === 'Homepage Widget - 1') {
@@ -555,7 +566,7 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 						if (image) data.image = image.elements_attributes;
 						if (desc) data.desc = desc.elements_slot;
-						if (link) data.link = desc.elements_attributes;
+						if (link) data.link = link.elements_attributes;
 
 						slides.push(data);
 					});
