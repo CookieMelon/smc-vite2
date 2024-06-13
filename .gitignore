@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 public/storage/*
+dist/storage/*
 # dist
 dist-ssr
 *.local
