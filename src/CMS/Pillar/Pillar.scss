@@ -304,6 +304,9 @@
 }
 
 @media only screen and (max-width: 450px) {
+	.pillar-section {
+		// height: 100lvh;
+	}
 	.path-con {
 		display: none;
 	}

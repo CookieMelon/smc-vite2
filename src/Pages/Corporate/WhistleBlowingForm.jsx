@@ -1,5 +1,5 @@
 import * as Form from '@radix-ui/react-form';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { PiXCircle } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
@@ -7,13 +7,17 @@ import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
+import { useSendEmail } from 'src/data/data';
 import { removeItem } from 'src/helper/form-helper';
 
 import 'src/styles/radix-form.scss';
-const captcha_key = import.meta.env.VITE_API_URL;
+
+const captcha_key = import.meta.env.VITE_API_CaptchaKey;
 
 export default function WhistleBlowingForm() {
+	console.log(captcha_key);
 	const recaptcha = useRef();
+	const [captchaError, setCaptchaError] = useState(false);
 
 	const personCount = useRef(0);
 	const [persons, setPersons] = useState([0]);
@@ -23,9 +27,24 @@ export default function WhistleBlowingForm() {
 
 	const [count, setCount] = useState(1);
 
+	const [complete, setComplete] = useState(false);
+	const [data, setData] = useState({});
+	const { success, error } = useSendEmail(complete, data);
+
+	useEffect(() => {
+		if (success || error) setOpen(true);
+	}, [success, error]);
+
 	const submitForm = (event) => {
 		event.preventDefault();
 		const data = Object.fromEntries(new FormData(event.currentTarget));
+
+		if (recaptcha.current.getValue()) {
+			setData(data);
+			setComplete(true);
+		} else {
+			setCaptchaError(true);
+		}
 	};
 	return (
 		<Fade>
@@ -74,7 +93,7 @@ export default function WhistleBlowingForm() {
 						</i>
 					</p>
 					<Form.Root
-						enctype='multipart/form-data'
+						encType='multipart/form-data'
 						className='Form grid form whistle-from'
 						onSubmit={(event) => {
 							submitForm(event);
@@ -299,7 +318,7 @@ export default function WhistleBlowingForm() {
 
 						<ReCAPTCHA
 							ref={recaptcha}
-							size='compact'
+							// size='compact'
 							sitekey={captcha_key}
 							// onChange={onChange}
 						/>

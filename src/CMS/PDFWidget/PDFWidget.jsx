@@ -4,6 +4,8 @@ import { PiArrowUpRightBold } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 import { getColors } from 'src/hooks/use-color';
 
+const captcha_key = import.meta.env.VITE_API_CaptchaKey;
+
 export default function PDFWidget({
 	title,
 	subtitle,
@@ -72,11 +74,17 @@ export default function PDFWidget({
 				<Link to={link} rel='noopener noreferrer' className='link-cover'></Link>
 			)}
 
-			<h3 className={`${headingSize} pdf-widget-title`}>
+			<motion.h3
+				className={`${headingSize} pdf-widget-title`}
+				variants={{
+					hover: {
+						color: 'white',
+					},
+				}}>
 				{title}
 				<br />
 				<span>{subtitle}</span>
-			</h3>
+			</motion.h3>
 			<motion.div className='pdf-widget-link' variants={buttonVariant}>
 				<PiArrowUpRightBold size={`1.5rem`} />
 			</motion.div>

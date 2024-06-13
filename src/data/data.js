@@ -677,22 +677,58 @@ export const useGetFinancialHighlights = () => {
 	const [content, setContent] = useState([]);
 
 	useEffect(() => {
-		fetch(`${api_url}financial_highlights`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-				// Authorization: `Bearer ${token}`,
-			},
-		})
-			.then((res) => {
-				return res.json();
+		const getData = debounce(() => {
+			fetch(`${api_url}financial_highlights`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
 			})
-			.then((data) => {
-				console.log(data);
-				setContent((prev) => (prev = data));
-				// setSelected(data[0].id);
-			});
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					console.log(data);
+					setContent((prev) => (prev = data));
+					// setSelected(data[0].id);
+				});
+		});
+
+		return clearDebounce(getData);
 	}, []);
 
 	return { content };
+};
+
+export const useSendEmail = (complete, data) => {
+	const [error, setError] = useState('');
+	const [success, setSuccess] = useState('');
+
+	useEffect(() => {
+		if (!complete) return;
+		const getData = debounce(() => {
+			fetch(`${api_url}send_email`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+					body: JSON.stringify(data),
+				},
+			})
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					if (data.error) {
+						setError(data.error);
+						return;
+					}
+					setSuccess(data.success);
+				});
+		});
+		return clearDebounce(getData);
+	}, [complete]);
+
+	return { success, error };
 };

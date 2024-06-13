@@ -351,6 +351,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 										backgroundImage: `url(${bg})`,
 								  }
 								: {
+										y: y[0],
 										backgroundImage: `url(${bg})`,
 								  }
 						}>
@@ -367,6 +368,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 											backgroundImage: `url(${bg})`,
 									  }
 									: {
+											y: y[0],
 											backgroundImage: `url(${bg})`,
 									  }
 							}></motion.div>

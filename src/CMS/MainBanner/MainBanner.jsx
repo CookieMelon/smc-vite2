@@ -5,7 +5,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 
 import { PreloadContext } from 'src/App';
 
-export default function MainBanner({ mobile_images, video }) {
+export default function MainBanner({ images, mobile_images, video }) {
 	const { fakePreload, doneIntro } = useContext(PreloadContext);
 	// const { images, video } = useGetBannerData();
 
