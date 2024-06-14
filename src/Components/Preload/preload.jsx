@@ -1,13 +1,16 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { PreloadContext } from 'src/App';
 import { useGetBannerData } from 'src/data/data';
 
 export default function Preload() {
+	const location = useLocation();
 	const { preload } = useContext(PreloadContext);
 	const { doneIntro, setDoneIntro } = useContext(PreloadContext);
 	const { bg } = useGetBannerData();
 
+	console.log();
 	const container = {
 		initial: {},
 		animate: {
@@ -45,7 +48,7 @@ export default function Preload() {
 				<motion.div
 					className='preload-cover'
 					style={{
-						// display: 'none',
+						display: location.pathname !== '/' ? 'none' : 'block',
 						backgroundImage: `radial-gradient(at bottom, ${bg[0]} 0%, ${bg[1]} 100%)`,
 					}}
 					exit={{

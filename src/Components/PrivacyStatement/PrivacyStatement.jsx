@@ -1,10 +1,25 @@
 import { Link } from 'react-router-dom';
 import './privacystatement.scss';
 
-import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import {
+	AnimatePresence,
+	motion,
+	useMotionValueEvent,
+	useScroll,
+} from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 export default function PrivacyStatement() {
+	const privacy = useRef(null);
+	const [initial, setInitial] = useState('5rem');
+	const [scrolled, setScrolled] = useState(true);
+	const { scrollYProgress } = useScroll();
+
+	useMotionValueEvent(scrollYProgress, 'change', (latest) => {
+		if (latest > 0.05) setScrolled(false);
+		else setScrolled(true);
+	});
+
 	const [[checked, expiry], setStorage] = useState([
 		localStorage.getItem('privacy_checked'),
 		localStorage.getItem('privacy_expiry'),
@@ -22,6 +37,13 @@ export default function PrivacyStatement() {
 	};
 
 	useEffect(() => {
+		let fileWidget = document.querySelector('.file-widget');
+		if (!fileWidget) return;
+
+		setInitial('0rem');
+	}, []);
+
+	useEffect(() => {
 		if (!checked || new Date().getTime() > new Date(expiry).getTime()) {
 			setVisible(true);
 			return;
@@ -31,7 +53,11 @@ export default function PrivacyStatement() {
 		<AnimatePresence>
 			{visible && (
 				<motion.div
+					ref={privacy}
 					className='privacy-statement'
+					animate={{
+						bottom: scrolled ? initial : '0rem',
+					}}
 					initial={{
 						opacity: 1,
 						x: '-50%',
