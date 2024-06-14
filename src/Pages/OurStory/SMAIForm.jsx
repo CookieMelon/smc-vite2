@@ -12,6 +12,7 @@ import 'src/styles/radix-form.scss';
 
 const captcha_key = import.meta.env.VITE_API_CaptchaKey;
 
+const link = '/contact-us';
 export default function SMAIForm() {
 	console.log(captcha_key);
 	const [open, setOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function SMAIForm() {
 
 	const [complete, setComplete] = useState(false);
 	const [data, setData] = useState({});
-	const { success, error } = useSendEmail(complete, data);
+	const { success, error } = useSendEmail(complete, data, link);
 
 	const [captchaError, setCaptchaError] = useState(false);
 

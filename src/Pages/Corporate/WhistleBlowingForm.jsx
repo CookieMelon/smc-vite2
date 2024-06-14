@@ -14,6 +14,8 @@ import 'src/styles/radix-form.scss';
 
 const captcha_key = import.meta.env.VITE_API_CaptchaKey;
 
+const link = '/whistle-blower';
+
 export default function WhistleBlowingForm() {
 	console.log(captcha_key);
 	const recaptcha = useRef();
@@ -29,7 +31,7 @@ export default function WhistleBlowingForm() {
 
 	const [complete, setComplete] = useState(false);
 	const [data, setData] = useState({});
-	const { success, error } = useSendEmail(complete, data);
+	const { success, error } = useSendEmail(complete, data, link);
 
 	useEffect(() => {
 		if (success || error) setOpen(true);

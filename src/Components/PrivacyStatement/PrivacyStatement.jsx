@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './privacystatement.scss';
 
 import {
@@ -10,6 +10,7 @@ import {
 import { useEffect, useRef, useState } from 'react';
 
 export default function PrivacyStatement() {
+	const location = useLocation();
 	const privacy = useRef(null);
 	const [initial, setInitial] = useState('5rem');
 	const [scrolled, setScrolled] = useState(true);
@@ -18,6 +19,13 @@ export default function PrivacyStatement() {
 	useMotionValueEvent(scrollYProgress, 'change', (latest) => {
 		if (latest > 0.05) setScrolled(false);
 		else setScrolled(true);
+
+		let fileWidget = document.querySelector('.file-widget');
+		// console.log(fileWidget);
+		if (fileWidget) setInitial('5rem');
+		else setInitial('0rem');
+
+		fileWidget = null;
 	});
 
 	const [[checked, expiry], setStorage] = useState([
@@ -35,13 +43,6 @@ export default function PrivacyStatement() {
 		localStorage.setItem('privacy_expiry', expiry.toString());
 		setStorage([true, expiry.toString()]);
 	};
-
-	useEffect(() => {
-		let fileWidget = document.querySelector('.file-widget');
-		if (!fileWidget) return;
-
-		setInitial('0rem');
-	}, []);
 
 	useEffect(() => {
 		if (!checked || new Date().getTime() > new Date(expiry).getTime()) {

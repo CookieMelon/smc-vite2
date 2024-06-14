@@ -701,14 +701,14 @@ export const useGetFinancialHighlights = () => {
 	return { content };
 };
 
-export const useSendEmail = (complete, data) => {
+export const useSendEmail = (complete, data, url) => {
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 
 	useEffect(() => {
 		if (!complete) return;
 		const getData = debounce(() => {
-			fetch(`${api_url}send_email`, {
+			fetch(`${url}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
