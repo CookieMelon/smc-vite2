@@ -1,9 +1,27 @@
 import { CgPlayButtonO } from 'react-icons/cg';
+import { PiXBold } from 'react-icons/pi';
 
 export default function VideoContent({ src, poster }) {
 	return (
 		<div className='video-content'>
 			<video preload='auto' playsInline src={src} poster={poster}></video>
+			<button
+				className='video-close'
+				onClick={(event) => {
+					let content = event.target.closest('.section-content');
+					let body = document.querySelector('body');
+					let video = event.target
+						.closest('.video-content')
+						.querySelector('video');
+
+					video.pause();
+					video.classList.remove('playing');
+					content.classList.remove('fixed-video');
+					body.style.overflow = 'auto';
+					video.controls = false;
+				}}>
+				<PiXBold size={'3rem'} color='white' />
+			</button>
 			{/* <video
 				preload='auto'
 				playsInline
@@ -48,19 +66,8 @@ export default function VideoContent({ src, poster }) {
 					// 	}
 					// };
 
-					let onPause = function (e) {
-						video.pause();
-						video.classList.remove('playing');
-						content.classList.remove('fixed-video');
-						body.style.overflow = 'auto';
-						video.controls = false;
-					};
-
 					// document.removeEventListener('fullscreenchange', fullScreenChanged);
 					// document.addEventListener('fullscreenchange', fullScreenChanged);
-
-					video.removeEventListener('pause', onPause);
-					video.addEventListener('pause', onPause);
 				}}>
 				<CgPlayButtonO size={'7rem'} color='white' />
 			</button>

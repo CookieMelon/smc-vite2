@@ -275,7 +275,9 @@ export default function PageBanner({
 					}}>
 					<motion.h1 className={bannerHeadingClasses}>{parse(title)}</motion.h1>
 					{subtitle && (
-						<motion.p className={bannerSubtitleClasses}>{subtitle}</motion.p>
+						<motion.div className={bannerSubtitleClasses}>
+							{parse(subtitle)}
+						</motion.div>
 					)}
 
 					{children && children}

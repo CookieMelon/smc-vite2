@@ -70,8 +70,7 @@ export default function Footer() {
 										href='https://www.bankcom.com.ph/'>
 										Bank of Commerce
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -80,8 +79,7 @@ export default function Footer() {
 										href='https://www.eaglecement.com.ph/'>
 										Eagle Cement
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -90,8 +88,7 @@ export default function Footer() {
 										href='https://www.petron.com/'>
 										Petron Corp.
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -100,8 +97,7 @@ export default function Footer() {
 										href='https://www.ginebrasanmiguel.com/'>
 										Ginebra San Miguel
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -110,8 +106,7 @@ export default function Footer() {
 										href='https://www.sanmiguelproperties.com.ph/'>
 										San Miguel Properties, Inc
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -120,8 +115,7 @@ export default function Footer() {
 										href='https://www.sanmiguelfoods.com/'>
 										San Miguel Foods
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -130,8 +124,7 @@ export default function Footer() {
 										href='https://greatfoodsolutions.com/'>
 										Great Food Solutions
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -140,8 +133,7 @@ export default function Footer() {
 										href='https://homefoodie.com.ph/'>
 										Home Foodie
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -150,8 +142,7 @@ export default function Footer() {
 										href='https://magnoliachicken.com/'>
 										Magnolia Chicken
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -160,8 +151,7 @@ export default function Footer() {
 										href='https://www.ncc.com.ph/'>
 										Northern Cement
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -170,8 +160,7 @@ export default function Footer() {
 										href='https://petrogen.com.ph/'>
 										Petrogen Insurance Corporation
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -180,8 +169,7 @@ export default function Footer() {
 										href='https://www.smfb.com.ph/'>
 										San Miguel Food and Beverage
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -190,8 +178,7 @@ export default function Footer() {
 										href='https://www.facebook.com/redhorsebeer'>
 										Red Horse Beer
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -200,8 +187,7 @@ export default function Footer() {
 										href='https://www.facebook.com/share/iM72sSaVKwECVNPL/?mibextid=LQQJ4d'>
 										San Miguel Brewery Hong Kong
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -210,8 +196,7 @@ export default function Footer() {
 										href='https://sanmiguelbrewery.com'>
 										San Miguel Brewing International Ltd.
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -220,8 +205,7 @@ export default function Footer() {
 										href='https://www.sanmiguelmart.ph/'>
 										San Miguel Mart
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -230,8 +214,7 @@ export default function Footer() {
 										href='https://www.facebook.com/SanMiguelPalePilsen/'>
 										San Miguel Pale Pilsen
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -240,8 +223,7 @@ export default function Footer() {
 										href='https://www.facebook.com/sanmiglightph/'>
 										San Mig Light
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -250,8 +232,7 @@ export default function Footer() {
 										href='https://www.facebook.com/sanmiguelsuperdrybeer/'>
 										San Miguel Super Dry
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -260,8 +241,7 @@ export default function Footer() {
 										href='https://smcstocktransfer.com.ph/'>
 										SMC Stock Transfer Service Corporation
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -270,8 +250,7 @@ export default function Footer() {
 										href='https://www.smcglobalpower.com.ph/'>
 										SMC Global Power Holdings Corp
 									</a>
-								</p>
-								<p>
+									<br />
 									<a
 										target='_blank'
 										without='true'
@@ -280,6 +259,7 @@ export default function Footer() {
 										href='https://smcslex.com.ph/'>
 										South Luzon Tollway Corporation
 									</a>
+									<br />
 								</p>
 								<Dialog.Close className='IconButton' aria-label='Close' asChild>
 									<PiXCircle size={'2rem'} />
@@ -437,10 +417,10 @@ export default function Footer() {
 										<br />
 										Email: dpo@sanmiguel.com.ph
 										<br />
-										Click{' '}
+										Click
 										<Link to='/corporate/smc-privacy-statement'>
 											<b>here</b>
-										</Link>{' '}
+										</Link>
 										to view our
 										<br />
 										NPC Seal of Registration

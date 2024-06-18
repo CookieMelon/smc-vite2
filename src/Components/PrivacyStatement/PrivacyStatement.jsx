@@ -57,7 +57,7 @@ export default function PrivacyStatement() {
 					ref={privacy}
 					className='privacy-statement'
 					animate={{
-						bottom: scrolled ? initial : '0rem',
+						bottom: scrolled ? 'var(--privacy-adjustment)' : '0rem',
 					}}
 					initial={{
 						opacity: 1,

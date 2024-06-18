@@ -305,6 +305,7 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 					let title = children[1].elements_slot;
 					let subtitle = '';
 					subtitle = children[2] ? children[2].elements_slot : '';
+
 					let noBg = widgetClasses.includes('no-bg') ? true : false;
 
 					widgetClasses += ` ${theme}`;
@@ -435,9 +436,11 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 				}
 
 				if (widget.widgets_name === 'Banner - Full Page') {
+					let link = children[2].elements_attributes;
 					return (
 						<FullPageBanner
 							key={key}
+							link={link}
 							image={children[0].elements_attributes}
 							caption={children[1].elements_slot}
 						/>

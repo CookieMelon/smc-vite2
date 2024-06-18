@@ -1,5 +1,5 @@
 import { AnimatePresence, useMotionValueEvent, useScroll } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PiArrowUpRightBold } from 'react-icons/pi';
 import './filewidget.scss';
 
@@ -15,6 +15,12 @@ export default function FileWidget({ title, link }) {
 		else setVisible(true);
 	});
 
+	useEffect(() => {
+		let privacy = document.querySelector('.privacy-statement');
+		if (!privacy) return;
+
+		privacy.style.setProperty('--privacy-adjustment', '5rem');
+	}, []);
 	return (
 		<AnimatePresence>
 			{visible && (

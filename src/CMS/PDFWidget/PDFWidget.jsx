@@ -71,7 +71,11 @@ export default function PDFWidget({
 			whileTap='tap'
 			variants={widgetVariants}>
 			{link && (
-				<Link to={link} rel='noopener noreferrer' className='link-cover'></Link>
+				<Link
+					to={link}
+					target='_blank'
+					rel='noopener noreferrer'
+					className='link-cover'></Link>
 			)}
 
 			<motion.h3
@@ -86,7 +90,7 @@ export default function PDFWidget({
 				<span>{subtitle}</span>
 			</motion.h3>
 			<motion.div className='pdf-widget-link' variants={buttonVariant}>
-				<PiArrowUpRightBold size={`1.5rem`} />
+				<PiArrowUpRightBold size={`1rem`} />
 			</motion.div>
 		</motion.div>
 	);

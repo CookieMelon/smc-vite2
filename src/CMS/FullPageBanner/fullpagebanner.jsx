@@ -1,7 +1,9 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function FullPageBanner({ image, caption, children }) {
+export default function FullPageBanner({ image, caption, link, children }) {
+	console.log(link);
 	const banner = useRef();
 	const { scrollYProgress } = useScroll({
 		target: banner,
@@ -16,7 +18,9 @@ export default function FullPageBanner({ image, caption, children }) {
 	// const z = useTransform(scrollYProgress, [0, 1], ['0%', '-100%']);
 
 	return (
-		<motion.div className='image-content fullbanner' ref={banner}>
+		<motion.div
+			className='section-content image-content fullbanner'
+			ref={banner}>
 			<motion.div
 				className='container-fluid-width'
 				style={{
@@ -26,7 +30,7 @@ export default function FullPageBanner({ image, caption, children }) {
 					y: y2,
 				}}>
 				{/* <SingleParallax scrollYProgress_start={scrollYProgress}> */}
-				<div className='img-container'>
+				<Link to={link.href} target={'_blank'} className='img-container'>
 					<motion.div
 						className='fullbanner-img'
 						style={{
@@ -36,7 +40,7 @@ export default function FullPageBanner({ image, caption, children }) {
 						}}></motion.div>
 
 					{/* </SingleParallax> */}
-				</div>
+				</Link>
 				<div className='image-caption'>
 					<h3 className='fullbanner-title heading-1'>{caption}</h3>
 				</div>

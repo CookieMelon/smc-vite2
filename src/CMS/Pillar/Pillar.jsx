@@ -107,12 +107,12 @@ export default function Pillar({ content, widgetClasses, children }) {
 		useTransform(
 			scrollYProgress,
 			[0, mainInEnd, 1],
-			['-50px', '-50px', '50px'],
+			['-2rem', '-2rem', '2rem'],
 			{
 				ease: easing,
 			}
 		),
-		useTransform(scrollYProgress, [0, mainInEnd, 1], ['0px', '0px', '2rem'], {
+		useTransform(scrollYProgress, [0, mainInEnd, 1], ['0px', '0px', '1rem'], {
 			ease: easing,
 		}),
 		useTransform(scrollYProgress, [0, mainInEnd, 1], ['0px', '150px', '0px'], {
@@ -429,6 +429,19 @@ export default function Pillar({ content, widgetClasses, children }) {
 					</motion.div>
 
 					<motion.div
+						className='pillar-focus pillar-img'
+						style={
+							!isMobile
+								? {
+										y: y[1],
+										backgroundImage: `url(${focus})`,
+								  }
+								: {
+										y: y[1],
+										backgroundImage: `url(${focus})`,
+								  }
+						}></motion.div>
+					<motion.div
 						className='pillar-desc'
 						initial='initial'
 						animate={isMobile && isInView ? 'enter' : 'initial'}
@@ -444,9 +457,8 @@ export default function Pillar({ content, widgetClasses, children }) {
 						<motion.h2
 							variants={isMobile && text_variants}
 							style={!isMobile && { opacity: text2[0], y: text2[1] }}
-							className='heading-2'
-							data-text={content.text2}>
-							{content.text2}
+							className='heading-2'>
+							{parse(content.text2)}
 						</motion.h2>
 						{content.text3 && (
 							<motion.div
@@ -466,18 +478,6 @@ export default function Pillar({ content, widgetClasses, children }) {
 								}}></motion.div>
 						</div>
 					</motion.div>
-					<motion.div
-						className='pillar-focus pillar-img'
-						style={
-							!isMobile
-								? {
-										y: y[1],
-										backgroundImage: `url(${focus})`,
-								  }
-								: {
-										backgroundImage: `url(${focus})`,
-								  }
-						}></motion.div>
 				</motion.div>
 			</motion.div>
 		</div>
