@@ -107,7 +107,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 		useTransform(
 			scrollYProgress,
 			[0, mainInEnd, 1],
-			['-2rem', '-2rem', '2rem'],
+			['-2rem', '-2rem', '3rem'],
 			{
 				ease: easing,
 			}
@@ -356,23 +356,6 @@ export default function Pillar({ content, widgetClasses, children }) {
 								  }
 						}>
 						<motion.div
-							className='pillar-bg pillar-blur pillar-img'
-							variants={blur_variants}
-							style={
-								!isMobile
-									? {
-											x: x[0],
-											y: y[0],
-											z: !isMobile && z[0],
-											opacity: blurOpacity,
-											backgroundImage: `url(${bg})`,
-									  }
-									: {
-											y: y[0],
-											backgroundImage: `url(${bg})`,
-									  }
-							}></motion.div>
-						<motion.div
 							style={
 								!isMobile && {
 									x: widgetClasses.includes('left')
@@ -427,7 +410,23 @@ export default function Pillar({ content, widgetClasses, children }) {
 							<div className='path path-2'></div>
 						</motion.div>
 					</motion.div>
-
+					<motion.div
+						className='pillar-bg pillar-blur pillar-img'
+						variants={blur_variants}
+						style={
+							!isMobile
+								? {
+										x: x[0],
+										y: y[0],
+										z: !isMobile && z[0],
+										opacity: blurOpacity,
+										backgroundImage: `url(${bg})`,
+								  }
+								: {
+										y: y[0],
+										backgroundImage: `url(${bg})`,
+								  }
+						}></motion.div>
 					<motion.div
 						className='pillar-focus pillar-img'
 						style={
