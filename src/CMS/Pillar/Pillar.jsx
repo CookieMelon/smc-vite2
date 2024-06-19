@@ -351,6 +351,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 										backgroundImage: `url(${bg})`,
 								  }
 								: {
+										display: 'none',
 										y: y[0],
 										backgroundImage: `url(${bg})`,
 								  }
