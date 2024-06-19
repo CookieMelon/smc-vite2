@@ -347,7 +347,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 								? {
 										x: x[0],
 										y: y[0],
-										z: !isMobile && z[0],
+										z: z[0],
 										backgroundImage: `url(${bg})`,
 								  }
 								: {
@@ -412,17 +412,18 @@ export default function Pillar({ content, widgetClasses, children }) {
 					</motion.div>
 					<motion.div
 						className='pillar-bg pillar-blur pillar-img'
-						variants={blur_variants}
+						// variants={blur_variants}
 						style={
 							!isMobile
 								? {
 										x: x[0],
 										y: y[0],
-										z: !isMobile && z[0],
+										z: z[0],
 										opacity: blurOpacity,
 										backgroundImage: `url(${bg})`,
 								  }
 								: {
+										// opacity: blurOpacity,
 										y: y[0],
 										backgroundImage: `url(${bg})`,
 								  }
@@ -443,18 +444,18 @@ export default function Pillar({ content, widgetClasses, children }) {
 					<motion.div
 						className='pillar-desc'
 						initial='initial'
-						animate={isMobile && isInView ? 'enter' : 'initial'}
+						// animate={isMobile && isInView ? 'enter' : 'initial'}
 						transition={{
 							staggerChildren: 0.05,
 						}}>
 						<motion.p
-							variants={isMobile && text_variants}
+							// variants={isMobile && text_variants}
 							style={!isMobile && { opacity: text1[0], y: text1[1] }}
 							className='uppercase'
 							data-text={content.text1}
 							dangerouslySetInnerHTML={{ __html: content.text1 }}></motion.p>
 						<motion.h2
-							variants={isMobile && text_variants}
+							// variants={isMobile && text_variants}
 							style={!isMobile && { opacity: text2[0], y: text2[1] }}
 							className='heading-2'>
 							{parse(content.text2)}
@@ -462,7 +463,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 						{content.text3 && (
 							<motion.div
 								className='pillar-text'
-								variants={isMobile && text_variants}
+								// variants={isMobile && text_variants}
 								style={!isMobile && { opacity: text3[0], y: text3[1] }}>
 								{parse(content.text3)}
 							</motion.div>
