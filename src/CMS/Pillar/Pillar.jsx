@@ -56,7 +56,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 
 	const sticky_variants = {
 		initial: {
-			clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%',
+			clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
 		},
 	};
 
@@ -95,7 +95,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 			[0, mainInStart],
 			[
 				'polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%)',
-				'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%',
+				'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
 			],
 			{
 				ease: easing,
@@ -330,8 +330,9 @@ export default function Pillar({ content, widgetClasses, children }) {
 				initial='initial'
 				animate={isMobile && isInView ? 'enter' : 'initial'}>
 				<motion.div
+					// initial={sticky_variants}
 					className='pillar-clip'
-					variants={isMobile && sticky_variants}
+					variants={sticky_variants}
 					style={
 						!isMobile && {
 							clipPath: !widgetClasses.includes('left')
