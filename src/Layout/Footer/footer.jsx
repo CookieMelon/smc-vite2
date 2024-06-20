@@ -410,10 +410,10 @@ export default function Footer() {
 										<br />
 										Email: dpo@sanmiguel.com.ph
 										<br />
-										Click
+										Click{' '}
 										<Link to='/corporate/smc-privacy-statement'>
 											<b>here</b>
-										</Link>
+										</Link>{' '}
 										to view our
 										<br />
 										NPC Seal of Registration
