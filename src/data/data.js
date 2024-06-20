@@ -140,14 +140,16 @@ export const useGetBannerData = () => {
 			today.getMonth(),
 			today.getDate(),
 			image.start.split(':')[0],
-			image.start.split(':')[1]
+			image.start.split(':')[1],
+			image.start.split(':')[2]
 		);
 		let imageTimeEnd = new Date(
 			today.getFullYear(),
 			today.getMonth(),
 			today.getDate(),
 			image.end.split(':')[0],
-			image.end.split(':')[1]
+			image.end.split(':')[1],
+			image.start.split(':')[2]
 		);
 
 		if (today >= imageTimeStart && today <= imageTimeEnd) {

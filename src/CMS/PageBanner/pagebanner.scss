@@ -1,6 +1,16 @@
 .smc-red.page-banner {
 	background-image: linear-gradient(90deg, var(--base-red), var(--base-yellow));
 }
+.smc-red.page-banner.no-bg {
+	.banner-title {
+		color: var(--base-red);
+	}
+}
+.smc-blue.page-banner.no-bg {
+	.banner-title {
+		color: var(--base-blue);
+	}
+}
 
 .page-banner.full {
 	.path {
@@ -123,7 +133,7 @@
 		z-index: 1;
 	}
 	.banner-info {
-		width: 25rem;
+		width: 30rem;
 		max-width: 100%;
 		p {
 			font-weight: normal;

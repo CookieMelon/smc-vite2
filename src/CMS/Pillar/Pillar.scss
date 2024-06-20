@@ -303,7 +303,10 @@
 
 @media only screen and (max-width: 450px) {
 	.pillar-section {
-		// height: 100lvh;
+		min-height: 100lvh;
+	}
+	.pillar-sticky {
+		position: static;
 	}
 	.path-con {
 		display: none;

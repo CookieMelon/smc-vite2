@@ -38,31 +38,33 @@ export default function Search({}) {
 				title={'Search Result'}
 				widgetClasses={'smc-red'}></PageBanner>
 			<Section containerClass={'medium gap-1'}>
-				<p className='small-text'>
-					About <b>{result.length} </b>found{' '}
-				</p>
 				{data.length !== 0 ? (
-					data.map((r, index) => {
-						let link = getLink(r);
+					<>
+						<p className='small-text'>
+							About <b>{result.length} </b>found{' '}
+						</p>
+						{data.map((r, index) => {
+							let link = getLink(r);
 
-						let teaser = r.teaser;
-						return (
-							<React.Fragment key={`page_id-${r.page_id}`}>
-								<Column>
-									<SearchItem
-										link={link}
-										title={r.page_title}
-										teaser={teaser}
-									/>
-								</Column>
-							</React.Fragment>
-						);
-					})
+							let teaser = r.teaser;
+							return (
+								<React.Fragment key={`page_id-${r.page_id}`}>
+									<Column>
+										<SearchItem
+											link={link}
+											title={r.page_title}
+											teaser={teaser}
+										/>
+									</Column>
+								</React.Fragment>
+							);
+						})}
+					</>
 				) : (
 					<NoResult />
 				)}
 
-				{data.length && (
+				{data.length !== 0 && (
 					<Pagination
 						currentOffset={page}
 						handler={(index) => {

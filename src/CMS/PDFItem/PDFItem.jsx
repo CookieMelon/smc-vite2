@@ -15,8 +15,9 @@ export default function PDFItem({ title, date, download, link }) {
 		else setIsMobile(false);
 	}, [width]);
 
-	const formatedDate = moment(date).format('MMMM D, YYYY');
-
+	const formatedDate = date ? moment(date).format('MMMM D, YYYY') : null;
+	// console.log(date);
+	console.log(formatedDate);
 	const { blue } = getColors;
 	const nameVariants = {
 		rest: {

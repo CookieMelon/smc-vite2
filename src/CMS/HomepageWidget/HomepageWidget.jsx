@@ -105,24 +105,33 @@ export default function HomepageWidget({ src, title, desc, link }) {
 						<motion.h2
 							className='heading-2'
 							variants={{
-								activate: {
+								initial: {
 									y: 25,
+								},
+								activate: {
+									y: 0,
 								},
 							}}>
 							{title}
 						</motion.h2>
 						<motion.div
 							variants={{
-								activate: {
+								initial: {
 									y: 25,
+								},
+								activate: {
+									y: 0,
 								},
 							}}>
 							{' '}
 							{desc && parse(desc)}
 							<motion.p
 								variants={{
-									activate: {
+									initial: {
 										y: 25,
+									},
+									activate: {
+										y: 0,
 									},
 								}}>
 								<Link

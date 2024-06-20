@@ -22,8 +22,8 @@ export default function PrivacyStatement() {
 
 		let fileWidget = document.querySelector('.file-widget');
 		// console.log(fileWidget);
-		if (fileWidget) setInitial('5rem');
-		else setInitial('0rem');
+		// if (fileWidget) setInitial('5rem');
+		// else setInitial('0rem');
 
 		fileWidget = null;
 	});
@@ -45,6 +45,15 @@ export default function PrivacyStatement() {
 	};
 
 	useEffect(() => {
+		if (privacy.current === null) return;
+		let root = document.querySelector(':root');
+
+		root.style.setProperty(
+			'--privacy-height',
+			`${privacy.current.offsetHeight}px`
+		);
+	}, [privacy.current]);
+	useEffect(() => {
 		if (!checked || new Date().getTime() > new Date(expiry).getTime()) {
 			setVisible(true);
 			return;
@@ -56,17 +65,10 @@ export default function PrivacyStatement() {
 				<motion.div
 					ref={privacy}
 					className='privacy-statement'
-					animate={{
-						bottom: scrolled ? 'var(--privacy-adjustment)' : '0rem',
-					}}
 					initial={{
 						opacity: 1,
 						x: '-50%',
 						y: '0%',
-					}}
-					enter={{
-						opacity: 1,
-						y: '-5%',
 					}}
 					exit={{
 						opacity: 0,
@@ -82,6 +84,9 @@ export default function PrivacyStatement() {
 						<button
 							className='btn'
 							onClick={(event) => {
+								let root = document.querySelector(':root');
+
+								root.style.setProperty('--privacy-height', `${0}px`);
 								setPrivacy();
 							}}>
 							I Agree

@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { useRef } from 'react';
 
@@ -21,16 +21,9 @@ export default function Footer() {
 
 	const footer = useRef(null);
 
-	const { scrollYProgress } = useScroll({
-		target: footer,
-		offset: ['start end', 'start 0.5'],
-	});
-
-	const y = useTransform(scrollYProgress, [0, 1], ['-50%', '0%']);
-
 	return (
 		<footer className='section-content main-footer' ref={footer}>
-			<motion.div className='container-fluid-width medium' style={{ y: y }}>
+			<motion.div className='container-fluid-width medium'>
 				<div className='footer-logo'>
 					<figure>
 						<img
@@ -390,7 +383,7 @@ export default function Footer() {
 										SMCInvestorRelations@sanmiguel.com.ph
 									</a>
 									<br />
-									Telephone: (+632) 8-632-8742 <br />
+									Telephone: (+632) 8632-3742 | 3706 <br />
 								</p>
 							</Accordion.AccordionContent>
 						</Accordion.Item>

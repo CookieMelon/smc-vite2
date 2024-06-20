@@ -1,9 +1,10 @@
 .file-widget {
+	--fileWidget-bottom: 0;
 	overflow: hidden;
 	border-top-right-radius: 1rem;
 	border-top-left-radius: 1rem;
 	position: fixed;
-	bottom: 0;
+	bottom: var(--fileWidget-bottom);
 	right: var(--container-padding);
 	z-index: 100;
 	width: 22rem;
@@ -30,7 +31,6 @@
 		left: 0;
 		right: 0;
 		width: auto;
-		border-top-right-radius: 0rem;
-		border-top-left-radius: 0rem;
+		padding-bottom: 5px;
 	}
 }

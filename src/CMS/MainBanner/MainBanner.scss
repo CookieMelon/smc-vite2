@@ -76,3 +76,12 @@
 		position: relative;
 	}
 }
+
+@media only screen and (max-width: 450px) {
+	.main-banner {
+		height: 125svh;
+		.banner-parallax {
+			height: 200%;
+		}
+	}
+}
