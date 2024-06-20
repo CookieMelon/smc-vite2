@@ -13,6 +13,7 @@
 		top: 0;
 		left: 0;
 		background-image: white;
+		pointer-events: none;
 		.slider-bg {
 			left: 0;
 			top: 0;
@@ -67,7 +68,12 @@
 		width: 100%;
 		position: relative;
 		vertical-align: top;
-
+		.image-img {
+			pointer-events: none;
+			a {
+				pointer-events: all;
+			}
+		}
 		// margin-left: -50%;
 		img {
 			width: 100%;

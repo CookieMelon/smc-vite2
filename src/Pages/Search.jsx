@@ -95,9 +95,7 @@ function SearchItem({ title, teaser, link }) {
 				<Link to={link.to} className='search-img'>
 					<img
 						// src={image}
-						src={
-							'/storage/page-assets/2/2/eEmNDmKJm48GYp2ywI8ejoPKkaL7kvaDhrRGgrduNlF3pLN0M2U999Epr7xd/7Hx9n1FkWZNojTZAEsB6Znb4O93kUzPQUeQrujLW.webp'
-						}
+						src={image}
 						alt={teaser.teaser_title.replace(/<[^>]*>?/gm, '')}></img>
 				</Link>
 			)}

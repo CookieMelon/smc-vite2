@@ -218,13 +218,15 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 				if (widget.widgets_name === 'Homepage Banner') {
 					let video;
+					let video_poster;
 					let images = [];
 					let mobile_images;
 
 					children.forEach((child) => {
-						if (child.elements_tag === 'video')
+						if (child.elements_tag === 'video') {
 							video = child.elements_attributes.src;
-						else if (child.elements_tag === 'div') {
+							video_poster = child.api_childrens[0].elements_attributes.src;
+						} else if (child.elements_tag === 'div') {
 							child.api_childrens.forEach((element, index) => {
 								if (index === 4) mobile_images = element.elements_attributes;
 								images.push(element.elements_attributes);
@@ -278,6 +280,7 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 								key={key}
 								images={images}
 								video={video}
+								video_poster={video}
 							/>
 						)
 					);

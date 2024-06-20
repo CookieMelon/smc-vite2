@@ -5,6 +5,11 @@ import { PiCaretLeftBold, PiCaretRightBold } from 'react-icons/pi';
 import { Link } from 'react-router-dom';
 import { getColors } from 'src/hooks/use-color';
 
+const swipeConfidenceThreshold = 10000;
+const swipePower = (offset, velocity) => {
+	return Math.abs(offset) * velocity;
+};
+
 export default function ImageSlider({
 	slides,
 	adaptiveHeight = false,
@@ -14,6 +19,7 @@ export default function ImageSlider({
 	captionPosition = '',
 	arrows = true,
 }) {
+	console.log('test');
 	const slider = useRef(null);
 	const { blue } = getColors;
 	const [sliderHeight, setSliderHeight] = useState(null);
@@ -139,6 +145,19 @@ export default function ImageSlider({
 						return (
 							<motion.div
 								className='image-slide'
+								dragElastic={1}
+								drag='x'
+								dragConstraints={{ left: 0, right: 0 }}
+								onDragEnd={(e, { offset, velocity }) => {
+									const swipe = swipePower(offset.x, velocity.x);
+
+									if (swipe < -swipeConfidenceThreshold) {
+										console.log('left');
+										paginate(1);
+									} else if (swipe > swipeConfidenceThreshold) {
+										console.log('right');
+									}
+								}}
 								key={`image-slide_${index}`}
 								onTap={(event) => {
 									setSelected(index);
@@ -163,7 +182,10 @@ export default function ImageSlider({
 												: o[getDistance(index, selected)],
 									}}>
 									{slide.link ? (
-										<Link to={slide.link.href} target='_blank'>
+										<Link
+											to={slide.link.href}
+											target='_blank'
+											draggable='false'>
 											<img src={slide.image.src} alt={slide.image.alt} />
 										</Link>
 									) : (

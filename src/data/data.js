@@ -281,12 +281,20 @@ export const useGetPage = () => {
 					setData([
 						data.page_title,
 						data.api_sections,
+
 						data.content_type_id,
 						data.page_slug,
 						data.parent_page_id,
 						getTheme(index),
 					]);
 
+					console.log(
+						data.api_sections.sort((a, b) => {
+							if (a.section_sort < b.section_sort) return -1;
+							if (a.section_sort > b.section_sort) return 1;
+							return 0;
+						})
+					);
 					setNewsData([date.format('MMMM D, YYYY, hh:mm a')]);
 				});
 		});

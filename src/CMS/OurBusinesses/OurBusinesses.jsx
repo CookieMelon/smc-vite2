@@ -62,17 +62,17 @@ export default function OurBusinesses({ data, className, link, children }) {
 		initial: {
 			x: '25px',
 			opacity: 0,
-			transition: { duration: 0.25, ease: [0.76, 0, 0.24, 1] },
+			transition: { duration: 0.1, ease: [0.76, 0, 0.24, 1] },
 		},
 		enter: {
 			x: '0',
 			opacity: 1,
-			transition: { duration: 0.25, ease: [0.76, 0, 0.24, 1] },
+			transition: { duration: 0.1, ease: [0.76, 0, 0.24, 1] },
 		},
 		exit: {
 			x: '-25px',
 			opacity: 0,
-			transition: { duration: 0.25, ease: [0.76, 0, 0.24, 1] },
+			transition: { duration: 0.1, ease: [0.76, 0, 0.24, 1] },
 		},
 	};
 

@@ -5,7 +5,12 @@ import { useContext, useEffect, useRef, useState } from 'react';
 
 import { PreloadContext } from 'src/App';
 
-export default function MainBanner({ images, mobile_images, video }) {
+export default function MainBanner({
+	images,
+	mobile_images,
+	video,
+	video_poster,
+}) {
 	const { fakePreload, doneIntro } = useContext(PreloadContext);
 	// const { images, video } = useGetBannerData();
 
@@ -86,7 +91,13 @@ export default function MainBanner({ images, mobile_images, video }) {
 								scale: 1.025,
 							},
 						}}>
-						<video src={video} autoPlay playsInline muted loop></video>
+						<video
+							src={video}
+							poster={video_poster}
+							autoPlay
+							playsInline
+							muted
+							loop></video>
 					</motion.div>
 				) : !isMobile ? (
 					images.map((val, index) => {
