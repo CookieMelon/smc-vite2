@@ -63,7 +63,6 @@ export const useGetMenuNew = (setFakePreload) => {
 						return res.json();
 					})
 					.then((data) => {
-						console.log('menu loaded');
 						let filteredMenu = removeUnpublished(data);
 
 						setMenu((prev) => (prev = filteredMenu));
@@ -206,8 +205,6 @@ export const useGetTheme = (menu) => {
 		if (location.pathname.split('/')[1] === 'disclosures') index = 2;
 
 		getTheme(index, setsmcTheme);
-		console.log(index);
-		console.log(smcTheme);
 	}, [location, menu, smcTheme]);
 
 	return { smcTheme };
@@ -273,7 +270,6 @@ export const useGetPage = () => {
 					return res.json();
 				})
 				.then((data) => {
-					console.log('content loaded');
 					if (data.error) {
 						setError(true);
 						return;
@@ -356,7 +352,6 @@ export const useGetDisclosureCategoryFiles = (
 						return res.json();
 					} catch (e) {
 						setError(true);
-						// console.log(e);
 					}
 				})
 				.then((data) => {
@@ -622,18 +617,12 @@ export const useGetSearch = (searchParams) => {
 					return res.json();
 				})
 				.then((data) => {
-					console.log(data);
 					setResult([
 						[...data.disclosure_category],
 						[...data.disclosure_files],
 						[...data.pages],
 					]);
 
-					console.log([
-						[...data.disclosure_category],
-						[...data.disclosure_files],
-						[...data.pages],
-					]);
 					// setResult(data);
 					setLoading(false);
 				});
@@ -715,7 +704,6 @@ export const useGetFinancialHighlights = () => {
 					return res.json();
 				})
 				.then((data) => {
-					console.log(data);
 					setContent((prev) => (prev = data));
 					// setSelected(data[0].id);
 				});

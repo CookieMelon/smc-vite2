@@ -19,7 +19,6 @@ export default function ImageSlider({
 	captionPosition = '',
 	arrows = true,
 }) {
-	console.log('test');
 	const slider = useRef(null);
 	const { blue } = getColors;
 	const [sliderHeight, setSliderHeight] = useState(null);
@@ -154,11 +153,13 @@ export default function ImageSlider({
 									const swipe = swipePower(offset.x, velocity.x);
 
 									if (swipe < -swipeConfidenceThreshold) {
-										console.log('left');
-										if (index < slides.length) setSelected(index + 1);
+										// if (selected + 1 > slides.length) return;
+
+										if (index + 1 < slides.length) setSelected(index + 1);
 										// paginate(1);
 									} else if (swipe > swipeConfidenceThreshold) {
-										console.log('right');
+										// if (selected - 1 < 0) return;
+										console.log(index + 1, slides.length);
 										if (index > 0) setSelected(index - 1);
 									}
 								}}

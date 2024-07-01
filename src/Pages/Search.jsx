@@ -105,7 +105,6 @@ function SearchResults({
 }
 
 function SearchCategory({ label, items }) {
-	if (label === 'Pages') console.log(items);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const limit = 5;
 
@@ -118,14 +117,8 @@ function SearchCategory({ label, items }) {
 	);
 
 	useEffect(() => {
-		if (!items.length) return;
-
-		let clone = [...items];
-
-		// lenis.scrollTo(0);
-		console.log((page - 1) * per_page);
-		// setData((prev) => (prev = clone.splice((page - 1) * per_page, per_page)));
-	}, [items, page]);
+		setPage(searchParams.get('page') ? searchParams.get('page') : 1);
+	}, [searchParams]);
 
 	if (!searchParams.get('category') || searchParams.get('category') === label)
 		return (
