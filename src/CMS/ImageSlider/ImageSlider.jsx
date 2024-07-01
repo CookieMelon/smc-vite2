@@ -144,23 +144,31 @@ export default function ImageSlider({
 
 						return (
 							<motion.div
-								className='image-slide'
 								dragElastic={1}
-								drag='x'
+								drag={selected === index ? 'x' : ''}
 								dragConstraints={{ left: 0, right: 0 }}
 								onDragEnd={(e, { offset, velocity }) => {
+									e.preventDefault();
+									if (selected !== index) return;
+
 									const swipe = swipePower(offset.x, velocity.x);
 
 									if (swipe < -swipeConfidenceThreshold) {
 										console.log('left');
-										paginate(1);
+										if (index < slides.length) setSelected(index + 1);
+										// paginate(1);
 									} else if (swipe > swipeConfidenceThreshold) {
 										console.log('right');
+										if (index > 0) setSelected(index - 1);
 									}
 								}}
+								className={`image-slide ${slide.link ? 'has-link' : ''}`}
 								key={`image-slide_${index}`}
 								onTap={(event) => {
 									setSelected(index);
+								}}
+								onClick={(event) => {
+									if (slide.link) window.open(slide.link.href, '_blank');
 								}}
 								animate={{
 									zIndex: zindex[getDistance(index, selected)],
@@ -182,12 +190,9 @@ export default function ImageSlider({
 												: o[getDistance(index, selected)],
 									}}>
 									{slide.link ? (
-										<Link
-											to={slide.link.href}
-											target='_blank'
-											draggable='false'>
+										<motion.div to={slide.link.href} target='_blank'>
 											<img src={slide.image.src} alt={slide.image.alt} />
-										</Link>
+										</motion.div>
 									) : (
 										<img src={slide.image.src} alt={slide.image.alt} />
 									)}
@@ -291,3 +296,11 @@ export default function ImageSlider({
 		</div>
 	);
 }
+
+const MotionLink = ({ children, ...props }) => {
+	const ChildrenComponent = motion(Link, {
+		forwardMotionProps: true,
+	});
+
+	return <ChildrenComponent {...props}>{children}</ChildrenComponent>;
+};

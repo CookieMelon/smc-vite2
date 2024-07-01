@@ -101,7 +101,7 @@ export default function MainBanner({
 					</motion.div>
 				) : !isMobile ? (
 					images.map((val, index) => {
-						if (index >= 4) return;
+						if (index >= 3) return;
 						return (
 							<motion.div
 								key={`parallax_img${index}`}

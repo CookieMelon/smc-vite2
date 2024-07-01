@@ -10,6 +10,8 @@ import Section from 'src/CMS/Section/Section';
 import Fade from 'src/Layout/Fade/Fade';
 import { useGetDataList } from 'src/data/data';
 
+import NewsFeaturedDefault from 'src/images/NewsFeaturedDefault.png';
+
 export default function News() {
 	const { list } = useGetDataList('news', 'News');
 
@@ -146,7 +148,7 @@ export function NewsItem({
 							x: 10,
 						},
 					}}>
-					<Link href={link} className='news-link'>
+					<Link to={link} className='news-link'>
 						Learn more
 						<motion.span>
 							<PiCaretCircleRight size={'1.5rem'} />
@@ -161,7 +163,11 @@ export function NewsItem({
 export function NewsFeatured({ image, date, title, link }) {
 	const formatedDate = moment(date).format('MMMM D, YYYY');
 	return (
-		<div className='news-featured' style={{ backgroundImage: `url(${image})` }}>
+		<div
+			className='news-featured'
+			style={{
+				backgroundImage: `url(${image ? image : NewsFeaturedDefault})`,
+			}}>
 			<div className='desc-container'>
 				<div className='news-date small-text'>{formatedDate}</div>
 				<h2 className='heading-2 news-title'>

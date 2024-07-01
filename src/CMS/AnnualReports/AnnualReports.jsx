@@ -1,12 +1,10 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
-
+import { motion } from 'framer-motion';
 import parse from 'html-react-parser';
-
-import { PiCaretCircleLeft, PiCaretCircleRight } from 'react-icons/pi';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Select, SelectItem } from 'src/Components/Forms/Select/Select';
 import { getColors } from 'src/hooks/use-color';
+
+import './annualreports.scss';
 
 export default function AnnualReports({ slides }) {
 	const { blue } = getColors;
@@ -63,131 +61,51 @@ export default function AnnualReports({ slides }) {
 		if (index > 2) return 0;
 		return 1 - index / 3;
 	});
-
 	return (
 		<>
-			<div className='column full'>
-				<div className='disclosure-filter'>
-					<span>Select a year for quick search</span>
-					<Select
-						placeholder='Select year'
-						// value={selected}
-						onValueChange={(event, index) => {
-							window.open(event, '_blank');
-						}}>
-						<SelectItem value=' '>Select a year</SelectItem>
-						{slides &&
-							slides.map((c) => {
-								return (
-									<SelectItem
-										key={`annual_report_${c.subtitle}`}
-										value={c.link}>
-										{c.subtitle}
-									</SelectItem>
-								);
-							})}
-					</Select>
-				</div>
-			</div>
-			<div className='column annual-desc'>
-				<AnimatePresence mode='popLayout'>
-					<motion.div
-						key={`slider_desc-${index}`}
-						initial='initial'
-						exit='exit'
-						animate='enter'
-						transition={{
-							staggerChildren: 0.0025,
-						}}
-						className='desc-container'>
-						<motion.h5 variants={text_variants} className='heading-5 year'>
-							{slides[index].subtitle}
-						</motion.h5>
-						<motion.h3
-							variants={text_variants}
-							className='annual-title heading-2'>
-							{slides[index].title}
-						</motion.h3>
-						{slides[index].desc && (
-							<motion.div variants={text_variants}>
-								{parse(slides[index].desc)}
-								<motion.p variants={text_variants}>
-									<Link
-										to={slides[index].link}
-										target='_blank'
-										className={'btn btn-bordered pri-btn'}>
-										Learn more
-									</Link>
-								</motion.p>
-							</motion.div>
-						)}
-					</motion.div>
-				</AnimatePresence>
-			</div>
-
-			<div className='column annual-image'>
-				<div className='slider'>
-					{slides.map((slide, i) => {
-						return (
-							<motion.div
-								key={`slide_annual-image${i}`}
-								className='slide'
-								transition={{
-									duration: 0.5,
-									ease: [0.76, 0, 0.24, 1],
-									zIndex: {
-										delay: 0 > direction ? 0.15 : 0.25,
-									},
-								}}
-								style={{
-									pointerEvents: index === i ? 'all' : 'none',
-								}}
-								animate={{
-									opacity: i < index ? 0 : o[getDistance(i, index)],
-									zIndex: zindex[getDistance(i, index)],
-									z: i < index ? '0' : z[getDistance(i, index)],
-									x: `${(index - i) * 70 - index * 100}%`,
-								}}>
-								{slide.img && (
-									<Link to={slides[index].link} target='_blank'>
-										<img src={slide.img.src} alt={slide.img.alt} />
-									</Link>
-								)}
-							</motion.div>
-						);
-					})}
-				</div>
-				<div className='controls'>
-					<motion.button
-						className='button left'
-						style={{
-							pointerEvents: index === 0 ? 'none' : 'all',
-						}}
-						animate={{
-							opacity: index === 0 ? 0 : 1,
-						}}
-						onTap={() => {
-							setIndex((prev) => prev - 1);
-							setDirection(-1);
-						}}>
-						<PiCaretCircleLeft size={'2.5rem'} color={blue} />
-					</motion.button>
-					<motion.button
-						className='button right'
-						style={{
-							pointerEvents: index === slides.length - 1 ? 'none' : 'all',
-						}}
-						animate={{
-							opacity: index === slides.length - 1 ? 0 : 1,
-						}}
-						onTap={() => {
-							setIndex((prev) => prev + 1);
-							setDirection(1);
-						}}>
-						<PiCaretCircleRight size={'2.5rem'} color={blue} />
-					</motion.button>
-				</div>
-			</div>
+			{slides.map((slide, index) => {
+				let featured = false;
+				if (index === 0) featured = true;
+				return <ARItem key={`ar-${index}`} featured={featured} slide={slide} />;
+			})}
 		</>
+	);
+}
+
+function ARItem({ featured, slide }) {
+	console.log(slide);
+	let classes = featured ? 'ar-featured' : 'ar-item';
+	let column = featured ? 'full' : '';
+	return (
+		<div className={`${column} column`}>
+			<div className={`${classes} ar-item`}>
+				<div className='img-container'>
+					<Link to={slide.link} target='_blank'>
+						<img {...slide.img} />
+					</Link>
+				</div>
+				<div className='desc-container'>
+					<motion.h5 className='heading-5 year'>{slide.subtitle}</motion.h5>
+					{featured && (
+						<motion.h3 className='annual-title heading-2'>
+							{slide.title}
+						</motion.h3>
+					)}
+					{featured && slide.desc && (
+						<motion.div>
+							{parse(slide.desc)}
+							<motion.p>
+								<Link
+									to={slide.link}
+									target='_blank'
+									className={'btn btn-bordered pri-btn'}>
+									Learn more
+								</Link>
+							</motion.p>
+						</motion.div>
+					)}
+				</div>
+			</div>
+		</div>
 	);
 }

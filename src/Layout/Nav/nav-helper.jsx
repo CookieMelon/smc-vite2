@@ -15,7 +15,14 @@ export const getLink = (item) => {
 
 	let link = {};
 	// link.to = parent_slug;
+
 	link.to = `/${item.page_slug_full}`;
+
+	if (item.file_url) {
+		link.to = `${item.file_url}`;
+		link.target = '_blank';
+		link.rel = 'noopener';
+	}
 
 	if (link.to === '/home') link.to = '/';
 

@@ -30,7 +30,19 @@ export default function FullPageBanner({ image, caption, link, children }) {
 					y: y2,
 				}}>
 				{/* <SingleParallax scrollYProgress_start={scrollYProgress}> */}
-				<Link to={link.href} target={'_blank'} className='img-container'>
+				{link ? (
+					<Link to={link.href} target={'_blank'} className='img-container'>
+						<motion.div
+							className='fullbanner-img'
+							style={{
+								backgroundImage: `url(${image.src})`,
+								y: y,
+								scale: scale,
+							}}></motion.div>
+
+						{/* </SingleParallax> */}
+					</Link>
+				) : (
 					<motion.div
 						className='fullbanner-img'
 						style={{
@@ -38,9 +50,29 @@ export default function FullPageBanner({ image, caption, link, children }) {
 							y: y,
 							scale: scale,
 						}}></motion.div>
+				)}
+				{link ? (
+					<Link to={link.href} target={'_blank'} className='img-container'>
+						<motion.div
+							className='fullbanner-img'
+							style={{
+								backgroundImage: `url(${image.src})`,
+								y: y,
+								scale: scale,
+							}}></motion.div>
 
-					{/* </SingleParallax> */}
-				</Link>
+						{/* </SingleParallax> */}
+					</Link>
+				) : (
+					<motion.div
+						className='fullbanner-img'
+						style={{
+							backgroundImage: `url(${image.src})`,
+							y: y,
+							scale: scale,
+						}}></motion.div>
+				)}
+
 				<div className='image-caption'>
 					<h3 className='fullbanner-title heading-1'>{caption}</h3>
 				</div>

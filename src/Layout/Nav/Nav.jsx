@@ -8,8 +8,7 @@ import {
 import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { MenuContext, PreloadContext, ThemeContext } from '../../App';
-import { useGetBannerData, useGetToggleFill } from '../../data/data';
-import { enterDuration } from '../layout-anim';
+import { useGetBannerData } from '../../data/data';
 
 import EscudoGray from '../../images/smc-logo-gray.svg';
 import EscudoWhite from '../../images/smc-logo-white.svg';
@@ -63,7 +62,7 @@ export default function Nav({}) {
 	const router = useLocation();
 	const { color } = useGetBannerData();
 	const { preload, doneIntro } = useContext(PreloadContext);
-	const { smcThemeDelayed, smcTheme } = useContext(ThemeContext);
+	const { smcTheme } = useContext(ThemeContext);
 	const [[navIndex, navHovered], setHovered] = useState([null, false]);
 	const className = router.pathname === '/' ? 'home' : 'inner';
 	const [navColor, setNavColor] = useState('#ffffff');
@@ -89,21 +88,8 @@ export default function Nav({}) {
 		else setHideNav(false);
 	}, [router.pathname]);
 
-	const getNavColor = () => {
-		switch (smcThemeDelayed) {
-			case 'smc-red':
-				return '#ffffff';
-			case 'smc-blue':
-				return '#ffffff';
-			case 'smc-yellow':
-				return baseBlack;
-			default:
-				return '#ffffff';
-		}
-	};
-
-	const getBackground = (smcThemeDelayed) => {
-		switch (smcThemeDelayed) {
+	const getBackground = (smcTheme) => {
+		switch (smcTheme) {
 			case 'smc-red':
 				return red;
 			case 'smc-blue':
@@ -125,6 +111,7 @@ export default function Nav({}) {
 				setNavColor('#ffffff');
 		}
 	}, [smcTheme, color]);
+
 	useEffect(() => {
 		getBackground(navIndex, navHovered);
 	}, [navIndex, navHovered]);
@@ -136,7 +123,7 @@ export default function Nav({}) {
 			duration: 0.35,
 			ease: [0.76, 0, 0.24, 1],
 			opacity: {
-				duration: 1,
+				duration: 0.35,
 			},
 			// color: {
 			// 	delay: enterDuration - 0.75,
@@ -203,13 +190,14 @@ export default function Nav({}) {
 	};
 
 	useEffect(() => {
-		if (!(preload && doneIntro)) setAnim('preload');
-		else {
-			if (navOpen) {
-				setAnim(smcTheme);
-			} else setAnim('closed');
-		}
-	}, [preload, doneIntro, navOpen, smcTheme]);
+		if (navOpen) {
+			setAnim(smcTheme);
+		} else setAnim('closed');
+	}, [navOpen, smcTheme]);
+
+	// useEffect(() => {
+	// 	console.log(smcTheme);
+	// }, [smcTheme]);
 
 	return (
 		<HoveredContext.Provider value={{ navIndex, navHovered, setHovered }}>
@@ -312,15 +300,6 @@ export function MainNav({ c, animation = true, toggle }) {
 		},
 	};
 
-	const navDropdown_variants = {
-		initial: {
-			display: 'none',
-		},
-		hover: {
-			display: 'block',
-		},
-	};
-
 	const navAccordion = (event) => {
 		let target = event.target;
 		let accordionGroup = target.closest('.accordion-group');
@@ -382,7 +361,7 @@ export function MainNav({ c, animation = true, toggle }) {
 						opacity: 0,
 						transition: {
 							color: {
-								delay: enterDuration - 0.75,
+								// delay: enterDuration - 0.75,
 							},
 							// delayChildren: 0.5,
 						},
@@ -393,7 +372,7 @@ export function MainNav({ c, animation = true, toggle }) {
 						transition: {
 							staggerChildren: 0.015,
 							color: {
-								delay: enterDuration - 0.75,
+								// delay: enterDuration - 0.75,
 							},
 							// delayChildren: 0.5,
 						},
@@ -665,37 +644,9 @@ function FindUsPopup({ toggle, item_lvl3, bold }) {
 }
 
 function FloatingNav({ navOpen, isToggleOpen, toggle }) {
-	const { baseBlack, red, blue, yellow } = getColors;
-	const { toggleFill } = useGetToggleFill();
-	const toggleNav = useRef();
-	const { smcTheme, smcThemeDelayed } = useContext(ThemeContext);
+	const { smcTheme } = useContext(ThemeContext);
 
 	// const [isToggleOpen, toggle] = useCycle(true, true);
-	const getNavColor = () => {
-		switch (smcThemeDelayed) {
-			case 'smc-red':
-				return '#ffffff';
-			case 'smc-blue':
-				return '#ffffff';
-			case 'smc-yellow':
-				return baseBlack;
-			default:
-				return '#ffffff';
-		}
-	};
-
-	const getBackground = (smcThemeDelayed) => {
-		switch (smcThemeDelayed) {
-			case 'smc-red':
-				return red;
-			case 'smc-blue':
-				return blue;
-			case 'smc-yellow':
-				return yellow;
-			default:
-				return '#ffffff00';
-		}
-	};
 
 	const toggleDefaults = {
 		stroke: '#ffffff',

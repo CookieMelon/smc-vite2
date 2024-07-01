@@ -437,6 +437,12 @@
 }
 
 @media only screen and (max-width: 1024px) {
+	.nav-toggle-bg-elements {
+		path {
+			display: none;
+		}
+	}
+
 	.main-nav.toggle-nav {
 		margin-left: 0;
 	}
@@ -463,12 +469,6 @@
 }
 
 @media only screen and (max-width: 450px) {
-	.nav-toggle-bg-elements {
-		path {
-			display: none;
-		}
-	}
-
 	.main-nav.toggle-nav {
 		padding: 2rem;
 		padding-top: 6rem;

@@ -1,0 +1,29 @@
+.ar-item {
+	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
+	gap: 2rem;
+	.img-container {
+		flex: 0 1 25rem;
+	}
+
+	.desc-container {
+		flex: 1 1 0%;
+	}
+
+	.year {
+		margin-top: 0;
+	}
+}
+
+.ar-item.ar-featured {
+	flex-direction: row;
+	align-items: center;
+	gap: var(--container-padding);
+}
+
+@media only screen and (max-width: 768px) {
+	.ar-item.ar-featured {
+		flex-direction: column;
+	}
+}

@@ -593,6 +593,7 @@ a {
 	}
 
 	.desc-container {
+		flex: 1;
 		margin-top: auto;
 		position: relative;
 		color: white;
@@ -1312,12 +1313,13 @@ table {
 
 .search-item {
 	container-type: inline-size;
-	padding: 2rem;
+	padding: 1.25rem;
 	background-color: #efefef;
 	position: relative;
 	display: flex;
 	align-items: center;
 	gap: 2rem;
+	flex: 1 1 100%;
 	.search-title {
 		margin-top: 0;
 		margin-bottom: 0;
@@ -1338,7 +1340,7 @@ table {
 		margin-bottom: 1rem;
 	}
 	.search-img {
-		flex: 0 1 250px;
+		flex: 0 1 150px;
 		aspect-ratio: 4 / 3;
 		img {
 			height: 100%;
@@ -1349,6 +1351,44 @@ table {
 	.search-desc {
 		line-height: 1.5;
 		flex: 1 1 0%;
+	}
+}
+
+.search-item.skeleton {
+	.skeleton-item {
+		animation: skeleton-animation 0.35s infinite;
+		background-size: 400% 400%;
+		background: linear-gradient(to right, var(--gray-2) 0%, var(--gray-3) 100%);
+	}
+	.search-desc {
+		h4 {
+			height: 1.8rem;
+
+			width: 75%;
+		}
+		p {
+			span {
+				display: block;
+				height: 1.375rem;
+
+				margin: 3px 0;
+				&:last-child {
+					width: 35%;
+				}
+			}
+		}
+	}
+}
+
+@keyframes skeleton-animation {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
 	}
 }
 
@@ -1891,6 +1931,7 @@ table {
 			margin-right: auto;
 			max-width: 100%;
 			border: 1px solid var(--gray-3);
+			border-radius: 100%;
 			img {
 				max-width: 100%;
 			}

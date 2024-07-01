@@ -63,6 +63,7 @@ export const useGetMenuNew = (setFakePreload) => {
 						return res.json();
 					})
 					.then((data) => {
+						console.log('menu loaded');
 						let filteredMenu = removeUnpublished(data);
 
 						setMenu((prev) => (prev = filteredMenu));
@@ -197,6 +198,7 @@ export const useGetTheme = (menu) => {
 	};
 	useEffect(() => {
 		// if (router.route.split('/')[0] === )
+		if (menu.length === 0) return;
 		let parentLinks = menu.map((item) => item.page_slug);
 
 		let index = parentLinks.indexOf(location.pathname.split('/')[1]);
@@ -204,7 +206,9 @@ export const useGetTheme = (menu) => {
 		if (location.pathname.split('/')[1] === 'disclosures') index = 2;
 
 		getTheme(index, setsmcTheme);
-	}, [location, menu]);
+		console.log(index);
+		console.log(smcTheme);
+	}, [location, menu, smcTheme]);
 
 	return { smcTheme };
 };
@@ -269,6 +273,7 @@ export const useGetPage = () => {
 					return res.json();
 				})
 				.then((data) => {
+					console.log('content loaded');
 					if (data.error) {
 						setError(true);
 						return;
@@ -288,13 +293,6 @@ export const useGetPage = () => {
 						getTheme(index),
 					]);
 
-					console.log(
-						data.api_sections.sort((a, b) => {
-							if (a.section_sort < b.section_sort) return -1;
-							if (a.section_sort > b.section_sort) return 1;
-							return 0;
-						})
-					);
 					setNewsData([date.format('MMMM D, YYYY, hh:mm a')]);
 				});
 		});
@@ -602,7 +600,12 @@ export const useGetFinancialStatements = () => {
 };
 
 export const useGetSearch = (searchParams) => {
-	const [result, setResult] = useState([]);
+	const [[disclosure_category, disclosure_files, pages], setResult] = useState([
+		[],
+		[],
+		[],
+	]);
+	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
 		if (!searchParams.get('search')) return;
@@ -619,14 +622,27 @@ export const useGetSearch = (searchParams) => {
 					return res.json();
 				})
 				.then((data) => {
-					setResult(data);
+					console.log(data);
+					setResult([
+						[...data.disclosure_category],
+						[...data.disclosure_files],
+						[...data.pages],
+					]);
+
+					console.log([
+						[...data.disclosure_category],
+						[...data.disclosure_files],
+						[...data.pages],
+					]);
+					// setResult(data);
+					setLoading(false);
 				});
 		});
 
 		return clearDebounce(getData);
 	}, [searchParams]);
 
-	return { result };
+	return { disclosure_category, disclosure_files, pages, loading };
 };
 
 export const useGetSharePrices = (sely, selm) => {
