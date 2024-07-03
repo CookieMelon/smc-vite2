@@ -10,7 +10,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { MenuContext, PreloadContext, ThemeContext } from '../../App';
 import { useGetBannerData } from '../../data/data';
 
-import EscudoGray from '../../images/smc-logo-gray.svg';
 import EscudoWhite from '../../images/smc-logo-white.svg';
 import Escudo from '../../images/smc-logo.svg';
 
@@ -237,18 +236,6 @@ export default function Nav({}) {
 										'smc-blue': {
 											opacity: 1,
 										},
-										closed: {
-											opacity: 1,
-										},
-									}}
-									src={EscudoWhite}
-									alt='SMC Logo White'
-								/>
-								<motion.img
-									variants={{
-										initial: {
-											opacity: 0,
-										},
 										'smc-yellow': {
 											opacity: 1,
 										},
@@ -256,7 +243,7 @@ export default function Nav({}) {
 											opacity: 1,
 										},
 									}}
-									src={EscudoGray}
+									src={EscudoWhite}
 									alt='SMC Logo White'
 								/>
 							</figure>
@@ -752,6 +739,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 			transition: transitionSettings,
 		},
 		initial: {
+			scale: 0.5,
 			opacity: 0,
 			x: windowDimensions ? `-${windowDimensions.height / 20}px` : '0px',
 			y: windowDimensions ? `${windowDimensions.height / 20}px` : '0px',
@@ -836,7 +824,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 					/>
 
 					<motion.path
-						className='path_bg'
+						className='path_bg 4'
 						d={`M${windowDimensions.width - 100} ${
 							windowDimensions.height / 2 - 150
 						} 
@@ -849,7 +837,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 					/>
 
 					<motion.path
-						className='path_bg'
+						className='path_bg 5'
 						d={`M${windowDimensions.width - 150} ${
 							windowDimensions.height - 250
 						} 
@@ -861,7 +849,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 						initial={path_variants.initial}
 					/>
 					<motion.path
-						className='path_bg'
+						className='path_bg 6'
 						d={`M${windowDimensions.width - 600} ${
 							windowDimensions.height + 200
 						} 

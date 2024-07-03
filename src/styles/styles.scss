@@ -561,7 +561,7 @@ a {
 
 .news-featured {
 	position: relative;
-	aspect-ratio: 4/3;
+	aspect-ratio: 4 / 2.5;
 	background-size: cover;
 	display: flex;
 	margin-bottom: var(--section-padding);
@@ -1934,6 +1934,9 @@ table {
 			border-radius: 100%;
 			img {
 				max-width: 100%;
+				aspect-ratio: 1 / 1;
+				object-fit: contain;
+				padding: 1rem;
 			}
 		}
 	}

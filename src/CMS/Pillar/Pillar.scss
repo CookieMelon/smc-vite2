@@ -320,6 +320,11 @@
 		top: 0;
 		left: 0;
 	}
+
+	.pillar-img.pillar-focus {
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+	}
 	.pillar-desc {
 		padding: 0 2rem 6rem;
 		text-align: center;

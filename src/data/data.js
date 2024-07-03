@@ -281,7 +281,7 @@ export const useGetPage = () => {
 					let date = moment(data.publish_date);
 					setData([
 						data.page_title,
-						data.api_sections,
+						data.api_sections.sort((a, b) => a.section_sort - b.section_sort),
 
 						data.content_type_id,
 						data.page_slug,

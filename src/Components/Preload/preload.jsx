@@ -10,7 +10,6 @@ export default function Preload() {
 	const { doneIntro, setDoneIntro } = useContext(PreloadContext);
 	const { bg } = useGetBannerData();
 
-	console.log();
 	const container = {
 		initial: {},
 		animate: {

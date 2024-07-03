@@ -440,6 +440,7 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 				if (widget.widgets_name === 'Banner - Full Page') {
 					let link = children[2] ? children[2].elements_attributes : null;
+					console.log(children);
 					return (
 						<FullPageBanner
 							key={key}
@@ -736,11 +737,22 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 
 				if (widget.widgets_name === 'Our Company - Tabs') {
 					let data = [];
-					children.map((div) => {
+					let sorted = children.sort((a, b) => {
+						parseInt(a.api_childrens[2].elements_slot) -
+							parseInt(b.api_childrens[2].elements_slot);
+					});
+
+					sorted = sorted.sort((a, b) => {
+						parseInt(a.api_childrens[2].elements_slot) -
+							parseInt(b.api_childrens[2].elements_slot);
+					});
+
+					sorted.map((div) => {
 						if (div.api_childrens === 0) return;
 
 						let trigger = div.api_childrens[0];
 						let target = div.api_childrens[1];
+						let sort = div.api_childrens[2].elements_slot;
 
 						let d = {
 							trigger: {

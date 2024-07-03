@@ -21,7 +21,6 @@ export default function PrivacyStatement() {
 		else setScrolled(true);
 
 		let fileWidget = document.querySelector('.file-widget');
-		// console.log(fileWidget);
 		// if (fileWidget) setInitial('5rem');
 		// else setInitial('0rem');
 

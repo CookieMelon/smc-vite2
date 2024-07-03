@@ -258,6 +258,20 @@
 	padding-bottom: 1rem;
 }
 
+.top20.table {
+	tr {
+		td {
+			border: 0;
+			background-color: #f8fcfe;
+		}
+	}
+	tr:nth-child(2n) {
+		td {
+			background-color: #e0f4fd;
+		}
+	}
+}
+
 form[name='frmc'],
 form[name='frms'],
 form[name='frmp'] {
@@ -303,6 +317,63 @@ form[name='frmp'] {
 }
 
 @media only screen and (max-width: 768px) {
+	.top20 {
+		font-size: 1rem !important;
+
+		td {
+			display: flex !important;
+			justify-content: space-between;
+			align-items: center;
+			padding: 0 !important;
+			margin-top: 0.5rem;
+			&:before {
+				content: attr(data-label) ': ';
+				display: inline;
+			}
+		}
+		td:first-child {
+			// position: absolute;
+			// left: 2rem;
+			// top: 2rem;
+			font-weight: bold;
+			// font-size: 1.3rem;
+			&:before {
+				display: none;
+			}
+			// &::after {
+			// 	content: '.';
+			// 	display: inline;
+			// }
+			+ td {
+				&:before {
+					display: none;
+				}
+				// white-space: normal;
+				// font-size: 1.3rem;
+				// padding-left: 2rem !important;
+				// margin-bottom: 1rem;
+				font-weight: bold;
+			}
+		}
+
+		td:last-child {
+			font-size: 1.25rem;
+			font-weight: bold;
+		}
+		tr {
+			margin-top: 2rem;
+			padding: 2rem !important;
+			position: relative;
+			&:last-child {
+				td:first-child {
+					display: none !important;
+					+ td {
+						display: none !important;
+					}
+				}
+			}
+		}
+	}
 }
 
 @media only screen and (max-width: 550px) {
@@ -321,56 +392,6 @@ form[name='frmp'] {
 
 		tr {
 			width: 100%;
-		}
-	}
-
-	.top20 {
-		font-size: 1rem !important;
-		tr {
-			margin-top: 2rem;
-			padding: 2rem !important;
-			position: relative;
-		}
-
-		td {
-			display: flex !important;
-			justify-content: space-between;
-			align-items: center;
-			padding: 0 !important;
-			margin-top: 0.5rem;
-			&:before {
-				content: attr(data-label) ': ';
-				display: inline;
-			}
-		}
-		td:first-child {
-			position: absolute;
-			left: 2rem;
-			top: 2rem;
-			font-weight: bold;
-			font-size: 1.3rem;
-			&:before {
-				display: none;
-			}
-			&::after {
-				content: '.';
-				display: inline;
-			}
-			+ td {
-				&:before {
-					display: none;
-				}
-				white-space: normal;
-				font-size: 1.3rem;
-				padding-left: 2rem !important;
-				margin-bottom: 1rem;
-				font-weight: bold;
-			}
-		}
-
-		td:last-child {
-			font-size: 1.25rem;
-			font-weight: bold;
 		}
 	}
 

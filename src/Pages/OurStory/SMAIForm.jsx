@@ -14,7 +14,6 @@ const captcha_key = import.meta.env.VITE_API_CaptchaKey;
 
 const link = '/contact-us';
 export default function SMAIForm() {
-	console.log(captcha_key);
 	const [open, setOpen] = useState(false);
 
 	const recaptcha = useRef();

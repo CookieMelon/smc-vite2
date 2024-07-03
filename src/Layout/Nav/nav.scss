@@ -416,6 +416,9 @@
 		circle {
 			fill: var(--base-blue);
 		}
+		.path_bg:nth-child(6) {
+			stroke: var(--base-red);
+		}
 	}
 	.nav-search {
 		input::placeholder {
@@ -437,11 +440,11 @@
 }
 
 @media only screen and (max-width: 1024px) {
-	.nav-toggle-bg-elements {
-		path {
-			display: none;
-		}
-	}
+	// .nav-toggle-bg-elements {
+	// 	path {
+	// 		display: none;
+	// 	}
+	// }
 
 	.main-nav.toggle-nav {
 		margin-left: 0;

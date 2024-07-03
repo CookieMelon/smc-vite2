@@ -17,7 +17,6 @@ const captcha_key = import.meta.env.VITE_API_CaptchaKey;
 const link = '/whistle-blower';
 
 export default function WhistleBlowingForm() {
-	console.log(captcha_key);
 	const recaptcha = useRef();
 	const [captchaError, setCaptchaError] = useState(false);
 
