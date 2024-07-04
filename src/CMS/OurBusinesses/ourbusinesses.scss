@@ -7,7 +7,7 @@
 	color: white;
 	height: 350vh;
 	min-height: 800px;
-	overflow: hidden;
+
 	.pin {
 		z-index: 1;
 		height: 100vh;
@@ -21,11 +21,11 @@
 
 .ourbusinesses-container {
 	display: grid;
-	padding: 0;
+	padding: 3rem;
 	grid-template-columns: 0.9fr 1.2fr 0.8fr;
 	grid-template-rows: 100px auto;
 	gap: 0 var(--gap);
-	overflow: hidden;
+
 	position: relative;
 
 	z-index: 1;
@@ -52,7 +52,8 @@
 }
 
 .ourbusinesses-section .container-fluid-width {
-	padding: 3rem;
+	padding: 0;
+	overflow: hidden;
 }
 
 .ourbusinesses-section h2 {

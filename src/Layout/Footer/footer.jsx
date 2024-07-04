@@ -397,7 +397,7 @@ export default function Footer() {
 							</Accordion.AccordionHeader>
 							<Accordion.AccordionContent className='AccordionContent'>
 								<div className='privacy-flex'>
-									<Link to='/corporate/smc-privacy-statement/'>
+									<Link to='/corporate/corporate-governance/smc-privacy-statement'>
 										<img
 											src={SMC_SOR}
 											alt='Seal of Registration'
@@ -411,7 +411,7 @@ export default function Footer() {
 										Email: dpo@sanmiguel.com.ph
 										<br />
 										Click{' '}
-										<Link to='/corporate/smc-privacy-statement'>
+										<Link to='/corporate/corporate-governance/smc-privacy-statement'>
 											<b>here</b>
 										</Link>{' '}
 										to view our
