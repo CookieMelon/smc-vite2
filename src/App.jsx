@@ -14,19 +14,16 @@ export const PreloadContext = createContext({});
 export const LenisContext = createContext({});
 export const APIContext = createContext({});
 
-import Lenis from 'lenis';
+import { ReactLenis, useLenis } from 'lenis/react';
 import PrivacyStatement from './Components/PrivacyStatement/PrivacyStatement';
 import { routes } from './routes/routes';
-
-import { useLenis } from 'lenis/react';
 
 function App() {
 	// API context
 
-	const test = useLenis(({ scroll }) => {
+	const lenis = useLenis(({ scroll }) => {
 		// called every scroll
 	});
-	const [lenis, setLenis] = useState(null);
 
 	const [ourBusinesses, setOurBusinesses] = useState([]);
 	// const [token, setToken] = useGetToken();
@@ -48,21 +45,6 @@ function App() {
 	if (!router) return null;
 
 	useEffect(() => {
-		setLenis(new Lenis({}));
-	}, []);
-
-	useEffect(() => {
-		if (!lenis) return;
-		const raf = (time) => {
-			lenis.raf(time);
-
-			requestAnimationFrame(raf);
-		};
-
-		requestAnimationFrame(raf);
-	}, [lenis]);
-
-	useEffect(() => {
 		if (!lenis) return;
 		lenis.scrollTo(0, {
 			immediate: true,
@@ -70,39 +52,40 @@ function App() {
 	}, [location]);
 
 	return (
-		// <ReactLenis root>
-		<div className='App'>
-			<LenisContext.Provider value={lenis}>
-				<APIContext.Provider
-					value={{
-						ourBusinesses,
-						setOurBusinesses,
-					}}>
-					<PreloadContext.Provider
+		<ReactLenis root>
+			<div className='App'>
+				<LenisContext.Provider value={lenis}>
+					<APIContext.Provider
 						value={{
-							preload,
-							setPreload,
-							doneIntro,
-							setDoneIntro,
+							ourBusinesses,
+							setOurBusinesses,
 						}}>
-						<MenuContext.Provider value={menu}>
-							<ThemeContext.Provider value={{ smcTheme }}>
-								<Nav />
-								<Preload />
-								<PrivacyStatement />
-								<div style={{ minHeight: '100vh' }}>
-									<AnimatePresence mode='wait'>
-										{React.cloneElement(router, { key: location.pathname })}
-									</AnimatePresence>
-								</div>
-								<Footer />
-							</ThemeContext.Provider>
-						</MenuContext.Provider>
-					</PreloadContext.Provider>
-				</APIContext.Provider>
-			</LenisContext.Provider>
-		</div>
-		// </ReactLenis>
+						<PreloadContext.Provider
+							value={{
+								preload,
+								setPreload,
+								doneIntro,
+								setDoneIntro,
+							}}>
+							<MenuContext.Provider value={menu}>
+								<ThemeContext.Provider value={{ smcTheme }}>
+									<Nav />
+									<Preload />
+									<PrivacyStatement />
+									<div style={{ minHeight: '100vh' }}>
+										<AnimatePresence mode='wait'>
+											{React.cloneElement(router, { key: location.pathname })}
+										</AnimatePresence>
+									</div>
+									<Footer />
+								</ThemeContext.Provider>
+							</MenuContext.Provider>
+						</PreloadContext.Provider>
+					</APIContext.Provider>
+				</LenisContext.Provider>
+			</div>
+			//{' '}
+		</ReactLenis>
 	);
 }
 

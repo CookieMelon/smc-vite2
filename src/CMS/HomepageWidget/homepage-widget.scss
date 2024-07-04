@@ -1,7 +1,15 @@
 .homepage-widget-1 {
-	/* height: 150vh; */
+	top: -38vh;
+	height: 150vh !important;
 	padding-top: 25vh;
 	background-color: black;
+	margin-bottom: -38vh;
+	align-items: flex-start;
+	.sticky {
+		position: sticky;
+		top: 0;
+		height: 100vh;
+	}
 	h2 {
 		color: white;
 	}

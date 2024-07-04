@@ -11,7 +11,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 	const ref = useRef(null);
 
 	const isInView = useInView(ref, {
-		amount: 0.9,
+		amount: 0.35,
 		// once: true,
 	});
 
@@ -58,9 +58,6 @@ export default function Pillar({ content, widgetClasses, children }) {
 
 	const sticky_variants = {
 		initial: {
-			clipPath: 'polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%)',
-		},
-		animate: {
 			clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
 		},
 	};
@@ -70,7 +67,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 			opacity: 0,
 			y: 20,
 		},
-		animate: {
+		enter: {
 			opacity: 1,
 			y: 0,
 		},
@@ -78,10 +75,10 @@ export default function Pillar({ content, widgetClasses, children }) {
 
 	const bg_variants = {
 		initial: {
-			// z: 1,
+			z: 1,
 		},
 		enter: {
-			// z: 0,
+			z: 0,
 		},
 	};
 
@@ -89,7 +86,7 @@ export default function Pillar({ content, widgetClasses, children }) {
 		initial: {
 			opacity: 0,
 		},
-		animate: {
+		enter: {
 			opacity: 1,
 		},
 	};
@@ -224,25 +221,20 @@ export default function Pillar({ content, widgetClasses, children }) {
 		),
 	];
 
-	const line_variants = {
-		initial: {
-			height: '2vh',
-			y: '60vh',
-		},
-		animate: {
-			height: '60vh',
-			y: '0vh',
-		},
-	};
-
 	const line = [
-		useTransform(scrollYProgress, [0, 0.3, 1], ['0vh', '60vh', '2vh'], {
-			ease: easing,
-		}),
+		useTransform(
+			scrollYProgress,
+			[0, mainInStart, mainInEnd + delay * 3, 1],
+			['0vh', '0vh', '60vh', '2vh'],
+			{ ease: easing }
+		),
 
-		useTransform(scrollYProgress, [0, 0.3, 1], ['0vh', '0vh', '60vh'], {
-			ease: easing,
-		}),
+		useTransform(
+			scrollYProgress,
+			[0, mainInStart + delay * 3, mainInEnd + 0.2, 1],
+			['0vh', '0vh', '0', '60vh'],
+			{ ease: easing }
+		),
 	];
 
 	const paths_x = [
@@ -339,20 +331,35 @@ export default function Pillar({ content, widgetClasses, children }) {
 				<motion.div
 					className='pillar-sticky'
 					initial='initial'
-					animate={isInView ? 'animate' : 'initial'}>
+					animate={isMobile && isInView ? 'enter' : 'initial'}>
 					<motion.div
 						// initial={sticky_variants}
 						className='pillar-clip'
-						variants={sticky_variants}>
+						variants={sticky_variants}
+						style={
+							!isMobile && {
+								clipPath: !widgetClasses.includes('left')
+									? sticky[0]
+									: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+							}
+						}>
 						<motion.div
 							variants={bg_variants}
 							className='pillar-bg pillar-img'
-							style={{
-								x: x[0],
-								y: y[0],
-								z: z[0],
-								backgroundImage: `url(${bg})`,
-							}}>
+							style={
+								!isMobile
+									? {
+											x: x[0],
+											y: y[0],
+											z: z[0],
+											backgroundImage: `url(${bg})`,
+									  }
+									: {
+											display: 'none',
+											y: y[0],
+											backgroundImage: `url(${bg})`,
+									  }
+							}>
 							<motion.div
 								style={
 									!isMobile && {
@@ -410,13 +417,22 @@ export default function Pillar({ content, widgetClasses, children }) {
 						</motion.div>
 						<motion.div
 							className='pillar-bg pillar-blur pillar-img'
-							variants={blur_variants}
-							style={{
-								x: x[0],
-								y: y[0],
-								z: z[0],
-								backgroundImage: `url(${bg})`,
-							}}></motion.div>
+							// variants={blur_variants}
+							style={
+								!isMobile
+									? {
+											x: x[0],
+											y: y[0],
+											z: z[0],
+											opacity: blurOpacity,
+											backgroundImage: `url(${bg})`,
+									  }
+									: {
+											// opacity: blurOpacity,
+											y: y[0],
+											backgroundImage: `url(${bg})`,
+									  }
+							}></motion.div>
 						<motion.div
 							className='pillar-focus pillar-img'
 							style={
@@ -433,30 +449,39 @@ export default function Pillar({ content, widgetClasses, children }) {
 						<motion.div
 							className='pillar-desc'
 							initial='initial'
-							animate={isInView ? 'animate' : 'initial'}
+							// animate={isMobile && isInView ? 'enter' : 'initial'}
 							transition={{
 								staggerChildren: 0.05,
 							}}>
 							<motion.p
-								variants={text_variants}
+								// variants={isMobile && text_variants}
+								style={!isMobile && { opacity: text1[0], y: text1[1] }}
 								className='uppercase'
 								data-text={content.text1}
 								dangerouslySetInnerHTML={{ __html: content.text1 }}></motion.p>
-							<motion.h2 variants={text_variants} className='heading-2'>
+							<motion.h2
+								// variants={isMobile && text_variants}
+								style={!isMobile && { opacity: text2[0], y: text2[1] }}
+								className='heading-2'>
 								{parse(content.text2)}
 							</motion.h2>
 							{content.text3 && (
-								<motion.div className='pillar-text' variants={text_variants}>
+								<motion.div
+									className='pillar-text'
+									// variants={isMobile && text_variants}
+									style={!isMobile && { opacity: text3[0], y: text3[1] }}>
 									{parse(content.text3)}
 								</motion.div>
 							)}
 
-							{/* <div className='line-con'>
+							<div className='line-con'>
 								<motion.div
 									className='line'
-									variants={line_variants}
-									transition={{ ease: easing }}></motion.div>
-							</div> */}
+									style={{
+										height: line[0],
+										y: line[1],
+									}}></motion.div>
+							</div>
 						</motion.div>
 					</motion.div>
 				</motion.div>

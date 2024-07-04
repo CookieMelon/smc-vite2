@@ -739,7 +739,6 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 			transition: transitionSettings,
 		},
 		initial: {
-			scale: 0.5,
 			opacity: 0,
 			x: windowDimensions ? `-${windowDimensions.height / 20}px` : '0px',
 			y: windowDimensions ? `${windowDimensions.height / 20}px` : '0px',
@@ -794,7 +793,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 						initial={circleBg_variants.initial}></motion.circle>
 
 					<motion.path
-						className='path_bg 1'
+						className='path_bg path_1'
 						d='M-262 637 L43 332'
 						stroke='white'
 						strokeWidth='160'
@@ -804,7 +803,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 					/>
 
 					<motion.path
-						className='path_bg 2'
+						className='path_bg path_2'
 						d='M-318 875L171 386'
 						stroke='#F8D258'
 						strokeWidth='180'
@@ -813,7 +812,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 						initial={path_variants.initial}
 					/>
 					<motion.path
-						className='path_bg 3'
+						className='path_bg path_3'
 						d={`M${windowDimensions.width - 350} ${250} 
 					L${windowDimensions.width - 200} ${100}`}
 						stroke='#F8D258'
@@ -824,7 +823,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 					/>
 
 					<motion.path
-						className='path_bg 4'
+						className='path_bg path_4'
 						d={`M${windowDimensions.width - 100} ${
 							windowDimensions.height / 2 - 150
 						} 
@@ -837,7 +836,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 					/>
 
 					<motion.path
-						className='path_bg 5'
+						className='path_bg path_5'
 						d={`M${windowDimensions.width - 150} ${
 							windowDimensions.height - 250
 						} 
@@ -849,7 +848,7 @@ function FloatingNavContent({ isToggleOpen, toggle }) {
 						initial={path_variants.initial}
 					/>
 					<motion.path
-						className='path_bg 6'
+						className='path_bg path_6'
 						d={`M${windowDimensions.width - 600} ${
 							windowDimensions.height + 200
 						} 
