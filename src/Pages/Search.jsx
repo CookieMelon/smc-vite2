@@ -1,8 +1,7 @@
 import Pagination from '@unleashit/pagination';
 import parse from 'html-react-parser';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { LenisContext } from 'src/App';
 import Column from 'src/CMS/Column/column';
 import PageBanner from 'src/CMS/PageBanner/PageBanner';
 import Section from 'src/CMS/Section/Section';
@@ -11,7 +10,6 @@ import { getLink } from 'src/Layout/Nav/nav-helper';
 import { useGetSearch } from 'src/data/data';
 import { NoResult } from './Corporate/Disclosures';
 export default function Search({}) {
-	const lenis = useContext(LenisContext);
 	const [searchParams] = useSearchParams();
 	const { disclosure_category, disclosure_files, pages, loading } =
 		useGetSearch(searchParams);

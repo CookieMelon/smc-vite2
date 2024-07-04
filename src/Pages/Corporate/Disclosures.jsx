@@ -46,7 +46,9 @@ export default function Disclosures() {
 
 	useEffect(() => {
 		if (!lenis) return;
-		lenis.scrollTo(0);
+		lenis.scrollTo(0, {
+			immediate: true,
+		});
 	}, [page, lenis, category_error]);
 
 	if (category_error) return <ErrorPage />;

@@ -1,17 +1,21 @@
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import { useWindowSize } from '@uidotdev/usehooks';
 import { easeInOut } from 'framer-motion';
 import parse from 'html-react-parser';
-
+// import Snap from 'lenis/snap';
+import { LenisContext } from 'src/App';
 export default function Pillar({ content, widgetClasses, children }) {
 	const ref = useRef(null);
+
 	const isInView = useInView(ref, {
-		amount: 0.5,
-		once: true,
+		amount: 0.35,
+		// once: true,
 	});
+
+	const lenis = useContext(LenisContext);
 
 	const { width } = useWindowSize();
 	const [focus, setFocus] = useState(content.d.focus);
@@ -33,6 +37,22 @@ export default function Pillar({ content, widgetClasses, children }) {
 			setBg(content.d.bg);
 		}
 	}, [isMobile]);
+
+	useEffect(() => {
+		console.log(lenis.scroll);
+		if (!isInView || !lenis) return;
+
+		let refBox = ref.current.getBoundingClientRect();
+
+		let { top, height } = refBox;
+		lenis.scrollTo(ref.current.offsetTop, {
+			lock: true,
+		});
+		// const snap = new Snap(lenis, {});
+		// snap.add(500); // snap at 500px
+		// snap.add(1000); // snap at 1000px
+		// snap.add(1500); // snap at 1500px
+	}, [isInView, lenis]);
 
 	const easing = easeInOut;
 
@@ -320,6 +340,28 @@ export default function Pillar({ content, widgetClasses, children }) {
 			{ ease: easing }
 		),
 	];
+
+	useEffect(() => {
+		let test = (event) => {
+			console.log(event);
+		};
+
+		let body = document.querySelector('#root');
+		body.addEventListener('scroll mousewheel', test);
+
+		// lenis.on('scroll', (event) => {
+		// 	if (lenis.scroll >= top && lenis.scroll <= top + height) {
+		// 		lenis.prevent = true;
+		// 		return false;
+		// 	} else {
+		// 	}
+		// });
+
+		console.log();
+		// return () => {
+		// 	window.removeEventListener('scroll mousewheel', test);
+		// };
+	}, [ref, lenis]);
 
 	return (
 		<div
