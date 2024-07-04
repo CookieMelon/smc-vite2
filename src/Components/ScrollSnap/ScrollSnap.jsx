@@ -13,7 +13,6 @@ export default function ScrollSnap({ children }) {
 	const lenis = useContext(LenisContext);
 
 	useEffect(() => {
-		console.log(lenis.scroll);
 		if (!isInView || !lenis) return;
 
 		let refBox = ref.current.getBoundingClientRect();
@@ -21,6 +20,13 @@ export default function ScrollSnap({ children }) {
 		let { top, height } = refBox;
 		lenis.scrollTo(ref.current.offsetTop, {
 			lock: true,
+			// touchInertiaMultiplier: 15,
+			// smoothWheel: false,
+			// duration: 0.5,
+			// touchMultiplier: 0.5,
+			// onComplete: () => {
+			// 	console.log('test');
+			// },
 		});
 		// const snap = new Snap(lenis, {});
 		// snap.add(500); // snap at 500px
