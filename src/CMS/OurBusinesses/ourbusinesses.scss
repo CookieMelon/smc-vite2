@@ -365,6 +365,9 @@
 }
 
 @media only screen and (max-width: 450px) {
+	.ourbusinesses-section .container-fluid-width {
+		padding: var(--container-padding);
+	}
 	.ourbusinesses-container {
 		min-height: 0;
 		.outer-ring-container {
