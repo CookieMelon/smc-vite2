@@ -1,9 +1,10 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import * as Form from '@radix-ui/react-form';
 
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { PiXCircle } from 'react-icons/pi';
+import { CSRFContext } from 'src/App';
 import Column from 'src/CMS/Column/column';
 import { useSendEmail } from 'src/data/data';
 
@@ -23,6 +24,8 @@ export default function SMAIForm() {
 	const { success, error } = useSendEmail(complete, data, link);
 
 	const [captchaError, setCaptchaError] = useState(false);
+
+	const { csrf_token } = useContext(CSRFContext);
 
 	useEffect(() => {
 		if (success || error) setOpen(true);
@@ -77,6 +80,13 @@ export default function SMAIForm() {
 				onSubmit={(event) => {
 					submitForm(event);
 				}}>
+				<Form.Field className='FormField' name='csrf_token'>
+					<Form.Control
+						className='FormControl'
+						type='hidden'
+						value={csrf_token}
+					/>
+				</Form.Field>
 				<Form.Field className='FormField' name='first_name'>
 					<Form.Label className='FormLabel'>First Name</Form.Label>
 					<Form.Control className='FormControl' type='text' />

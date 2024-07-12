@@ -49,7 +49,6 @@ export const useGetMenuNew = (setFakePreload) => {
 	};
 
 	useEffect(() => {
-		setFakePreload(false);
 		if (!menu.length) {
 			const getData = debounce(() => {
 				fetch(`${api_url}navigation`, {
@@ -66,7 +65,6 @@ export const useGetMenuNew = (setFakePreload) => {
 						let filteredMenu = removeUnpublished(data);
 
 						setMenu((prev) => (prev = filteredMenu));
-						setFakePreload(true);
 					});
 			});
 
@@ -430,9 +428,7 @@ export const useGetCompanyDiclosures = () => {
 				.then((res) => {
 					return res.json();
 				})
-				.then((data) => {
-					// console.log(data);
-				});
+				.then((data) => {});
 		});
 
 		return clearDebounce(getData);
@@ -745,4 +741,102 @@ export const useSendEmail = (complete, data, url) => {
 	}, [complete]);
 
 	return { success, error };
+};
+
+export const useGetCSRFToken = () => {
+	const [csrf_token, setToken] = useState(null);
+
+	useEffect(() => {
+		if (csrf_token) return;
+
+		let csrf = document.querySelector('meta[name="csrf-token"]');
+		setToken(csrf.getAttribute('content'));
+	}, [csrf_token]);
+	return {
+		csrf_token,
+	};
+};
+
+export const useGetPreloadData = () => {
+	const menu = useContext(MenuContext);
+
+	const [progress, setProgress] = useState(0);
+	const [percent, setPercent] = useState(0);
+
+	const [forPreload, setForPreload] = useState([]);
+	const [length, setLength] = useState(0);
+	const [loaded, setLoaded] = useState(false);
+
+	const [[first, second, third], setDigits] = useState([0, 0, null]);
+
+	useEffect(() => {
+		if (forPreload.length !== 0) return;
+		const getData = debounce(() => {
+			fetch(`${api_url}page/home`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					// Authorization: `Bearer ${token}`,
+				},
+			})
+				.then((res) => {
+					return res.json();
+				})
+				.then((data) => {
+					let preload = [];
+					data.api_sections.forEach((section) => {
+						section.api_widgets.forEach((widgets) => {
+							widgets.api_childrens.forEach((children) => {
+								if (children.elements_name === 'Image') {
+									let img = new Image();
+									img.src = `https://smc-revamp-cms.c3-interactive.ph${children.elements_attributes.src}`;
+									img.onload = (event) => {
+										setProgress((prev) => {
+											// setPercent(
+											// 	(((prev + 1) / preload.length) * 100).toFixed(0)
+											// );
+											return prev + 1;
+										});
+									};
+									preload.push(children);
+								}
+
+								if (children.elements_name === 'Video') {
+									let video = document.createElement('video');
+									video.src = `https://smc-revamp-cms.c3-interactive.ph${children.elements_attributes.src}`;
+									video.play();
+									video.addEventListener('canplaythrough', () => {
+										setProgress((prev) => {
+											// setPercent(
+											// 	(((prev + 1) / preload.length) * 100).toFixed(0)
+											// );
+											return prev + 1;
+										});
+									});
+									preload.push(children);
+								}
+							});
+						});
+					});
+
+					setLength(preload.length);
+				});
+		});
+		return clearDebounce(getData);
+	}, [forPreload]);
+
+	useEffect(() => {
+		if (length === 0) return;
+		setPercent(((progress / length) * 100).toFixed(0));
+	}, [progress, length]);
+	useEffect(() => {
+		if (length === 0) return;
+		let progress_arr = percent.toString().split('');
+
+		setDigits([progress_arr[0], progress_arr[1], progress_arr[2]]);
+
+		if (progress === length) setLoaded(true);
+	}, [progress, length, percent]);
+
+	return { forPreload, first, second, third, progress, percent, loaded };
 };
