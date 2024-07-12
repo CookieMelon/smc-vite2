@@ -801,21 +801,21 @@ export const useGetPreloadData = () => {
 									preload.push(children);
 								}
 
-								if (children.elements_name === 'Video') {
-									let video = document.createElement('video');
-									video.src = `https://smc-revamp-cms.c3-interactive.ph${children.elements_attributes.src}`;
-									video.muted = true;
-									video.play();
-									video.addEventListener('canplaythrough', () => {
-										setProgress((prev) => {
-											// setPercent(
-											// 	(((prev + 1) / preload.length) * 100).toFixed(0)
-											// );
-											return prev + 1;
-										});
-									});
-									preload.push(children);
-								}
+								// if (children.elements_name === 'Video') {
+								// 	let video = document.createElement('video');
+								// 	video.src = `https://smc-revamp-cms.c3-interactive.ph${children.elements_attributes.src}`;
+								// 	video.muted = true;
+								// 	video.play();
+								// 	video.addEventListener('canplaythrough', () => {
+								// 		setProgress((prev) => {
+								// 			// setPercent(
+								// 			// 	(((prev + 1) / preload.length) * 100).toFixed(0)
+								// 			// );
+								// 			return prev + 1;
+								// 		});
+								// 	});
+								// 	preload.push(children);
+								// }
 							});
 						});
 					});
