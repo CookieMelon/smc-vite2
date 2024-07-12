@@ -804,6 +804,7 @@ export const useGetPreloadData = () => {
 								if (children.elements_name === 'Video') {
 									let video = document.createElement('video');
 									video.src = `https://smc-revamp-cms.c3-interactive.ph${children.elements_attributes.src}`;
+									video.muted = true;
 									video.play();
 									video.addEventListener('canplaythrough', () => {
 										setProgress((prev) => {
