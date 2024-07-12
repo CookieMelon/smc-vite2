@@ -12,6 +12,8 @@ import { useGetDataList } from 'src/data/data';
 
 import NewsFeaturedDefault from 'src/images/NewsFeaturedDefault.png';
 
+import malasakit from 'src/images/malasakit_default_photo.jpg';
+
 export default function News() {
 	const { list } = useGetDataList('news', 'News');
 
@@ -123,15 +125,27 @@ export function NewsItem({
 	setModal,
 	direction,
 	fontSize = 'heading-4',
+	widgets_class,
 }) {
 	const newsItemClass = `news-item ${direction ? direction : ''}`;
 	const formatedDate = moment(date).format('MMMM D, YYYY');
+	console.log(widgets_class);
+
+	let news_img =
+		widgets_class === 'walang-iwanan'
+			? img
+				? img
+				: malasakit
+			: img
+				? img
+				: '';
+
 	return (
 		<motion.div initial='initial' whileHover='hover' className={newsItemClass}>
-			{img && (
+			{news_img && (
 				<motion.div className='img-container'>
 					<Link to={link}>
-						<img src={img} />
+						<img src={news_img} />
 					</Link>
 				</motion.div>
 			)}
@@ -160,7 +174,7 @@ export function NewsItem({
 	);
 }
 
-export function NewsFeatured({ image, date, title, link }) {
+export function NewsFeatured({ image, date, title, link, widgets_class }) {
 	const formatedDate = moment(date).format('MMMM D, YYYY');
 	return (
 		<div

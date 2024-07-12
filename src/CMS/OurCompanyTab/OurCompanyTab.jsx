@@ -1,11 +1,19 @@
 import { motion } from 'framer-motion';
 
-import { useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { LenisContext } from 'src/App';
 import ImageSlider from 'src/CMS/ImageSlider/ImageSlider';
 import { createCMSElement } from 'src/helper/cms-helper';
 
 export default function OurCompanyTab({ data }) {
 	const [selected, setSelected] = useState(0);
+	const lenis = useContext(LenisContext);
+	const ref = useRef(null);
+
+	useEffect(() => {
+		console.log(ref.current.offsetParent.offsetTop);
+		lenis.scrollTo(ref.current.offsetParent.offsetTop);
+	}, [selected]);
 	return (
 		<>
 			<div className='column sticky tab-source tabsource-ourcompany'>
@@ -29,7 +37,7 @@ export default function OurCompanyTab({ data }) {
 				})}
 			</div>
 
-			<div className='column tab-target tabtarget-ourcompany'>
+			<div className='column tab-target tabtarget-ourcompany' ref={ref}>
 				{data.map((item, index) => {
 					return (
 						<motion.div

@@ -779,7 +779,15 @@ function Widgets({ widgets, keyWidget, theme, page_slug }) {
 				}
 
 				if (widget.widgets_name === 'Parent - Data List') {
-					return <Listing key={key} url={page_slug} title={''} />;
+					console.log(widget);
+					return (
+						<Listing
+							key={key}
+							url={page_slug}
+							title={''}
+							widgets_class={widget.widgets_class.join(' ')}
+						/>
+					);
 				}
 
 				if (widget.widgets_name === 'Page Child Links') {
@@ -841,7 +849,7 @@ function PageChildLinks({ url, title }) {
 	);
 }
 
-function Listing({ url, title }) {
+function Listing({ url, title, widgets_class }) {
 	const { list } = useGetDataList(url, title);
 
 	return (
@@ -866,6 +874,7 @@ function Listing({ url, title }) {
 						return (
 							<Column columnClasses='full' key={`NewsItem_` + index}>
 								<NewsFeatured
+									widgets_class={widgets_class}
 									image={news_details.image}
 									date={news_details.date}
 									title={news_details.page_title}
@@ -877,6 +886,7 @@ function Listing({ url, title }) {
 					return (
 						<Column key={`NewsItem_` + index}>
 							<NewsItem
+								widgets_class={widgets_class}
 								link={news_details.link}
 								index={index}
 								title={news_details.page_title}
