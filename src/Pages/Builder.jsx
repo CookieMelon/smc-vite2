@@ -64,60 +64,62 @@ export default function Builder() {
 	if (error) return <ErrorPage />;
 
 	return (
-		<Fade>
-			{
-				/* News Inner Page = 9*/
-				/* Article Page = 5 */
-				(content_type_id === 9 || content_type_id === 5) && (
-					<>
-						<PageBanner
-							title={title}
-							subtitle={date}
-							widgetClasses='no-bg smc-blue'
-						/>
-						<Section
-							widgetClasses='smc-null'
-							containerClass={'medium'}
-							sectionStyle={{ paddingBottom: '0' }}>
-							<div className='social-icon'>
-								<FacebookShareButton url={page_url}>
-									<FacebookIcon />
-								</FacebookShareButton>
-								<TwitterShareButton url={page_url} title={title}>
-									<TwitterIcon />
-								</TwitterShareButton>
+		<>
+			<Fade>
+				{
+					/* News Inner Page = 9*/
+					/* Article Page = 5 */
+					(content_type_id === 9 || content_type_id === 5) && (
+						<>
+							<PageBanner
+								title={title}
+								subtitle={date}
+								widgetClasses='no-bg smc-blue'
+							/>
+							<Section
+								widgetClasses='smc-null'
+								containerClass={'medium'}
+								sectionStyle={{ paddingBottom: '0' }}>
+								<div className='social-icon'>
+									<FacebookShareButton url={page_url}>
+										<FacebookIcon />
+									</FacebookShareButton>
+									<TwitterShareButton url={page_url} title={title}>
+										<TwitterIcon />
+									</TwitterShareButton>
 
-								<EmailShareButton url={page_url}>
-									<EmailIcon />
-								</EmailShareButton>
+									<EmailShareButton url={page_url}>
+										<EmailIcon />
+									</EmailShareButton>
 
-								<LinkedinShareButton url={page_url} title={title}>
-									<LinkedInIcon />
-								</LinkedinShareButton>
-								<ViberShareButton url={page_url} title={title}>
-									<ViberIcon />
-								</ViberShareButton>
-							</div>
-						</Section>
-					</>
-				)
-			}
+									<LinkedinShareButton url={page_url} title={title}>
+										<LinkedInIcon />
+									</LinkedinShareButton>
+									<ViberShareButton url={page_url} title={title}>
+										<ViberIcon />
+									</ViberShareButton>
+								</div>
+							</Section>
+						</>
+					)
+				}
 
-			{content_type_id !== 11 && sections.length !== 0 && (
-				<SectionBuilder
-					sections={sections}
-					theme={theme}
-					page_slug={page_slug}
-				/>
-			)}
+				{content_type_id !== 11 && sections.length !== 0 && (
+					<SectionBuilder
+						sections={sections}
+						theme={theme}
+						page_slug={page_slug}
+					/>
+				)}
 
-			{
-				/* Our Businesses */
-				content_type_id === 10 && (
-					<OurBusinessControls page_slug={page_slug} parent_id={parent_id} />
-				)
-			}
-		</Fade>
+				{
+					/* Our Businesses */
+					content_type_id === 10 && (
+						<OurBusinessControls page_slug={page_slug} parent_id={parent_id} />
+					)
+				}
+			</Fade>
+		</>
 	);
 }
 

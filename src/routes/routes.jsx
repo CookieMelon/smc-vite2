@@ -4,6 +4,7 @@ import Disclosures from 'src/Pages/Corporate/Disclosures';
 import DividendHistory from 'src/Pages/Corporate/DividendHistory';
 import FinancialHighlights from 'src/Pages/Corporate/FinancialHighlights';
 import FinancialStatements from 'src/Pages/Corporate/FinancialStatement';
+import PDFViewer from 'src/Pages/Corporate/PDFViewer';
 import SharePrices from 'src/Pages/Corporate/SharePrices';
 import WhistleBlowingForm from 'src/Pages/Corporate/WhistleBlowingForm';
 import News from 'src/Pages/News/News';
@@ -70,6 +71,14 @@ export const routes = [
 	{
 		path: '/corporate/:id/:id/:id/:id',
 		element: <Builder />,
+	},
+	{
+		path: '/disclosures/pdf&link=https://www.sanmiguel.com.ph/storage/files/reports/2023_Minutes_of_the_2023_Annual_Stockholders_meeting_of_SMC_SIGNED-APPROVED.pdf',
+		element: <PDFViewer />,
+	},
+	{
+		path: '/disclosures/pdf&link=https://www.sanmiguel.com.ph/storage/files/reports/2024_Minutes_of_the_2024_Annual_Stockholders_meeting_of_SMC_Draft.pdf',
+		element: <PDFViewer />,
 	},
 	{
 		path: '/disclosures/all',
