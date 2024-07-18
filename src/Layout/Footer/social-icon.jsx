@@ -115,10 +115,13 @@ export function LinkedInIcon({ link }) {
 			whileTap={{ scale: 0.9 }}>
 			{link ? (
 				<a href={link} target='_blank' without='true' rel='noreferrer'>
-					<ImLinkedin2 size={footerIcon.size} />
+					<ImLinkedin2
+						size={footerIcon.size}
+						style={{ marginTop: '-0.25rem' }}
+					/>
 				</a>
 			) : (
-				<ImLinkedin2 size={footerIcon.size} />
+				<ImLinkedin2 size={footerIcon.size} style={{ marginTop: '-0.25rem' }} />
 			)}
 		</motion.div>
 	);

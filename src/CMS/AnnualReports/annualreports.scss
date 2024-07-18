@@ -5,6 +5,9 @@
 	gap: 2rem;
 	.img-container {
 		flex: 0 1 25rem;
+		img {
+			box-shadow: 2rem 3rem -1.5rem #00000040;
+		}
 	}
 
 	.desc-container {

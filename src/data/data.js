@@ -6,6 +6,7 @@ import { getColors } from '../hooks/use-color';
 // import { api_url } from 'src/hooks/use-env';
 
 const api_url = import.meta.env.VITE_API_URL;
+const base_url = import.meta.env.VITE_URL;
 
 const debounce = (f) => {
 	return setTimeout(f, 300);
@@ -764,13 +765,12 @@ export const useGetPreloadData = () => {
 	const [percent, setPercent] = useState(0);
 
 	const [forPreload, setForPreload] = useState([]);
-	const [length, setLength] = useState(0);
+	const [length, setLength] = useState(-1);
 	const [loaded, setLoaded] = useState(false);
 
 	const [[first, second, third], setDigits] = useState([0, 0, null]);
 
 	useEffect(() => {
-		if (forPreload.length !== 0) return;
 		const getData = debounce(() => {
 			fetch(`${api_url}page/home`, {
 				method: 'GET',
@@ -789,7 +789,7 @@ export const useGetPreloadData = () => {
 							widgets.api_childrens.forEach((children) => {
 								if (children.elements_name === 'Image') {
 									let img = new Image();
-									img.src = `https://smc-revamp-cms.c3-interactive.ph${children.elements_attributes.src}`;
+									img.src = `${base_url}${children.elements_attributes.src}`;
 									img.onload = (event) => {
 										setProgress((prev) => {
 											// setPercent(
@@ -803,7 +803,7 @@ export const useGetPreloadData = () => {
 
 								// if (children.elements_name === 'Video') {
 								// 	let video = document.createElement('video');
-								// 	video.src = `https://smc-revamp-cms.c3-interactive.ph${children.elements_attributes.src}`;
+								// 	video.src = `${base_url}${children.elements_attributes.src}`;
 								// 	video.muted = true;
 								// 	video.play();
 								// 	video.addEventListener('canplaythrough', () => {
@@ -824,14 +824,15 @@ export const useGetPreloadData = () => {
 				});
 		});
 		return clearDebounce(getData);
-	}, [forPreload]);
+	}, []);
 
 	useEffect(() => {
-		if (length === 0) return;
+		if (length <= 0) return;
+
 		setPercent(((progress / length) * 100).toFixed(0));
 	}, [progress, length]);
 	useEffect(() => {
-		if (length === 0) return;
+		if (length <= 0) return;
 		let progress_arr = percent.toString().split('');
 
 		setDigits([progress_arr[0], progress_arr[1], progress_arr[2]]);
@@ -839,5 +840,5 @@ export const useGetPreloadData = () => {
 		if (progress === length) setLoaded(true);
 	}, [progress, length, percent]);
 
-	return { forPreload, first, second, third, progress, percent, loaded };
+	return { first, second, third, progress, percent, length, loaded };
 };

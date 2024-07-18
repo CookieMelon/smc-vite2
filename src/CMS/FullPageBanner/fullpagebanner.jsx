@@ -3,7 +3,6 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function FullPageBanner({ image, caption, link, children }) {
-	console.log(link);
 	const banner = useRef();
 	const { scrollYProgress } = useScroll({
 		target: banner,

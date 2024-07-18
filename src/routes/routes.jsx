@@ -1,3 +1,4 @@
+import { Navigate } from 'react-router-dom';
 import Builder from 'src/Pages/Builder';
 import CompanyDisclosures from 'src/Pages/Corporate/CompanyDisclosures';
 import Disclosures from 'src/Pages/Corporate/Disclosures';
@@ -16,6 +17,17 @@ export const routes = [
 		path: '/',
 		element: <Builder />,
 	},
+
+	{
+		path: '/ASM2024',
+		element: (
+			<Navigate
+				to='/disclosures/2024-smc-annual-stockholders-meeting'
+				replace={true}
+			/>
+		),
+	},
+
 	{
 		path: '/search',
 		element: <Search />,

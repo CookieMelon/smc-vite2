@@ -45,6 +45,7 @@
 	height: 100lvh;
 	width: 100%;
 	padding: 0;
+	display: block !important;
 	.container-fluid-width {
 		height: 100%;
 		padding: 0;
@@ -54,6 +55,7 @@
 	}
 	.video-content {
 		height: 100%;
+		width: 100%;
 	}
 	.video-close {
 		display: block;

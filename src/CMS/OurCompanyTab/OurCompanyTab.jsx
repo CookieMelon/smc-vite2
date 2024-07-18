@@ -11,7 +11,6 @@ export default function OurCompanyTab({ data }) {
 	const ref = useRef(null);
 
 	useEffect(() => {
-		console.log(ref.current.offsetParent.offsetTop);
 		lenis.scrollTo(ref.current.offsetParent.offsetTop);
 	}, [selected]);
 	return (

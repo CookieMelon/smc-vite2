@@ -73,7 +73,6 @@ export default function AnnualReports({ slides }) {
 }
 
 function ARItem({ featured, slide }) {
-	console.log(slide);
 	let classes = featured ? 'ar-featured' : 'ar-item';
 	let column = featured ? 'full' : '';
 	return (

@@ -567,6 +567,9 @@ a {
 	background-size: cover;
 	display: flex;
 	margin-bottom: var(--section-padding);
+	.news-date {
+		color: white;
+	}
 	.news-title {
 		margin: 1rem 0;
 		a {
@@ -743,6 +746,9 @@ a {
 }
 
 .other-news {
+	h3 {
+		margin-top: 0;
+	}
 	.news-item {
 		position: relative;
 		border: 0;
@@ -850,13 +856,15 @@ a {
 .business-item {
 	container-type: inline-size;
 	display: grid;
-	align-items: center;
+	align-items: flex-start;
 	grid-template-columns: 10rem auto;
 	gap: var(--gap-padding);
 
 	border-top: 1px solid var(--gray-3);
 	padding: var(--gap-padding) 0;
-
+	&.align-center {
+		align-items: center;
+	}
 	.business-name {
 		margin: 0 0 1rem;
 		color: var(--base-red);
@@ -1237,6 +1245,9 @@ table {
 
 .tabtarget-ourcompany {
 	flex: 1 1 0% !important;
+	h2 {
+		margin-top: 0;
+	}
 }
 
 .ourstory-accordion {

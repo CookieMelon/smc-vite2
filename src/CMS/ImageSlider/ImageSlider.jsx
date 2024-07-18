@@ -159,7 +159,7 @@ export default function ImageSlider({
 										// paginate(1);
 									} else if (swipe > swipeConfidenceThreshold) {
 										// if (selected - 1 < 0) return;
-										console.log(index + 1, slides.length);
+
 										if (index > 0) setSelected(index - 1);
 									}
 								}}
