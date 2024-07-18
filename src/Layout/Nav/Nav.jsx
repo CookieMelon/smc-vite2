@@ -10,8 +10,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { MenuContext, PreloadContext, ThemeContext } from '../../App';
 import { useGetBannerData } from '../../data/data';
 
-import EscudoWhite from '../../images/smc-logo-white.svg';
-import Escudo from '../../images/smc-logo.svg';
+import EscudoWhite from 'src/images/smc-logo-white.svg';
+import Escudo from 'src/images/smc-logo.svg';
 
 import * as Dialog from '@radix-ui/react-dialog';
 import 'src/styles/radix-dialog.scss';
