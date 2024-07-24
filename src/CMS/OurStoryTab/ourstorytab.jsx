@@ -74,7 +74,7 @@ export default function OurStoryTab({ data }) {
 					flex: '1 1 47%',
 				}}>
 				<h3 style={{ color: 'var(--base-red)' }}>
-					Value creation, at the core of everything we do Everything we have
+					Value creation, at the core of everything we do. Everything we have
 					done up to this point, aligns with our overarching strategy of
 					continuous, long-term value creation.&nbsp;
 				</h3>
@@ -94,8 +94,8 @@ export default function OurStoryTab({ data }) {
 									selected === index
 										? 'enter'
 										: index < selected
-										? 'done'
-										: 'initial'
+											? 'done'
+											: 'initial'
 								}
 								onTap={() => {
 									setSelected(index);
@@ -136,8 +136,8 @@ export default function OurStoryTab({ data }) {
 										selected === index
 											? 'enter'
 											: index < selected
-											? 'done'
-											: 'initial'
+												? 'done'
+												: 'initial'
 									}
 									className='ourstory-tab-item'
 									custom={index}

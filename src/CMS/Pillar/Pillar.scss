@@ -311,9 +311,19 @@
 	.left.pillar-section .pillar-desc {
 		margin-left: var(--section-padding);
 	}
+	.pillar-malasakit.pillar-section {
+		.pillar-focus {
+			background-position: 30% center;
+		}
+	}
 }
 
 @media only screen and (max-width: 450px) {
+	.pillar-malasakit.pillar-section .pillar-focus,
+	.pillar-img.pillar-focus {
+		background-position: bottom 25% center;
+	}
+
 	.pillar-section {
 		min-height: 100lvh;
 	}
