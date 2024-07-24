@@ -35,15 +35,22 @@
 	justify-content: center;
 }
 
-.homepage-widget-1 .container-fluid-width {
-	position: relative;
-	z-index: 3;
-	color: white;
-	display: flex;
-	align-items: center;
-	width: 1024px;
-	flex-direction: column;
-	padding: 4rem;
-	min-height: calc(100vh - 8rem);
-	margin: auto;
+.homepage-widget-1 {
+	.container-fluid-width {
+		position: relative;
+		z-index: 3;
+		color: white;
+		display: flex;
+		align-items: center;
+		width: 1024px;
+		flex-direction: column;
+		padding: var(--section-padding);
+		min-height: calc(100vh - 8rem);
+		margin: auto;
+	}
+	.btn {
+		padding-left: 1rem;
+		padding-right: 1rem;
+		font-size: 100%;
+	}
 }

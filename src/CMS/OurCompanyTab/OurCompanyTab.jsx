@@ -6,11 +6,12 @@ import ImageSlider from 'src/CMS/ImageSlider/ImageSlider';
 import { createCMSElement } from 'src/helper/cms-helper';
 
 export default function OurCompanyTab({ data }) {
-	const [selected, setSelected] = useState(0);
+	const [selected, setSelected] = useState(null);
 	const lenis = useContext(LenisContext);
 	const ref = useRef(null);
 
 	useEffect(() => {
+		if (selected === null) return;
 		lenis.scrollTo(ref.current.offsetParent.offsetTop);
 	}, [selected]);
 	return (

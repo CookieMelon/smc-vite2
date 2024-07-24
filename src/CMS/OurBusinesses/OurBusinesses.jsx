@@ -78,7 +78,7 @@ export default function OurBusinesses({ data, className, link, children }) {
 
 	return (
 		<motion.div
-			className='ourbusinesses-section'
+			className='ourbusinesses-section section-content'
 			style={{
 				height: `${data.length * 100}vh`,
 			}}

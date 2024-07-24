@@ -301,6 +301,18 @@
 	}
 }
 
+@media only screen and (max-width: 980px) {
+	.pillar-focus {
+		background-position: 20% center;
+	}
+	.pillar-desc {
+		margin-right: var(--section-padding);
+	}
+	.left.pillar-section .pillar-desc {
+		margin-left: var(--section-padding);
+	}
+}
+
 @media only screen and (max-width: 450px) {
 	.pillar-section {
 		min-height: 100lvh;
